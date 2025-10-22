@@ -38,9 +38,9 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
         type: 'postgres',
         host: configService.get<string>('DB_HOST') || 'localhost',
         port: parseInt(configService.get<string>('DB_PORT') || '5432'),
-        username: configService.get<string>('DB_USERNAME') || 'locod_user',
-        password: configService.get<string>('DB_PASSWORD') || 'locod_pass_2024',
-        database: configService.get<string>('DB_DATABASE') || 'locod_db',
+        username: configService.get<string>('DB_USERNAME') || 'lowebi_user',
+        password: configService.get<string>('DB_PASSWORD') || 'lowebi_pass_2024',
+        database: configService.get<string>('DB_DATABASE') || 'lowebi_db',
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: false, // Disable to avoid conflicts with existing data
         logging: configService.get<string>('NODE_ENV') === 'development',

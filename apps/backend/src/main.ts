@@ -130,7 +130,7 @@ async function bootstrap() {
     },
   });
 
-  const port = process.env.PORT ?? 7600;
+  const port = process.env.PORT ?? 7610;
   const bindHost = '0.0.0.0'; // Bind to all interfaces for Docker networking
   await app.listen(port, bindHost);
 
