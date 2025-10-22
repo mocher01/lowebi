@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack -p 7602",
+    "dev": "next dev --turbopack -p 7612",
     "build": "next build",
-    "start": "next start -p 7602",
+    "start": "next start -p 7612",
     "lint": "next lint",
-    "admin": "next dev --turbopack -p 7602",
+    "admin": "next dev --turbopack -p 7612",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
