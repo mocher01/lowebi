@@ -87,3 +87,8 @@ step-*.png
 wizard-*.png
 error-*.png
 admin-*.png
+# All .env files
+*.env
+.env*
+**/*.env
+**/.env*
