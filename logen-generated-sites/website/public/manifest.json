@@ -1,0 +1,39 @@
+{
+  "name": "{{SITE_NAME}}",
+  "short_name": "{{SITE_SHORT_NAME}}",
+  "description": "{{SITE_DESCRIPTION}}",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "{{THEME_PRIMARY_COLOR}}",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "{{SITE_LANGUAGE}}",
+  "icons": [
+    {
+      "src": "/assets/{{SITE_FAVICON_LIGHT}}",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/{{SITE_LOGO_NAVBAR}}",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/{{SITE_LOGO_NAVBAR}}",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business", "technology"],
+  "screenshots": [
+    {
+      "src": "/assets/{{SITE_SCREENSHOT}}",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide"
+    }
+  ]
+}

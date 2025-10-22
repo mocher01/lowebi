@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{SITE_TITLE}}</title>
+    <meta name="description" content="{{SITE_DESCRIPTION}}" />
+    <link rel="canonical" href="{{SITE_CANONICAL}}" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{SITE_TITLE}}" />
+    <meta property="og:description" content="{{SITE_DESCRIPTION}}" />
+    <meta property="og:image" content="{{SITE_OG_IMAGE}}" />
+    <meta property="og:url" content="{{SITE_CANONICAL}}" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{SITE_TITLE}}" />
+    <meta name="twitter:description" content="{{SITE_DESCRIPTION}}" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{SITE_FAVICON}}" />
+    <link rel="apple-touch-icon" href="{{SITE_APPLE_ICON}}" />
+    
+    <!-- Configuration injectée - évite le problème de race condition -->
+    <script>
+      window.SITE_CONFIG = {{SITE_CONFIG_JSON}};
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

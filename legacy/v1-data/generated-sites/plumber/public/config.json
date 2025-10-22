@@ -1,0 +1,349 @@
+{
+  "meta": {
+    "siteId": "plumber",
+    "domain": "plumber.example.com",
+    "language": "fr",
+    "timezone": "Europe/Paris"
+  },
+  "businessType": "business",
+  "brand": {
+    "name": "Plumber",
+    "slogan": "plumbering easy",
+    "logos": {
+      "navbar": "plumber-logo-clair.png",
+      "footer": "plumber-logo-sombre.png",
+      "default": "plumber-logo-clair.png"
+    },
+    "favicons": {
+      "light": "plumber-favicon-clair.png",
+      "dark": "plumber-favicon-sombre.png",
+      "default": "plumber-favicon.ico"
+    },
+    "colors": {
+      "primary": "#3B82F6",
+      "secondary": "#60A5FA",
+      "accent": "#93C5FD"
+    }
+  },
+  "design": {
+    "pageHeaders": {
+      "background": {
+        "type": "solid",
+        "color": "#2168dc"
+      },
+      "title": {
+        "color": "#FFFFFF",
+        "size": "text-3xl md:text-4xl",
+        "weight": "font-bold",
+        "margin": "mb-4"
+      },
+      "subtitle": {
+        "color": "#FFFFFF",
+        "size": "text-lg md:text-xl",
+        "weight": "font-medium",
+        "margin": "mb-6"
+      }
+    },
+    "textColors": {
+      "primary": "#1F2937",
+      "secondary": "#4B5563",
+      "muted": "#6B7280"
+    }
+  },
+  "sections": {
+    "hero": {
+      "background": "#FFFFFF",
+      "textColor": "#1F2937"
+    },
+    "services": {
+      "background": "#ffffff",
+      "textColor": "#1F2937",
+      "cardBackground": "#FFFFFF"
+    },
+    "about": {
+      "background": "#FFFFFF",
+      "textColor": "#1F2937",
+      "cardBackground": "#ffffff"
+    },
+    "testimonials": {
+      "background": "#ffffff",
+      "textColor": "#1F2937"
+    },
+    "faq": {
+      "background": "#FFFFFF",
+      "textColor": "#1F2937"
+    },
+    "cta": {
+      "background": "#ffffff",
+      "textColor": "#1F2937"
+    },
+    "values": {
+      "background": "#FFFFFF",
+      "textColor": "#1F2937",
+      "cardBackground": "#ffffff"
+    },
+    "blog": {
+      "background": "#FFFFFF",
+      "titleBackground": "#2168dc",
+      "titleTextColor": "#FFFFFF",
+      "subtitleTextColor": "#FFFFFF",
+      "textColor": "#1F2937"
+    },
+    "services-page": {
+      "background": "#FFFFFF",
+      "titleBackground": "#2168dc",
+      "titleTextColor": "#FFFFFF",
+      "subtitleTextColor": "#FFFFFF",
+      "textColor": "#1F2937"
+    },
+    "contact": {
+      "background": "#FFFFFF",
+      "titleBackground": "#2168dc",
+      "titleTextColor": "#FFFFFF",
+      "subtitleTextColor": "#FFFFFF",
+      "textColor": "#1F2937"
+    }
+  },
+  "layout": {
+    "components": {
+      "pageHeader": {
+        "spacing": "pt-16 pb-8 md:pt-20 md:pb-12",
+        "titleSize": "text-3xl md:text-4xl lg:text-5xl",
+        "subtitleSize": "text-lg md:text-xl",
+        "titleMargin": "mb-4",
+        "subtitleMargin": "mb-6"
+      },
+      "section": {
+        "spacing": "py-20",
+        "spacingSmall": "py-16"
+      }
+    }
+  },
+  "routing": {
+    "scrollBehavior": "smooth",
+    "scrollOffset": 80,
+    "routes": {
+      "/": {
+        "scroll": "top"
+      },
+      "/services": {
+        "scroll": "top"
+      },
+      "/service/*": {
+        "scroll": "top"
+      },
+      "/blog": {
+        "scroll": "top"
+      },
+      "/contact": {
+        "scroll": "top",
+        "anchor": "contact-form"
+      },
+      "/about": {
+        "scroll": "top"
+      }
+    }
+  },
+  "navbar": {
+    "contrast": "medium",
+    "tone": "professional",
+    "background": "#ffffff",
+    "textColor": "#084fc3",
+    "accentColor": "#3B82F6"
+  },
+  "footer": {
+    "background": "#2168dc",
+    "textColor": "#ffffff"
+  },
+  "navigation": {
+    "links": [
+      {
+        "name": "Accueil",
+        "path": "/"
+      },
+      {
+        "name": "Services",
+        "path": "/services"
+      },
+      {
+        "name": "À propos",
+        "path": "/about"
+      }
+    ],
+    "cta": {
+      "text": "Contactez-nous",
+      "path": "/contact"
+    }
+  },
+  "content": {
+    "hero": {
+      "title": "plumbering easy",
+      "subtitle": "Business Consulting Excellence",
+      "description": "Professional business services tailored to your needs.",
+      "image": "plumber-hero.png",
+      "cta": {
+        "primary": "Get Started",
+        "secondary": "Learn More"
+      }
+    },
+    "services": [
+      {
+        "title": "Consulting",
+        "icon": "briefcase",
+        "slug": "consulting",
+        "description": "Professional consulting services",
+        "image": "plumber-services-1.png",
+        "features": [
+          "Professional service",
+          "Quality guaranteed",
+          "Competitive pricing",
+          "Fast delivery"
+        ]
+      },
+      {
+        "title": "Strategy",
+        "icon": "chart",
+        "slug": "strategy",
+        "description": "Professional strategy services",
+        "image": "plumber-services-2.png",
+        "features": [
+          "Professional service",
+          "Quality guaranteed",
+          "Competitive pricing",
+          "Fast delivery"
+        ]
+      },
+      {
+        "title": "Implementation",
+        "icon": "cog",
+        "slug": "implementation",
+        "description": "Professional implementation services",
+        "image": "plumber-services-3.png",
+        "features": [
+          "Professional service",
+          "Quality guaranteed",
+          "Competitive pricing",
+          "Fast delivery"
+        ]
+      }
+    ],
+    "images": {
+      "image-1": "plumber-services-1.png",
+      "image-2": "plumber-services-2.png",
+      "image-3": "plumber-services-3.png"
+    },
+    "servicesSection": {
+      "viewAllText": "View All Services",
+      "learnMoreText": "Learn More"
+    },
+    "servicesPage": {
+      "subtitle": "Discover our professional business services",
+      "ctaTitle": "Ready to get started?",
+      "ctaDescription": "Contact us today to discuss your project",
+      "ctaButton": "Get in Touch"
+    },
+    "about": {
+      "title": "About Plumber",
+      "subtitle": "Your trusted business partner",
+      "description": "We provide professional business services with a commitment to quality and customer satisfaction.",
+      "values": [
+        {
+          "title": "Strategic Vision",
+          "description": "Long-term business growth strategies"
+        },
+        {
+          "title": "Industry Expertise",
+          "description": "Deep knowledge of your sector"
+        },
+        {
+          "title": "Results Driven",
+          "description": "Focus on measurable outcomes"
+        }
+      ]
+    },
+    "testimonials": [
+      {
+        "text": "Excellent business services. Professional, reliable, and great results!",
+        "name": "Sarah Johnson",
+        "position": "CEO, Tech Company",
+        "rating": 5
+      },
+      {
+        "text": "Outstanding quality and attention to detail. Highly recommend!",
+        "name": "Michael Chen",
+        "position": "Marketing Director",
+        "rating": 5
+      },
+      {
+        "text": "Great experience from start to finish. Will definitely work with them again.",
+        "name": "Emma Davis",
+        "position": "Business Owner",
+        "rating": 5
+      }
+    ],
+    "faq": [
+      {
+        "question": "What services do you offer?",
+        "answer": "We offer comprehensive business services tailored to your specific needs."
+      },
+      {
+        "question": "How long does a typical project take?",
+        "answer": "Project timelines vary based on scope and complexity. We provide detailed estimates for each project."
+      },
+      {
+        "question": "What are your rates?",
+        "answer": "Our pricing is competitive and transparent. Contact us for a personalized quote."
+      },
+      {
+        "question": "Do you offer ongoing support?",
+        "answer": "Yes, we provide comprehensive support throughout and after project completion."
+      }
+    ]
+  },
+  "contact": {
+    "email": "contact@plumber.com",
+    "phone": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "country": "France"
+    },
+    "hours": "Lundi - Vendredi : 9h00 - 18h00",
+    "social": {}
+  },
+  "features": {
+    "blog": false,
+    "testimonials": true,
+    "faq": true,
+    "newsletter": false,
+    "darkMode": false,
+    "adaptiveLogos": true,
+    "adaptiveFavicons": true,
+    "blogSearch": false
+  },
+  "seo": {
+    "title": "Plumber - plumbering easy",
+    "description": "Plumber - Professional business services",
+    "keywords": [
+      "plumber",
+      "business",
+      "business services",
+      "professional services"
+    ],
+    "ogImage": "plumber-logo.png",
+    "analytics": {
+      "googleAnalytics": ""
+    }
+  },
+  "integrations": {
+    "n8n": {
+      "enabled": true,
+      "instance": "https://automation.locod-ai.fr",
+      "workflows": {}
+    },
+    "captcha": {
+      "enabled": false,
+      "provider": "recaptcha"
+    }
+  }
+}

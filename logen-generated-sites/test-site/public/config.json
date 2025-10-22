@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "siteId": "test-site",
+    "domain": "test-site.locod-ai.com",
+    "language": "fr",
+    "timezone": "Europe/Paris",
+    "template": "template-basic"
+  },
+  "businessType": "business",
+  "terminology": "services",
+  "brand": {
+    "name": "Test Site",
+    "slogan": "Migration test for V2",
+    "logos": {
+      "navbar": "test-site-logo-clair.png",
+      "footer": "test-site-logo-sombre.png"
+    },
+    "favicons": {
+      "light": "test-site-favicon-clair.png",
+      "dark": "test-site-favicon-sombre.png"
+    },
+    "colors": {
+      "primary": "#4F46E5",
+      "secondary": "#7C3AED",
+      "accent": "#A78BFA"
+    }
+  },
+  "design": {
+    "colorScheme": "vibrant"
+  },
+  "sections": {
+    "hero": {
+      "background": "#4F46E5",
+      "textColor": "#FFFFFF"
+    }
+  },
+  "routing": {
+    "enabledRoutes": ["home", "services", "about", "contact"]
+  },
+  "navbar": {
+    "background": "#FFFFFF",
+    "textColor": "#1F2937",
+    "accentColor": "#4F46E5"
+  },
+  "footer": {
+    "background": "#1F2937",
+    "textColor": "#FFFFFF"
+  },
+  "navigation": {
+    "links": [
+      { "name": "Accueil", "path": "/" },
+      { "name": "Services", "path": "/services" },
+      { "name": "À propos", "path": "/about" }
+    ],
+    "cta": {
+      "text": "Contactez-nous",
+      "path": "/contact"
+    }
+  },
+  "content": {
+    "hero": {
+      "title": "Test Site V2",
+      "subtitle": "Testing the migration from V1 to V2",
+      "ctaText": "Get Started",
+      "ctaLink": "/contact"
+    },
+    "services": [
+      {
+        "title": "Service 1",
+        "description": "First test service",
+        "icon": "briefcase"
+      },
+      {
+        "title": "Service 2",
+        "description": "Second test service",
+        "icon": "cog"
+      }
+    ],
+    "about": {
+      "title": "About Us",
+      "content": "This is a test site for V2 migration."
+    },
+    "testimonials": [],
+    "faq": []
+  },
+  "contact": {
+    "email": "test@test-site.com",
+    "phone": "+33123456789",
+    "address": "123 Test Street, Paris, France",
+    "socialLinks": {}
+  },
+  "features": {
+    "blog": false,
+    "testimonials": false,
+    "faq": false,
+    "newsletter": false
+  },
+  "integrations": {
+    "n8n": {
+      "enabled": false,
+      "instance": "",
+      "workflows": {}
+    },
+    "analytics": {
+      "googleAnalytics": ""
+    },
+    "security": {
+      "captcha": {
+        "enabled": false,
+        "provider": "",
+        "siteKey": ""
+      }
+    }
+  },
+  "seo": {
+    "title": "Test Site - V2 Migration",
+    "description": "Testing website generation in V2",
+    "keywords": ["test", "migration", "v2"]
+  }
+}

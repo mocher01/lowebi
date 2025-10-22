@@ -1,0 +1,11 @@
+# Exclude generated sites (too large, can be regenerated)
+v1-data/generated-sites/*/dist/
+v1-data/generated-sites/*/node_modules/
+
+# Keep the source and configs
+!v1-data/generated-sites/*/src/
+!v1-data/generated-sites/*/public/
+!v1-data/generated-sites/*/*.json
+!v1-data/generated-sites/*/*.js
+!v1-data/generated-sites/*/*.sh
+!v1-data/generated-sites/*/Dockerfile

@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "siteId": "testmoderapide",
+    "domain": "testmoderapide.local",
+    "language": "fr",
+    "timezone": "Europe/Paris"
+  },
+  "brand": {
+    "name": "Test Mode Rapide",
+    "slogan": "Site de test simple sans images",
+    "colors": {
+      "primary": "#3B82F6",
+      "secondary": "#60A5FA",
+      "accent": "#93C5FD"
+    }
+  },
+  "content": {
+    "hero": {
+      "title": "Test Mode Rapide",
+      "subtitle": "Site de test simple",
+      "description": "Ce site est un test simple créé avec Mode Rapide pour vérifier le déploiement.",
+      "cta": {
+        "primary": "Commencer",
+        "secondary": "En savoir plus"
+      }
+    },
+    "services": [
+      {
+        "title": "Service Test 1",
+        "description": "Description du premier service de test",
+        "features": ["Fonctionnalité 1", "Fonctionnalité 2", "Fonctionnalité 3"]
+      },
+      {
+        "title": "Service Test 2",
+        "description": "Description du deuxième service de test",
+        "features": ["Option A", "Option B", "Option C"]
+      },
+      {
+        "title": "Service Test 3",
+        "description": "Description du troisième service de test",
+        "features": ["Avantage 1", "Avantage 2", "Avantage 3"]
+      }
+    ],
+    "about": {
+      "title": "À propos de Test Mode Rapide",
+      "subtitle": "Notre mission",
+      "description": "Nous sommes un site de test créé pour vérifier que le système de déploiement fonctionne correctement sans images complexes.",
+      "values": [
+        {
+          "title": "Simplicité",
+          "description": "Configuration minimale pour tester"
+        },
+        {
+          "title": "Rapidité",
+          "description": "Déploiement rapide et efficace"
+        },
+        {
+          "title": "Fiabilité",
+          "description": "Test de base fonctionnel"
+        }
+      ]
+    },
+    "testimonials": [
+      {
+        "text": "Ce site de test fonctionne parfaitement!",
+        "name": "Test User",
+        "position": "Développeur",
+        "rating": 5
+      }
+    ],
+    "faq": [
+      {
+        "question": "Qu'est-ce que Test Mode Rapide?",
+        "answer": "C'est un site de test simple créé pour vérifier le déploiement."
+      },
+      {
+        "question": "Pourquoi pas d'images?",
+        "answer": "Pour simplifier le test et éviter les problèmes de traitement d'images."
+      }
+    ]
+  },
+  "contact": {
+    "email": "test@moderapide.com",
+    "phone": "01 23 45 67 89",
+    "address": "123 Rue du Test, Paris"
+  },
+  "seo": {
+    "title": "Test Mode Rapide - Site de test simple",
+    "description": "Site de test créé avec Mode Rapide pour vérifier le déploiement",
+    "keywords": ["test", "mode rapide", "déploiement"]
+  },
+  "features": {
+    "blog": false,
+    "testimonials": true,
+    "faq": true,
+    "darkMode": true
+  },
+  "integrations": {
+    "n8n": {
+      "enabled": false
+    }
+  }
+}

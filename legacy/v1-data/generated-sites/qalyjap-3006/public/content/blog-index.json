@@ -1,0 +1,32 @@
+{
+  "generated": "2025-10-06T13:49:22.434Z",
+  "count": 3,
+  "files": [
+    "histoire-shodo.md",
+    "materiel-calligraphie.md",
+    "techniques-kaisho.md"
+  ],
+  "articles": [
+    {
+      "file": "histoire-shodo.md",
+      "slug": "histoire-shodo",
+      "title": "L'histoire millénaire du Shodo : l'art de la calligraphie japonaise",
+      "description": "Le **Shodo** (書道), littéralement \"la voie de l'écriture\", est bien plus qu'une simple technique d'écriture. C'est un art millénaire qui incarne l'esprit et la philosophie japonaise à travers chaque trait de pinceau.",
+      "summary": "Le **Shodo** (書道), littéralement \"la voie de l'écriture\", est bien plus qu'une simple technique d'écriture. C'est un art millénaire qui incarne l'esprit et la philosophie japonaise à travers chaque trait de pinceau."
+    },
+    {
+      "file": "materiel-calligraphie.md",
+      "slug": "materiel-calligraphie",
+      "title": "Le matériel essentiel pour débuter la calligraphie japonaise",
+      "description": "Pour pratiquer le Shodo, il est essentiel de disposer du bon matériel. Les calligraphes parlent des **\"Quatre Trésors du Lettré\"** (文房四宝), les outils fondamentaux de cet art millénaire.",
+      "summary": "Pour pratiquer le Shodo, il est essentiel de disposer du bon matériel. Les calligraphes parlent des **\"Quatre Trésors du Lettré\"** (文房四宝), les outils fondamentaux de cet art millénaire."
+    },
+    {
+      "file": "techniques-kaisho.md",
+      "slug": "techniques-kaisho",
+      "title": "Maîtriser le Kaisho : les bases de la calligraphie régulière",
+      "description": "Le **Kaisho** (楷書), ou style régulier, est la pierre angulaire de l'apprentissage de la calligraphie japonaise. C'est par ce style que tout calligraphe débute son parcours dans l'art du Shodo.",
+      "summary": "Le **Kaisho** (楷書), ou style régulier, est la pierre angulaire de l'apprentissage de la calligraphie japonaise. C'est par ce style que tout calligraphe débute son parcours dans l'art du Shodo."
+    }
+  ]
+}

@@ -1,0 +1,266 @@
+{
+  "faq": [
+    {
+      "answer": "Nous accompagnons tous types de projets de transformation digitale, du conseil stratégique au développement de solutions techniques complexes.",
+      "question": "Quels types de projets prenez-vous en charge?"
+    },
+    {
+      "answer": "Notre approche se décompose en 4 étapes : audit initial, conception de la solution, mise en œuvre et accompagnement post-livraison.",
+      "question": "Quel est votre processus de travail?"
+    },
+    {
+      "answer": "Oui, nous offrons un support technique complet avec différents niveaux de service selon vos besoins et votre budget.",
+      "question": "Proposez-vous un support après livraison?"
+    },
+    {
+      "answer": "Absolument, nous adaptons nos services et notre approche à la taille et aux besoins spécifiques de chaque entreprise, PME incluses.",
+      "question": "Travaillez-vous avec des PME?"
+    },
+    {
+      "answer": "Nos délais varient selon la complexité du projet, mais nous nous engageons toujours sur un planning précis dès le début de la collaboration.",
+      "question": "Quels sont vos délais d'intervention?"
+    },
+    {
+      "answer": "Nos tarifs sont établis en fonction de la complexité du projet, du temps nécessaire et de la valeur apportée. Nous proposons toujours un devis détaillé.",
+      "question": "Comment établissez-vous vos tarifs?"
+    }
+  ],
+  "seo": {
+    "title": "Solutions Professionnelles & Conseil Stratégique",
+    "keywords": [
+      "conseil stratégique",
+      "solutions digitales",
+      "transformation",
+      "optimisation",
+      "support technique"
+    ],
+    "description": "Expert en transformation digitale et solutions sur mesure. Accompagnement personnalisé pour optimiser vos processus et accélérer votre croissance."
+  },
+  "blog": {
+    "articles": [
+      {
+        "tags": [
+          "transformation",
+          "technologie",
+          "stratégie"
+        ],
+        "title": "Les tendances de la transformation digitale en 2024",
+        "content": "La transformation digitale continue d'évoluer à un rythme effréné. Les entreprises qui anticipent ces changements prennent une longueur d'avance significative sur leurs concurrents. Dans cet article, nous explorons les tendances majeures qui définiront 2024 et au-delà.",
+        "excerpt": "Découvrez les principales évolutions technologiques qui façonnent l'avenir des entreprises et comment vous y préparer dès maintenant.",
+        "category": "Innovation"
+      },
+      {
+        "tags": [
+          "processus",
+          "efficacité",
+          "productivité"
+        ],
+        "title": "Comment optimiser l'efficacité opérationnelle de votre entreprise",
+        "content": "L'optimisation des processus internes est cruciale pour maintenir la compétitivité. Nous partageons ici les meilleures pratiques observées chez nos clients les plus performants. Ces stratégies ont permis d'améliorer l'efficacité de 30% en moyenne.",
+        "excerpt": "Stratégies éprouvées et outils pratiques pour améliorer vos processus internes et maximiser votre productivité au quotidien.",
+        "category": "Optimisation"
+      },
+      {
+        "tags": [
+          "support",
+          "maintenance",
+          "réussite"
+        ],
+        "title": "L'importance du support technique dans la réussite projet",
+        "content": "Un projet digital ne se termine pas à sa livraison. Le support technique constitue un élément clé de la réussite à long terme. Nous analysons les facteurs qui font la différence entre un projet qui prospère et un autre qui stagne après sa mise en production.",
+        "excerpt": "Pourquoi un support technique de qualité est essentiel pour garantir le succès de vos initiatives digitales sur le long terme.",
+        "category": "Support"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Solutions Professionnelles Innovantes",
+    "subtitle": "Votre partenaire de confiance pour la réussite",
+    "description": "Nous accompagnons les entreprises dans leur transformation digitale et leur croissance avec des solutions sur mesure et une expertise reconnue."
+  },
+  "about": {
+    "title": "À propos de Cycle17_Step7_1759748351651",
+    "values": [
+      {
+        "title": "Excellence",
+        "description": "Nous visons l'excellence dans chaque projet avec des standards de qualité élevés"
+      },
+      {
+        "title": "Innovation",
+        "description": "Nous restons à la pointe des dernières technologies et tendances du marché"
+      },
+      {
+        "title": "Partenariat",
+        "description": "Nous construisons des relations durables basées sur la confiance mutuelle"
+      },
+      {
+        "title": "Résultats",
+        "description": "Nous nous engageons sur des résultats mesurables et un retour sur investissement"
+      }
+    ],
+    "subtitle": "Excellence et innovation depuis plus de 10 ans",
+    "description": "Notre équipe d'experts accompagne les entreprises dans leur transformation digitale. Nous combinons expertise technique, vision stratégique et approche humaine pour délivrer des solutions qui génèrent une vraie valeur ajoutée."
+  },
+  "domain": "",
+  "images": {
+    "hero": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-hero.png?t=1759748422606",
+    "logo": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-logo-clair.png?t=1759748417483",
+    "blog_0": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-blog-1.png?t=1759748443307",
+    "blog_1": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-blog-2.png?t=1759748445830",
+    "blog_2": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-blog-3.png?t=1759748448442",
+    "services": [],
+    "service_0": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-service-conseil-strat_gique.png?t=1759748430266",
+    "service_1": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-service-solutions-num_riques.png?t=1759748432852",
+    "service_2": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-service-support-_-maintenance.png?t=1759748435411",
+    "service_3": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-service-formation-professionnelle.png?t=1759748438001",
+    "service_4": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-service-optimisation-performance.png?t=1759748440682",
+    "logoFooter": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-logo-sombre.png?t=1759748420019",
+    "faviconDark": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-favicon-sombre.png?t=1759748427696",
+    "faviconLight": "/uploads/sessions/f81ebfbf-85a8-42be-b918-09e7679178ba/site-favicon-clair.png?t=1759748425135"
+  },
+  "siteId": "cycle17step71759748351651",
+  "slogan": "",
+  "aiStyle": "modern",
+  "contact": {
+    "email": "",
+    "hours": "",
+    "phone": "",
+    "address": ""
+  },
+  "services": [
+    {
+      "title": "Conseil Stratégique",
+      "features": [
+        "Audit complet",
+        "Plan d'action détaillé",
+        "Suivi personnalisé"
+      ],
+      "description": "Accompagnement personnalisé pour optimiser vos processus métiers et définir une stratégie de croissance durable."
+    },
+    {
+      "title": "Solutions Numériques",
+      "features": [
+        "Développement sur mesure",
+        "Intégration complète",
+        "Formation équipes"
+      ],
+      "description": "Développement de solutions technologiques innovantes adaptées à vos besoins spécifiques et objectifs business."
+    },
+    {
+      "title": "Support & Maintenance",
+      "features": [
+        "Support 24/7",
+        "Maintenance préventive",
+        "Mise à jour continue"
+      ],
+      "description": "Service de support technique réactif et maintenance préventive pour assurer la continuité de vos opérations."
+    },
+    {
+      "title": "Formation Professionnelle",
+      "features": [
+        "Formation personnalisée",
+        "Certification",
+        "Suivi post-formation"
+      ],
+      "description": "Programmes de formation adaptés pour développer les compétences de vos équipes et maximiser l'adoption des nouvelles technologies."
+    },
+    {
+      "title": "Optimisation Performance",
+      "features": [
+        "Analyse approfondie",
+        "Optimisation continue",
+        "Reporting détaillé"
+      ],
+      "description": "Analyse et optimisation de vos processus existants pour améliorer l'efficacité opérationnelle et réduire les coûts."
+    }
+  ],
+  "siteName": "Cycle17_Step7_1759748351651",
+  "enableBlog": false,
+  "heroContent": {
+    "title": "",
+    "subtitle": "",
+    "description": ""
+  },
+  "seoSettings": {
+    "title": "",
+    "keywords": [],
+    "description": ""
+  },
+  "terminology": "Pain frais et pâtisseries arti",
+  "aboutContent": {
+    "title": "",
+    "values": [],
+    "subtitle": "",
+    "description": ""
+  },
+  "businessType": "Restaurant & Boulangerie Artisanale",
+  "imageChoices": {
+    "hero": "upload",
+    "logo": "upload",
+    "logoFooter": "upload",
+    "faviconDark": "upload",
+    "faviconLight": "upload"
+  },
+  "integrations": {
+    "newsletter": {
+      "apiKey": "",
+      "enabled": false,
+      "provider": "n8n",
+      "gmailAddress": "",
+      "gmailAppPassword": "",
+      "hasGoogleAccount": false
+    }
+  },
+  "siteLanguage": "fr",
+  "templateData": {
+    "name": "template-base",
+    "version": "1.0.0",
+    "features": [
+      "Design responsive",
+      "SEO optimisé",
+      "Formulaires de contact",
+      "Blog intégré"
+    ],
+    "description": "Template polyvalent et moderne, parfait pour tous types d'activités professionnelles",
+    "displayName": "Modèle de Base",
+    "businessTypes": [
+      "Services",
+      "Commerce",
+      "Conseil",
+      "Formation"
+    ]
+  },
+  "testimonials": [
+    {
+      "name": "Marie Dubois",
+      "text": "Une collaboration exceptionnelle qui a transformé notre façon de travailler. L'équipe a su comprendre nos enjeux et proposer des solutions parfaitement adaptées.",
+      "rating": 5,
+      "position": "Directrice Générale, TechCorp"
+    },
+    {
+      "name": "Pierre Martin",
+      "text": "Un accompagnement professionnel et des résultats au-delà de nos attentes. Nous recommandons vivement leurs services pour tout projet stratégique.",
+      "rating": 5,
+      "position": "Responsable Innovation, InnovatePlus"
+    },
+    {
+      "name": "Sophie Laurent",
+      "text": "Une expertise technique remarquable doublée d'un vrai sens du service client. Un partenaire de confiance pour nos projets les plus ambitieux.",
+      "rating": 5,
+      "position": "COO, DigitalSolutions"
+    }
+  ],
+  "imageApproach": "manual",
+  "termsAccepted": true,
+  "enableNewsletter": false,
+  "selectedTemplate": "template-base",
+  "otherImagesChoice": "upload",
+  "businessDescription": "Artisanal bakery specializing in organic bread, custom wedding cakes, and traditional French pastries. We use only premium local ingredients and time-honored baking techniques.",
+  "meta": {
+    "siteId": "cycle17step71759748351651",
+    "domain": "cycle17step71759748351651.locod-ai.com",
+    "language": "fr",
+    "timezone": "Europe/Paris",
+    "template": "template-basic"
+  }
+}

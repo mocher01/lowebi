@@ -1,0 +1,84 @@
+:root {
+  --color-primary: 17 47% 12%;
+  --color-secondary: 25 76% 31%;
+  --color-accent: 46 65% 52%;
+  --navbar-background: #FFFFFF;
+  --navbar-text: #2C1810;
+  --navbar-accent: #D4AF37;
+  --section-hero-bg: #FFFFFF;
+  --section-hero-text: #2C1810;
+  --section-services-bg: #F5F5DC;
+  --section-services-text: #2C1810;
+  --section-about-bg: #FFFFFF;
+  --section-about-text: #2C1810;
+  --section-testimonials-bg: #F5F5DC;
+  --section-testimonials-text: #2C1810;
+  --section-faq-bg: #FFFFFF;
+  --section-faq-text: #2C1810;
+  --section-cta-bg: #F5F5DC;
+  --section-cta-text: #2C1810;
+  --section-values-bg: #FFFFFF;
+  --section-values-text: #2C1810;
+  --section-blog-bg: #FFFFFF;
+  --section-blog-text: #2C1810;
+  --section-contact-bg: #FFFFFF;
+  --section-contact-text: #2C1810;
+}
+
+.hero-section {
+  background-color: #FFFFFF;
+  color: #2C1810;
+}
+
+.section-services {
+  background-color: #F5F5DC;
+  color: #2C1810;
+}
+
+.section-about {
+  background-color: #FFFFFF;
+  color: #2C1810;
+}
+
+.section-testimonials {
+  background-color: #F5F5DC;
+  color: #2C1810;
+}
+
+.section-faq {
+  background-color: #FFFFFF;
+  color: #2C1810;
+}
+
+.section-cta {
+  background-color: #F5F5DC;
+  color: #2C1810;
+}
+
+.section-values {
+  background-color: #FFFFFF;
+  color: #2C1810;
+}
+
+.section-blog {
+  background-color: #FFFFFF;
+  color: #2C1810;
+}
+
+.section-contact {
+  background-color: #FFFFFF;
+  color: #2C1810;
+}
+
+body[data-page="contact"] .page-header {
+  background-color: #2C1810;
+}
+
+body[data-page="contact"] .page-header h1 {
+  color: #FFFFFF;
+}
+
+body[data-page="contact"] .page-header .subtitle {
+  color: #FFFFFF;
+}
+

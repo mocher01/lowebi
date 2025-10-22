@@ -1,0 +1,24 @@
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AdminController } from './admin.controller';
+import { AdminService } from './admin.service';
+import { SiteManagementController } from './controllers/site-management.controller';
+import { SiteManagementService } from './services/site-management.service';
+import { SystemMonitoringController } from './controllers/system-monitoring.controller';
+import { SystemMonitoringService } from './services/system-monitoring.service';
+import { ApiOptimizationController } from './controllers/api-optimization.controller';
+import { User } from '../auth/entities/user.entity';
+import { Session } from '../auth/entities/session.entity';
+import { AuditLog } from './entities/audit-log.entity';
+import { Site } from './entities/site.entity';
+import { SiteAnalytics } from './entities/site-analytics.entity';
+
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([User, Session, AuditLog, Site, SiteAnalytics]),
+  ],
+  controllers: [AdminController, SiteManagementController, SystemMonitoringController, ApiOptimizationController],
+  providers: [AdminService, SiteManagementService, SystemMonitoringService],
+  exports: [AdminService, SiteManagementService, SystemMonitoringService],
+})
+export class AdminModule {}

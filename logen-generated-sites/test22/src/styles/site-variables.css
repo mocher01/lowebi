@@ -1,0 +1,91 @@
+:root {
+  --color-primary: 243 75% 59%;
+  --color-secondary: 160 84% 39%;
+  --color-accent: 255 92% 76%;
+  --navbar-background: #FFFFFF;
+  --navbar-text: #4F46E5;
+  --navbar-accent: #4F46E5;
+  --section-hero-bg: #FFFFFF;
+  --section-hero-text: #4F46E5;
+  --section-services-bg: #ededfc;
+  --section-services-text: #4F46E5;
+  --section-about-bg: #FFFFFF;
+  --section-about-text: #4F46E5;
+  --section-testimonials-bg: #ededfc;
+  --section-testimonials-text: #4F46E5;
+  --section-faq-bg: #FFFFFF;
+  --section-faq-text: #4F46E5;
+  --section-cta-bg: #ededfc;
+  --section-cta-text: #4F46E5;
+  --section-values-bg: #FFFFFF;
+  --section-values-text: #4F46E5;
+  --section-blog-bg: #FFFFFF;
+  --section-blog-text: #4F46E5;
+  --section-courses-bg: #FFFFFF;
+  --section-courses-text: #4F46E5;
+  --section-contact-bg: #FFFFFF;
+  --section-contact-text: #4F46E5;
+}
+
+.hero-section {
+  background-color: #FFFFFF;
+  color: #4F46E5;
+}
+
+.section-services {
+  background-color: #ededfc;
+  color: #4F46E5;
+}
+
+.section-about {
+  background-color: #FFFFFF;
+  color: #4F46E5;
+}
+
+.section-testimonials {
+  background-color: #ededfc;
+  color: #4F46E5;
+}
+
+.section-faq {
+  background-color: #FFFFFF;
+  color: #4F46E5;
+}
+
+.section-cta {
+  background-color: #ededfc;
+  color: #4F46E5;
+}
+
+.section-values {
+  background-color: #FFFFFF;
+  color: #4F46E5;
+}
+
+.section-blog {
+  background-color: #FFFFFF;
+  color: #4F46E5;
+}
+
+.section-courses {
+  background-color: #FFFFFF;
+  color: #4F46E5;
+}
+
+.section-contact {
+  background-color: #FFFFFF;
+  color: #4F46E5;
+}
+
+body[data-page="contact"] .page-header {
+  background-color: #4F46E5;
+}
+
+body[data-page="contact"] .page-header h1 {
+  color: #FFFFFF;
+}
+
+body[data-page="contact"] .page-header .subtitle {
+  color: #FFFFFF;
+}
+

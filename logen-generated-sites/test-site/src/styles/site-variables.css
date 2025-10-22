@@ -1,0 +1,16 @@
+:root {
+  --color-primary: #4F46E5;
+  --color-secondary: #7C3AED;
+  --color-accent: #A78BFA;
+  --navbar-background: #FFFFFF;
+  --navbar-text: #1F2937;
+  --navbar-accent: #4F46E5;
+  --section-hero-bg: #4F46E5;
+  --section-hero-text: #FFFFFF;
+}
+
+.hero-section {
+  background-color: #4F46E5;
+  color: #FFFFFF;
+}
+

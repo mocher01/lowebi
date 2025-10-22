@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locod.AI - Site Creation Wizard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .step-active { @apply bg-blue-600 text-white; }
+        .step-completed { @apply bg-green-600 text-white; }
+        .step-pending { @apply bg-gray-300 text-gray-700; }
+        .wizard-step { transition: all 0.3s ease-in-out; }
+        .fade-enter { opacity: 0; transform: translateX(20px); }
+        .fade-enter-active { opacity: 1; transform: translateX(0); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div x-data="wizardApp()" x-cloak class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-sm border-b">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <h1 class="text-xl font-bold text-gray-900">Locod.AI - Site Creation Wizard</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">v1.1.1.9.2.4.2.3</span>
+                        <button @click="showHelp = !showHelp" class="text-gray-400 hover:text-gray-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Help Modal -->
+        <div x-show="showHelp" x-transition class="fixed inset-0 z-50 overflow-y-auto">
+            <div class="flex items-center justify-center min-h-screen px-4">
+                <div class="fixed inset-0 bg-black opacity-50" @click="showHelp = false"></div>
+                <div class="bg-white rounded-lg max-w-md mx-auto z-50 p-6">
+                    <h2 class="text-lg font-bold mb-4">Wizard Help</h2>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <p>• Use Next/Back buttons to navigate</p>
+                        <p>• Your progress is automatically saved</p>
+                        <p>• You can skip optional steps</p>
+                        <p>• Review all settings before final creation</p>
+                    </div>
+                    <button @click="showHelp = false" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md">Got it</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="bg-white shadow-sm">
+            <div class="max-w-4xl mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <template x-for="(step, index) in steps" :key="index">
+                        <div class="flex items-center">
+                            <div 
+                                :class="`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${getStepClass(index)}`"
+                                class="cursor-pointer transition-all"
+                                @click="goToStep(index)"
+                            >
+                                <span x-show="!step.completed" x-text="index + 1"></span>
+                                <svg x-show="step.completed" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div x-show="index < steps.length - 1" class="flex-1 h-0.5 bg-gray-300 mx-2">
+                                <div :class="index < currentStep ? 'bg-green-600' : 'bg-gray-300'" class="h-full transition-all"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="mt-2 text-center">
+                    <span class="text-sm text-gray-600" x-text="steps[currentStep].title"></span>
+                    <span class="text-xs text-gray-400 ml-2">(<span x-text="currentStep + 1"></span>/<span x-text="steps.length"></span>)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 py-8">
+            <div class="bg-white rounded-lg shadow-sm border">
+                
+                <!-- Step 1: Welcome -->
+                <div x-show="currentStep === 0" x-transition class="wizard-step p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">🚀 Welcome to Site Creation Wizard</h2>
+                    <p class="text-gray-600 mb-6">Create your professional website in just a few steps. This wizard will guide you through the entire process.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="p-4 border rounded-lg">
+                            <h3 class="font-semibold text-gray-900 mb-2">✨ What you'll get:</h3>
+                            <ul class="space-y-1 text-sm text-gray-600">
+                                <li>• Professional responsive design</li>
+                                <li>• SEO optimized structure</li>
+                                <li>• Contact form integration</li>
+                                <li>• Mobile-friendly layout</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 border rounded-lg">
+                            <h3 class="font-semibold text-gray-900 mb-2">⏱️ Estimated time:</h3>
+                            <p class="text-sm text-gray-600">5-10 minutes to complete</p>
+                            <h3 class="font-semibold text-gray-900 mb-2 mt-3">💾 Auto-save:</h3>
+                            <p class="text-sm text-gray-600">Your progress is saved automatically</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="flex items-center">
+                            <input type="checkbox" x-model="wizardData.hasReadTerms" class="mr-2">
+                            <span class="text-sm text-gray-600">I agree to the terms of service and privacy policy</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 2: Business Information -->
+                <div x-show="currentStep === 1" x-transition class="wizard-step p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">🏢 Business Information</h2>
+                    <p class="text-gray-600 mb-6">Tell us about your business to customize your website.</p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Site Name *</label>
+                            <input 
+                                type="text" 
+                                x-model="wizardData.siteName"
+                                @input="validateStep(1)"
+                                placeholder="My Awesome Business"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                            <p x-show="validationErrors.siteName" class="text-red-500 text-sm mt-1" x-text="validationErrors.siteName"></p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Business Type *</label>
+                            <select 
+                                x-model="wizardData.businessType"
+                                @change="validateStep(1); loadBusinessTypeConfig()"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                                <option value="">Select your business type</option>
+                                <template x-for="(config, key) in businessTypes" :key="key">
+                                    <option :value="key" x-text="`${config.name} - ${config.description}`"></option>
+                                </template>
+                            </select>
+                            <p x-show="validationErrors.businessType" class="text-red-500 text-sm mt-1" x-text="validationErrors.businessType"></p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Domain (Optional)</label>
+                            <input 
+                                type="text" 
+                                x-model="wizardData.domain"
+                                placeholder="www.mybusiness.com"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                            <p class="text-gray-500 text-sm mt-1">Leave empty for auto-generated domain</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tagline/Slogan</label>
+                            <input 
+                                type="text" 
+                                x-model="wizardData.slogan"
+                                placeholder="Your business in one line"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Design & Colors -->
+                <div x-show="currentStep === 2" x-transition class="wizard-step p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">🎨 Design & Colors</h2>
+                    <p class="text-gray-600 mb-6">Choose colors that represent your brand.</p>
+                    
+                    <div class="space-y-6">
+                        <div x-show="wizardData.businessType">
+                            <h3 class="font-medium text-gray-900 mb-3">Recommended Color Palette</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+                                <template x-for="(palette, name) in colorPalettes" :key="name">
+                                    <div 
+                                        @click="selectColorPalette(palette)"
+                                        :class="wizardData.colors === palette ? 'ring-2 ring-blue-500' : ''"
+                                        class="p-4 border rounded-lg cursor-pointer hover:shadow-md transition-all"
+                                    >
+                                        <div class="flex space-x-2 mb-2">
+                                            <div :style="`background-color: ${palette.primary}`" class="w-8 h-8 rounded"></div>
+                                            <div :style="`background-color: ${palette.secondary}`" class="w-8 h-8 rounded"></div>
+                                            <div :style="`background-color: ${palette.accent}`" class="w-8 h-8 rounded"></div>
+                                        </div>
+                                        <p class="text-sm font-medium" x-text="name"></p>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-medium text-gray-900 mb-3">Custom Colors</h3>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm text-gray-700 mb-1">Primary Color</label>
+                                    <input 
+                                        type="color" 
+                                        x-model="wizardData.colors.primary"
+                                        class="w-full h-10 border border-gray-300 rounded"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-700 mb-1">Secondary Color</label>
+                                    <input 
+                                        type="color" 
+                                        x-model="wizardData.colors.secondary"
+                                        class="w-full h-10 border border-gray-300 rounded"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-700 mb-1">Accent Color</label>
+                                    <input 
+                                        type="color" 
+                                        x-model="wizardData.colors.accent"
+                                        class="w-full h-10 border border-gray-300 rounded"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Color Preview -->
+                        <div class="border rounded-lg p-4">
+                            <h3 class="font-medium text-gray-900 mb-3">Preview</h3>
+                            <div class="space-y-2">
+                                <div :style="`background-color: ${wizardData.colors.primary}; color: white`" class="p-3 rounded">
+                                    Primary Color - Headers & Buttons
+                                </div>
+                                <div :style="`background-color: ${wizardData.colors.secondary}; color: white`" class="p-3 rounded">
+                                    Secondary Color - Sections
+                                </div>
+                                <div :style="`background-color: ${wizardData.colors.accent}; color: white`" class="p-3 rounded">
+                                    Accent Color - Highlights
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Content -->
+                <div x-show="currentStep === 3" x-transition class="wizard-step p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">📝 Content & Services</h2>
+                    <p class="text-gray-600 mb-6">Add your services and contact information.</p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">About Your Business</label>
+                            <textarea 
+                                x-model="wizardData.about"
+                                rows="4"
+                                placeholder="Describe your business, mission, and what makes you unique..."
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            ></textarea>
+                        </div>
+
+                        <div>
+                            <h3 class="font-medium text-gray-900 mb-3">Services (Optional)</h3>
+                            <div class="space-y-3">
+                                <template x-for="(service, index) in wizardData.services" :key="index">
+                                    <div class="flex space-x-2">
+                                        <input 
+                                            type="text" 
+                                            x-model="service.name"
+                                            placeholder="Service name"
+                                            class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        >
+                                        <input 
+                                            type="text" 
+                                            x-model="service.description"
+                                            placeholder="Brief description"
+                                            class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        >
+                                        <button @click="removeService(index)" class="px-3 py-2 text-red-600 hover:bg-red-50 rounded-md">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </template>
+                                <button @click="addService()" class="text-blue-600 hover:text-blue-800 text-sm">
+                                    + Add Service
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Contact Email</label>
+                                <input 
+                                    type="email" 
+                                    x-model="wizardData.contact.email"
+                                    placeholder="contact@yourbusiness.com"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input 
+                                    type="tel" 
+                                    x-model="wizardData.contact.phone"
+                                    placeholder="+1 (555) 123-4567"
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" x-model="wizardData.n8nEnabled" class="mr-2">
+                                <span class="text-sm text-gray-700">Enable advanced workflow integration (N8N)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Review -->
+                <div x-show="currentStep === 4" x-transition class="wizard-step p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Review & Create</h2>
+                    <p class="text-gray-600 mb-6">Review your settings before creating your website.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-900 mb-3">Site Information</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-medium">Name:</span> <span x-text="wizardData.siteName"></span></div>
+                                <div><span class="font-medium">Type:</span> <span x-text="businessTypes[wizardData.businessType]?.name || 'Not selected'"></span></div>
+                                <div><span class="font-medium">Domain:</span> <span x-text="wizardData.domain || 'Auto-generated'"></span></div>
+                                <div><span class="font-medium">Slogan:</span> <span x-text="wizardData.slogan || 'None'"></span></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-900 mb-3">Design</h3>
+                            <div class="flex space-x-2">
+                                <div :style="`background-color: ${wizardData.colors.primary}`" class="w-6 h-6 rounded"></div>
+                                <div :style="`background-color: ${wizardData.colors.secondary}`" class="w-6 h-6 rounded"></div>
+                                <div :style="`background-color: ${wizardData.colors.accent}`" class="w-6 h-6 rounded"></div>
+                                <span class="text-sm text-gray-600 ml-2">Custom color palette</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-900 mb-3">Content</h3>
+                            <div class="space-y-2 text-sm">
+                                <div><span class="font-medium">Services:</span> <span x-text="wizardData.services.filter(s => s.name).length + ' services configured'"></span></div>
+                                <div><span class="font-medium">Contact:</span> <span x-text="wizardData.contact.email || 'Not provided'"></span></div>
+                                <div><span class="font-medium">N8N Integration:</span> <span x-text="wizardData.n8nEnabled ? 'Enabled' : 'Disabled'"></span></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <h3 class="font-medium text-blue-900 mb-2">🚀 Ready to Deploy</h3>
+                            <p class="text-blue-800 text-sm">Your site will be created and can be deployed immediately after creation.</p>
+                        </div>
+
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" x-model="wizardData.deployAfterCreation" class="mr-2">
+                                <span class="text-sm text-gray-700">Deploy site automatically after creation</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: Result -->
+                <div x-show="currentStep === 5" x-transition class="wizard-step p-8">
+                    <div x-show="!creationInProgress && !creationResult">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">🎉 Site Created Successfully!</h2>
+                        <p class="text-gray-600 mb-6">Your website has been created and is ready to go live.</p>
+                    </div>
+
+                    <div x-show="creationInProgress" class="text-center py-8">
+                        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                        <h3 class="font-medium text-gray-900 mb-2">Creating your website...</h3>
+                        <p class="text-gray-600 text-sm">This may take a few moments</p>
+                    </div>
+
+                    <div x-show="creationResult" class="space-y-4">
+                        <div x-show="creationResult?.success" class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h3 class="font-medium text-green-900 mb-2">✅ Success!</h3>
+                            <div class="text-green-800 text-sm space-y-1">
+                                <div>Site ID: <span x-text="creationResult?.site?.id"></span></div>
+                                <div>Status: <span x-text="creationResult?.site?.status"></span></div>
+                                <div x-show="creationResult?.site?.url">URL: <a :href="creationResult?.site?.url" target="_blank" class="text-blue-600 underline" x-text="creationResult?.site?.url"></a></div>
+                            </div>
+                        </div>
+
+                        <div x-show="creationResult && !creationResult?.success" class="bg-red-50 border border-red-200 rounded-lg p-4">
+                            <h3 class="font-medium text-red-900 mb-2">❌ Creation Failed</h3>
+                            <p class="text-red-800 text-sm" x-text="creationResult?.error"></p>
+                        </div>
+
+                        <div class="flex space-x-4">
+                            <button @click="resetWizard()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                                Create Another Site
+                            </button>
+                            <a href="/dashboard" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+                                Go to Dashboard
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="border-t px-8 py-4 flex justify-between items-center">
+                    <button 
+                        @click="previousStep()"
+                        :disabled="currentStep === 0"
+                        :class="currentStep === 0 ? 'opacity-50 cursor-not-allowed' : ''"
+                        class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                    >
+                        ← Previous
+                    </button>
+
+                    <div class="flex space-x-2">
+                        <button 
+                            x-show="currentStep > 0 && currentStep < 4"
+                            @click="skipStep()"
+                            class="px-4 py-2 text-gray-500 hover:text-gray-700"
+                        >
+                            Skip
+                        </button>
+                        
+                        <button 
+                            x-show="currentStep < 4"
+                            @click="nextStep()"
+                            :disabled="!canProceedToNext()"
+                            :class="!canProceedToNext() ? 'opacity-50 cursor-not-allowed' : ''"
+                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        >
+                            Next →
+                        </button>
+
+                        <button 
+                            x-show="currentStep === 4"
+                            @click="createSite()"
+                            :disabled="creationInProgress"
+                            class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
+                        >
+                            <span x-show="!creationInProgress">🚀 Create Site</span>
+                            <span x-show="creationInProgress">Creating...</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Progress Indicator -->
+        <div x-show="savingProgress" x-transition class="fixed bottom-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg">
+            <div class="flex items-center space-x-2">
+                <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <span class="text-sm">Saving progress...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function wizardApp() {
+            return {
+                currentStep: 0,
+                showHelp: false,
+                savingProgress: false,
+                creationInProgress: false,
+                creationResult: null,
+                
+                steps: [
+                    { title: 'Welcome', completed: false },
+                    { title: 'Business Info', completed: false },
+                    { title: 'Design', completed: false },
+                    { title: 'Content', completed: false },
+                    { title: 'Review', completed: false },
+                    { title: 'Complete', completed: false }
+                ],
+
+                wizardData: {
+                    hasReadTerms: false,
+                    siteName: '',
+                    businessType: '',
+                    domain: '',
+                    slogan: '',
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#60A5FA',
+                        accent: '#93C5FD'
+                    },
+                    about: '',
+                    services: [{ name: '', description: '' }],
+                    contact: {
+                        email: '',
+                        phone: ''
+                    },
+                    n8nEnabled: false,
+                    deployAfterCreation: true
+                },
+
+                validationErrors: {},
+                businessTypes: {},
+                colorPalettes: {
+                    'Professional Blue': {
+                        primary: '#3B82F6',
+                        secondary: '#60A5FA',
+                        accent: '#93C5FD'
+                    },
+                    'Nature Green': {
+                        primary: '#059669',
+                        secondary: '#10B981',
+                        accent: '#34D399'
+                    },
+                    'Elegant Purple': {
+                        primary: '#7C3AED',
+                        secondary: '#8B5CF6',
+                        accent: '#A78BFA'
+                    },
+                    'Warm Orange': {
+                        primary: '#EA580C',
+                        secondary: '#FB923C',
+                        accent: '#FDBA74'
+                    }
+                },
+
+                async init() {
+                    await this.loadBusinessTypes();
+                    this.loadSavedProgress();
+                    this.setupAutoSave();
+                },
+
+                async loadBusinessTypes() {
+                    try {
+                        const response = await fetch('/api/config/business-types');
+                        const data = await response.json();
+                        this.businessTypes = data.businessTypes;
+                    } catch (error) {
+                        console.error('Failed to load business types:', error);
+                    }
+                },
+
+                loadBusinessTypeConfig() {
+                    if (this.wizardData.businessType && this.businessTypes[this.wizardData.businessType]) {
+                        // Set recommended colors based on business type
+                        const businessConfig = this.businessTypes[this.wizardData.businessType];
+                        if (businessConfig.defaultColors) {
+                            this.wizardData.colors = { ...businessConfig.defaultColors };
+                        }
+                    }
+                },
+
+                selectColorPalette(palette) {
+                    this.wizardData.colors = { ...palette };
+                },
+
+                nextStep() {
+                    if (this.canProceedToNext()) {
+                        this.steps[this.currentStep].completed = true;
+                        this.currentStep++;
+                        this.saveProgress();
+                    }
+                },
+
+                previousStep() {
+                    if (this.currentStep > 0) {
+                        this.currentStep--;
+                    }
+                },
+
+                skipStep() {
+                    if (this.currentStep < 4) {
+                        this.steps[this.currentStep].completed = true;
+                        this.currentStep++;
+                        this.saveProgress();
+                    }
+                },
+
+                goToStep(index) {
+                    if (index <= this.currentStep || this.steps[index].completed) {
+                        this.currentStep = index;
+                    }
+                },
+
+                canProceedToNext() {
+                    switch (this.currentStep) {
+                        case 0:
+                            return this.wizardData.hasReadTerms;
+                        case 1:
+                            return this.wizardData.siteName && this.wizardData.businessType;
+                        case 2:
+                        case 3:
+                        case 4:
+                            return true;
+                        default:
+                            return false;
+                    }
+                },
+
+                validateStep(stepIndex) {
+                    this.validationErrors = {};
+                    
+                    if (stepIndex === 1) {
+                        if (!this.wizardData.siteName) {
+                            this.validationErrors.siteName = 'Site name is required';
+                        }
+                        if (!this.wizardData.businessType) {
+                            this.validationErrors.businessType = 'Business type is required';
+                        }
+                    }
+                },
+
+                getStepClass(index) {
+                    if (index < this.currentStep || this.steps[index].completed) {
+                        return 'step-completed';
+                    } else if (index === this.currentStep) {
+                        return 'step-active';
+                    } else {
+                        return 'step-pending';
+                    }
+                },
+
+                addService() {
+                    this.wizardData.services.push({ name: '', description: '' });
+                },
+
+                removeService(index) {
+                    this.wizardData.services.splice(index, 1);
+                },
+
+                async createSite() {
+                    this.creationInProgress = true;
+                    this.currentStep = 5;
+
+                    try {
+                        const response = await fetch('/api/sites/create', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                customerId: 'default-customer', // TODO: Get from auth
+                                siteData: {
+                                    name: this.wizardData.siteName,
+                                    businessType: this.wizardData.businessType,
+                                    domain: this.wizardData.domain,
+                                    slogan: this.wizardData.slogan,
+                                    colors: this.wizardData.colors,
+                                    about: this.wizardData.about,
+                                    services: this.wizardData.services.filter(s => s.name),
+                                    contact: this.wizardData.contact,
+                                    n8nEnabled: this.wizardData.n8nEnabled
+                                }
+                            })
+                        });
+
+                        const result = await response.json();
+                        this.creationResult = result;
+
+                        if (result.success && this.wizardData.deployAfterCreation) {
+                            // Auto-deploy if requested
+                            setTimeout(async () => {
+                                try {
+                                    await fetch(`/api/sites/default-customer/${result.site.id}/deploy`, {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ port: 3000 + Math.floor(Math.random() * 100) })
+                                    });
+                                } catch (error) {
+                                    console.error('Auto-deployment failed:', error);
+                                }
+                            }, 1000);
+                        }
+
+                    } catch (error) {
+                        this.creationResult = { success: false, error: error.message };
+                    } finally {
+                        this.creationInProgress = false;
+                        this.clearSavedProgress();
+                    }
+                },
+
+                resetWizard() {
+                    this.currentStep = 0;
+                    this.creationResult = null;
+                    this.creationInProgress = false;
+                    this.wizardData = {
+                        hasReadTerms: false,
+                        siteName: '',
+                        businessType: '',
+                        domain: '',
+                        slogan: '',
+                        colors: {
+                            primary: '#3B82F6',
+                            secondary: '#60A5FA',
+                            accent: '#93C5FD'
+                        },
+                        about: '',
+                        services: [{ name: '', description: '' }],
+                        contact: { email: '', phone: '' },
+                        n8nEnabled: false,
+                        deployAfterCreation: true
+                    };
+                    this.steps.forEach(step => step.completed = false);
+                    this.clearSavedProgress();
+                },
+
+                saveProgress() {
+                    this.savingProgress = true;
+                    const progressData = {
+                        currentStep: this.currentStep,
+                        wizardData: this.wizardData,
+                        steps: this.steps,
+                        timestamp: Date.now()
+                    };
+                    localStorage.setItem('websiteWizardProgress', JSON.stringify(progressData));
+                    
+                    setTimeout(() => {
+                        this.savingProgress = false;
+                    }, 1000);
+                },
+
+                loadSavedProgress() {
+                    const saved = localStorage.getItem('websiteWizardProgress');
+                    if (saved) {
+                        try {
+                            const progressData = JSON.parse(saved);
+                            // Only restore if saved within last 24 hours
+                            if (Date.now() - progressData.timestamp < 24 * 60 * 60 * 1000) {
+                                this.currentStep = progressData.currentStep;
+                                this.wizardData = { ...this.wizardData, ...progressData.wizardData };
+                                this.steps = progressData.steps;
+                            }
+                        } catch (error) {
+                            console.error('Failed to load saved progress:', error);
+                        }
+                    }
+                },
+
+                clearSavedProgress() {
+                    localStorage.removeItem('websiteWizardProgress');
+                },
+
+                setupAutoSave() {
+                    // Save progress every 30 seconds
+                    setInterval(() => {
+                        if (this.currentStep > 0 && this.currentStep < 5) {
+                            this.saveProgress();
+                        }
+                    }, 30000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

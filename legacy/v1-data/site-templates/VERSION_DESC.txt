@@ -1,0 +1,1 @@
+v1.1.1.9.2.3.4 - Dynamic template selection + Mode Rapide fixes

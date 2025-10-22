@@ -1,0 +1,39 @@
+{
+  "name": "development",
+  "description": "Local development environment",
+  "services": {
+    "backend": {
+      "port": 7600,
+      "host": "localhost",
+      "url": "http://localhost:7600"
+    },
+    "frontend": {
+      "port": 7601, 
+      "host": "localhost",
+      "url": "http://localhost:7601"
+    },
+    "database": {
+      "host": "localhost",
+      "port": 5433,
+      "name": "logen_db",
+      "username": "logen_user",
+      "password": "logen_pass_2024"
+    }
+  },
+  "features": {
+    "debug_logging": true,
+    "hot_reload": true,
+    "api_docs": true,
+    "metrics": true
+  },
+  "security": {
+    "jwt_secret": "logen-jwt-secret-development",
+    "cors_enabled": true,
+    "rate_limiting": false
+  },
+  "monitoring": {
+    "health_checks": true,
+    "performance_metrics": true,
+    "error_tracking": true
+  }
+}

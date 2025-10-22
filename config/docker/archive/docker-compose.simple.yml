@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # NestJS Backend - Production
+  backend:
+    build:
+      context: ../../apps/backend
+      dockerfile: Dockerfile.prod
+    container_name: logen-backend-simple
+    environment:
+      NODE_ENV: production
+      DB_HOST: logen-postgres-main
+      DB_PORT: 5432
+      DB_USERNAME: locod_user
+      DB_PASSWORD: locod_pass_2024
+      DB_DATABASE: locod_db
+      DB_SSL: "false"
+      JWT_SECRET: logen_jwt_secret_production_2024_secure_key_v2
+      JWT_EXPIRES_IN: 24h
+      PORT: 7600
+    ports:
+      - "7600:7600"
+    networks:
+      - logen-simple
+    restart: unless-stopped
+    external_links:
+      - logen-postgres-main:postgres
+
+  # Next.js Frontend - Production
+  frontend:
+    build:
+      context: ../../apps/frontend
+      dockerfile: Dockerfile.prod
+    container_name: logen-frontend-simple
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://logen-backend-simple:7600
+      PORT: 7601
+    ports:
+      - "7601:7601"
+    depends_on:
+      - backend
+    networks:
+      - logen-simple
+    restart: unless-stopped
+
+  # Next.js Admin Frontend - Production
+  admin-frontend:
+    build:
+      context: ../../apps/admin-frontend
+      dockerfile: Dockerfile.prod
+    container_name: logen-admin-frontend-simple
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://logen-backend-simple:7600
+      PORT: 7602
+    ports:
+      - "7602:7602"
+    depends_on:
+      - backend
+    networks:
+      - logen-simple
+    restart: unless-stopped
+
+networks:
+  logen-simple:
+    driver: bridge

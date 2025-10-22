@@ -1,0 +1,49 @@
+{
+  "name": "logen-admin-browser-automation-tests",
+  "version": "1.0.0",
+  "description": "Comprehensive browser automation tests for LOGEN admin portal - Real browser testing to catch actual issues",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:width": "playwright test admin-form-width",
+    "test:errors": "playwright test admin-javascript-errors", 
+    "test:network": "playwright test admin-network-api",
+    "test:e2e": "playwright test admin-e2e-flow",
+    "test:visual": "playwright test admin-visual-regression",
+    "test:performance": "playwright test admin-performance",
+    "test:wizard-v2": "playwright test wizard-v2-comprehensive",
+    "test:wizard-v2-basic": "playwright test wizard-v2-basic --config=playwright-wizard.config.ts",
+    "test:wizard-v2-targeted": "playwright test wizard-v2-targeted --config=playwright-wizard.config.ts", 
+    "test:wizard-v2-headed": "playwright test wizard-v2-comprehensive --headed",
+    "test:wizard-v2-debug": "playwright test wizard-v2-comprehensive --debug",
+    "wizard-summary": "node wizard-validation-summary.js",
+    "test:critical": "playwright test admin-form-width admin-javascript-errors admin-network-api wizard-v2-comprehensive",
+    "test:all": "playwright test --reporter=html,junit,json",
+    "install-browsers": "playwright install",
+    "install-deps": "playwright install-deps"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "browser-automation",
+    "e2e",
+    "admin-portal",
+    "logen",
+    "qa",
+    "form-width",
+    "javascript-errors"
+  ],
+  "author": "LOGEN QA Team",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

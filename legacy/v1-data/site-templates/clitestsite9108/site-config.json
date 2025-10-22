@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "domain": "cli-test.example.com",
+    "language": "fr",
+    "timezone": "Europe/Paris"
+  },
+  "brand": {
+    "name": "CLI Test Site",
+    "slogan": "Created via CLI",
+    "colors": {
+      "primary": "#059669",
+      "secondary": "#10B981",
+      "accent": "#34D399"
+    }
+  },
+  "content": {
+    "hero": {
+      "title": "Created via CLI",
+      "description": "Découvrez les services CLI Test Site",
+      "cta": {
+        "primary": "Demander un devis",
+        "secondary": "Voir nos services"
+      }
+    },
+    "services": [],
+    "cta": {
+      "title": "Prêt à démarrer votre projet de traduction ?",
+      "description": "Contactez-nous pour discuter de vos besoins et recevoir un devis personnalisé."
+    }
+  },
+  "contact": {},
+  "integrations": {
+    "n8n": {
+      "enabled": false
+    }
+  }
+}

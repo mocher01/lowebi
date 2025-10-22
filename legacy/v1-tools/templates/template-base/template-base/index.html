@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{SITE_TITLE}}</title>
+    <meta name="description" content="{{SITE_DESCRIPTION}}" />
+    <link rel="canonical" href="{{SITE_CANONICAL}}" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{SITE_TITLE}}" />
+    <meta property="og:description" content="{{SITE_DESCRIPTION}}" />
+    <meta property="og:image" content="{{SITE_LOGO_NAVBAR}}" />
+    <meta property="og:url" content="{{SITE_CANONICAL}}" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{SITE_TITLE}}" />
+    <meta name="twitter:description" content="{{SITE_DESCRIPTION}}" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/{{SITE_FAVICON_LIGHT}}" />
+    <link rel="apple-touch-icon" href="/assets/{{SITE_FAVICON_LIGHT}}" />
+    
+    <!-- Configuration injectée - évite le problème de race condition -->
+    <script>
+      window.SITE_CONFIG = {{SITE_CONFIG_JSON}};
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Version flag pour vérifier le déploiement -->
+    <div id="version-flag" style="position:fixed;bottom:5px;right:5px;background:rgba(0,0,0,0.7);color:white;padding:2px 6px;font-size:10px;border-radius:3px;z-index:9999;">
+      v{{TIMESTAMP}}
+    </div>
+  </body>
+</html>

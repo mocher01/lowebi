@@ -1,0 +1,1431 @@
+'use client';
+
+import React, { useRef } from 'react';
+import { useWizard } from '../wizard-provider';
+
+export function ImageLogoStep() {
+  const { wizardData, updateWizardData, requestAiContent, getAiRequestStatus } = useWizard();
+  
+  // File input refs for manual uploads
+  const heroInputRef = useRef<HTMLInputElement>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const logoFooterInputRef = useRef<HTMLInputElement>(null);
+  const faviconLightInputRef = useRef<HTMLInputElement>(null);
+  const faviconDarkInputRef = useRef<HTMLInputElement>(null);
+  const serviceInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const blogInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  
+  // Get AI request status for images
+  const aiRequest = getAiRequestStatus('images');
+
+  // Initialize image choices if not set
+  const initializeImageChoices = () => {
+    if (!wizardData.imageChoices) {
+      updateWizardData({
+        imageChoices: {
+          logo: 'upload',
+          logoFooter: 'upload',
+          hero: 'upload',
+          faviconLight: 'upload',
+          faviconDark: 'upload'
+        }
+      });
+    }
+  };
+
+  // Handle image approach selection
+  const selectImageApproach = (approach: 'manual' | 'ai' | 'mixed') => {
+    updateWizardData({ 
+      imageApproach: approach,
+      otherImagesChoice: approach === 'ai' ? 'ai' : 'upload'
+    });
+    initializeImageChoices();
+  };
+
+  // Handle individual image choice for mixed approach
+  const setImageChoice = (imageType: string, choice: 'upload' | 'ai') => {
+    const newImageChoices = { ...wizardData.imageChoices };
+    
+    if (imageType.startsWith('service_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      if (!newImageChoices.services) newImageChoices.services = [];
+      newImageChoices.services[index] = choice;
+    } else if (imageType.startsWith('blog_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      if (!newImageChoices.blog) newImageChoices.blog = [];
+      newImageChoices.blog[index] = choice;
+    } else {
+      (newImageChoices as any)[imageType] = choice;
+    }
+    
+    updateWizardData({ imageChoices: newImageChoices });
+  };
+
+  // Handle file upload for specific image type
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, imageType: string) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Create object URL for preview
+    const imageUrl = URL.createObjectURL(file);
+
+    // Update wizard data with the image URL
+    const newImages = { ...wizardData.images };
+
+    if (imageType.startsWith('service_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      if (!newImages.services) newImages.services = [];
+      newImages.services[index] = imageUrl;
+    } else if (imageType.startsWith('blog_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      if (!newImages.blog) newImages.blog = [];
+      newImages.blog[index] = imageUrl;
+    } else {
+      (newImages as any)[imageType] = imageUrl;
+    }
+
+    updateWizardData({ images: newImages });
+  };
+
+  // Handle drag and drop
+  const handleFileDrop = (event: React.DragEvent, imageType: string) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
+    if (!file) return;
+
+    // Create object URL for preview directly
+    const imageUrl = URL.createObjectURL(file);
+
+    // Update wizard data with the image URL
+    const newImages = { ...wizardData.images };
+
+    if (imageType.startsWith('service_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      if (!newImages.services) newImages.services = [];
+      newImages.services[index] = imageUrl;
+    } else if (imageType.startsWith('blog_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      if (!newImages.blog) newImages.blog = [];
+      newImages.blog[index] = imageUrl;
+    } else {
+      (newImages as any)[imageType] = imageUrl;
+    }
+
+    updateWizardData({ images: newImages });
+  };
+
+  // Trigger service image upload
+  const triggerServiceUpload = (index: number) => {
+    serviceInputRefs.current[index]?.click();
+  };
+
+  // Trigger blog image upload
+  const triggerBlogUpload = (index: number) => {
+    blogInputRefs.current[index]?.click();
+  };
+
+  // Request AI image generation
+  const requestImageGeneration = async () => {
+    try {
+      // Determine which images need AI generation based on user's approach choice
+      const imagesNeeded: any = {};
+      
+      if (wizardData.imageApproach === 'ai') {
+        // AI approach: generate all images
+        imagesNeeded.logo = true;
+        imagesNeeded.logoFooter = true;
+        imagesNeeded.hero = true;
+        imagesNeeded.faviconLight = true;
+        imagesNeeded.faviconDark = true;
+        imagesNeeded.services = wizardData.services?.map(s => s.name || s.title) || [];
+        // Add missing image types for complete coverage
+        if (wizardData.blog?.articles?.length) {
+          imagesNeeded.blogArticles = wizardData.blog.articles.map(article => article.title);
+        }
+        imagesNeeded.about = true;
+        imagesNeeded.contact = true;
+      } else if (wizardData.imageApproach === 'mixed') {
+        // Mixed approach: only generate images marked as 'ai'
+        const choices = wizardData.imageChoices || {};
+        
+        if (choices.logo === 'ai') imagesNeeded.logo = true;
+        if (choices.logoFooter === 'ai') imagesNeeded.logoFooter = true;
+        if (choices.hero === 'ai') imagesNeeded.hero = true;
+        if (choices.faviconLight === 'ai') imagesNeeded.faviconLight = true;
+        if (choices.faviconDark === 'ai') imagesNeeded.faviconDark = true;
+        
+        // Check service images
+        const servicesForAI: string[] = [];
+        wizardData.services?.forEach((service, index) => {
+          if (!choices.services || choices.services[index] === 'ai') {
+            servicesForAI.push(service.name || service.title || `Service ${index + 1}`);
+          }
+        });
+        if (servicesForAI.length > 0) imagesNeeded.services = servicesForAI;
+
+        // Check blog article images
+        const blogArticlesForAI: string[] = [];
+        wizardData.blog?.articles?.forEach((article, index) => {
+          if (!choices.blog || choices.blog[index] === 'ai') {
+            blogArticlesForAI.push(article.title || `Article ${index + 1}`);
+          }
+        });
+        if (blogArticlesForAI.length > 0) imagesNeeded.blogArticles = blogArticlesForAI;
+      }
+
+      const requestData = {
+        siteName: wizardData.siteName,
+        businessType: wizardData.businessType,
+        businessDescription: wizardData.businessDescription,
+        terminology: wizardData.terminology,
+        aiStyle: wizardData.aiStyle || 'modern',
+        colors: wizardData.colors,
+        approach: wizardData.imageApproach,
+        imagesNeeded: imagesNeeded,
+        // Include blog data for proper image generation
+        blog: wizardData.blog,
+        services: wizardData.services,
+        // Include all wizard data for complete context
+        wizardData: wizardData
+      };
+      
+      await requestAiContent('images', requestData);
+    } catch (error) {
+      console.error('Failed to request AI image generation:', error);
+    }
+  };
+
+  return (
+    <div className="wizard-step p-8">
+      <h2 className="text-2xl font-bold mb-6 text-gray-900">Images et Visuels</h2>
+      <p className="text-gray-700 mb-8">Choisissez comment créer les images de votre site</p>
+
+      {/* Simplified choices - V1 style */}
+      <div className="space-y-4">
+        {/* Option 1: Manual Upload */}
+        <div 
+          className={`border-2 rounded-lg p-6 cursor-pointer transition-all ${
+            wizardData.imageApproach === 'manual' 
+              ? 'border-blue-500 bg-blue-50' 
+              : 'border-gray-200 hover:border-gray-300'
+          }`}
+          onClick={() => selectImageApproach('manual')}
+        >
+          <div className="flex items-start space-x-4">
+            <div className="flex-shrink-0">
+              <input 
+                type="radio" 
+                checked={wizardData.imageApproach === 'manual'} 
+                onChange={() => {}} 
+                className="mt-1" 
+              />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-semibold text-lg mb-1 text-gray-900">J'ai déjà mes images</h4>
+              <p className="text-gray-800 text-sm">Uploadez vos propres logos et images maintenant</p>
+              <div className="mt-2 text-green-600 font-medium text-sm">✓ Immédiat et gratuit</div>
+            </div>
+          </div>
+          
+          {/* Upload interface if selected - V1 style */}
+          {wizardData.imageApproach === 'manual' && (
+            <div className="mt-6 border-t pt-6 space-y-6">
+              {/* Hero Banner - Featured prominently */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <label className="block text-sm font-medium mb-2 text-blue-900">🏠 Image Bannière (Hero)</label>
+                <p className="text-xs text-blue-700 mb-3">Grande image d'accueil en arrière-plan de votre page principale</p>
+                <div className="flex justify-center">
+                  <div 
+                    onDrop={(e) => handleFileDrop(e, 'hero')}
+                    onDragOver={(e) => e.preventDefault()}
+                    className="border-2 border-dashed border-blue-300 rounded-lg p-4 text-center hover:border-blue-400 cursor-pointer h-32 w-48 flex items-center justify-center bg-white"
+                    onClick={() => heroInputRef.current?.click()}
+                  >
+                    {!wizardData.images?.hero ? (
+                      <div className="text-blue-400">
+                        <svg className="w-8 h-8 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z"></path>
+                        </svg>
+                        <p className="text-xs">Bannière hero</p>
+                      </div>
+                    ) : (
+                      <div>
+                        <img src={wizardData.images.hero} className="max-h-20 mx-auto" alt="Hero" />
+                        <p className="text-xs text-green-600 mt-1">✓ Uploadé</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <p className="text-xs text-gray-700 text-center mt-2">Recommandé: 1920x1080px</p>
+                <input 
+                  type="file" 
+                  ref={heroInputRef} 
+                  onChange={(e) => handleFileUpload(e, 'hero')} 
+                  accept="image/*" 
+                  className="hidden" 
+                />
+              </div>
+
+              {/* Logos - Grouped together */}
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm font-medium mb-3 text-green-900">🏢 Logos du Site</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Logo Navigation */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-gray-700">Logo Navigation</label>
+                    <div 
+                      onDrop={(e) => handleFileDrop(e, 'logo')}
+                      onDragOver={(e) => e.preventDefault()}
+                      className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 cursor-pointer h-24 flex items-center justify-center"
+                      onClick={() => logoInputRef.current?.click()}
+                    >
+                      {!wizardData.images?.logo ? (
+                        <div className="text-gray-600">
+                          <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                          </svg>
+                          <p className="text-xs">Menu principal</p>
+                        </div>
+                      ) : (
+                        <div>
+                          <img src={wizardData.images.logo} className="max-h-16 mx-auto" alt="Logo" />
+                          <p className="text-xs text-green-600 mt-1">✓ Uploadé</p>
+                        </div>
+                      )}
+                    </div>
+                    <input 
+                      type="file" 
+                      ref={logoInputRef} 
+                      onChange={(e) => handleFileUpload(e, 'logo')} 
+                      accept="image/*" 
+                      className="hidden" 
+                    />
+                  </div>
+                  
+                  {/* Logo Footer */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-gray-700">Logo Footer</label>
+                    <div 
+                      onDrop={(e) => handleFileDrop(e, 'logoFooter')}
+                      onDragOver={(e) => e.preventDefault()}
+                      className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 cursor-pointer h-24 flex items-center justify-center"
+                      onClick={() => logoFooterInputRef.current?.click()}
+                    >
+                      {!wizardData.images?.logoFooter ? (
+                        <div className="text-gray-600">
+                          <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                          </svg>
+                          <p className="text-xs">Pied de page</p>
+                        </div>
+                      ) : (
+                        <div>
+                          <img src={wizardData.images.logoFooter} className="max-h-16 mx-auto" alt="Logo Footer" />
+                          <p className="text-xs text-green-600 mt-1">✓ Uploadé</p>
+                        </div>
+                      )}
+                    </div>
+                    <input 
+                      type="file" 
+                      ref={logoFooterInputRef} 
+                      onChange={(e) => handleFileUpload(e, 'logoFooter')} 
+                      accept="image/*" 
+                      className="hidden" 
+                    />
+                  </div>
+                </div>
+                <p className="text-xs text-gray-700 text-center mt-3">💡 Souvent identiques - vous pouvez utiliser la même image pour les deux</p>
+              </div>
+              
+              {/* Favicons */}
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">Favicons (optionnels)</label>
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Favicon Light */}
+                  <div 
+                    onDrop={(e) => handleFileDrop(e, 'faviconLight')}
+                    onDragOver={(e) => e.preventDefault()}
+                    className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 cursor-pointer h-16 flex items-center justify-center"
+                    onClick={() => faviconLightInputRef.current?.click()}
+                  >
+                    {!wizardData.images?.faviconLight ? (
+                      <div className="text-gray-600">
+                        <svg className="w-4 h-4 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <p className="text-xs">Clair 32px</p>
+                      </div>
+                    ) : (
+                      <div>
+                        <img src={wizardData.images.faviconLight} className="max-h-8 mx-auto" alt="Favicon Light" />
+                        <p className="text-xs text-green-600 mt-1">✓</p>
+                      </div>
+                    )}
+                  </div>
+                  <input 
+                    type="file" 
+                    ref={faviconLightInputRef} 
+                    onChange={(e) => handleFileUpload(e, 'faviconLight')} 
+                    accept="image/*" 
+                    className="hidden" 
+                  />
+                  
+                  {/* Favicon Dark */}
+                  <div 
+                    onDrop={(e) => handleFileDrop(e, 'faviconDark')}
+                    onDragOver={(e) => e.preventDefault()}
+                    className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 cursor-pointer h-16 flex items-center justify-center"
+                    onClick={() => faviconDarkInputRef.current?.click()}
+                  >
+                    {!wizardData.images?.faviconDark ? (
+                      <div className="text-gray-600">
+                        <svg className="w-4 h-4 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <p className="text-xs">Sombre 32px</p>
+                      </div>
+                    ) : (
+                      <div>
+                        <img src={wizardData.images.faviconDark} className="max-h-8 mx-auto" alt="Favicon Dark" />
+                        <p className="text-xs text-green-600 mt-1">✓</p>
+                      </div>
+                    )}
+                  </div>
+                  <input 
+                    type="file" 
+                    ref={faviconDarkInputRef} 
+                    onChange={(e) => handleFileUpload(e, 'faviconDark')} 
+                    accept="image/*" 
+                    className="hidden" 
+                  />
+                </div>
+              </div>
+              
+              {/* Service Images */}
+              {wizardData.services && wizardData.services.length > 0 && (
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-700">
+                    Images pour vos {wizardData.terminology || 'services'} (optionnelles)
+                  </label>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {wizardData.services.map((service, index) => (
+                      <div key={service.id || index}>
+                        <div
+                          onDrop={(e) => handleFileDrop(e, `service_${index}`)}
+                          onDragOver={(e) => e.preventDefault()}
+                          className="border-2 border-dashed border-gray-300 rounded-lg p-2 text-center hover:border-gray-400 cursor-pointer h-16 flex items-center justify-center"
+                          onClick={() => triggerServiceUpload(index)}
+                        >
+                          {!wizardData.images?.services?.[index] ? (
+                            <div className="text-gray-600">
+                              <svg className="w-4 h-4 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z"></path>
+                              </svg>
+                              <p className="text-xs">{(service.name || service.title || 'Service').substring(0,10)}</p>
+                            </div>
+                          ) : (
+                            <div>
+                              <img src={wizardData.images.services[index]} className="max-h-10 mx-auto" alt={`Service ${index}`} />
+                              <p className="text-xs text-green-600">✓</p>
+                            </div>
+                          )}
+                        </div>
+                        <input
+                          type="file"
+                          ref={(el) => { serviceInputRefs.current[index] = el; }}
+                          onChange={(e) => handleFileUpload(e, `service_${index}`)}
+                          accept="image/*"
+                          className="hidden"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Blog Article Images */}
+              {wizardData.blog?.articles && wizardData.blog.articles.length > 0 && (
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-700">
+                    Images pour vos articles de blog (optionnelles)
+                  </label>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {wizardData.blog.articles.map((article, index) => (
+                      <div key={index}>
+                        <div
+                          onDrop={(e) => handleFileDrop(e, `blog_${index}`)}
+                          onDragOver={(e) => e.preventDefault()}
+                          className="border-2 border-dashed border-gray-300 rounded-lg p-2 text-center hover:border-gray-400 cursor-pointer h-16 flex items-center justify-center"
+                          onClick={() => triggerBlogUpload(index)}
+                        >
+                          {!wizardData.images?.blog?.[index] ? (
+                            <div className="text-gray-600">
+                              <svg className="w-4 h-4 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z"></path>
+                              </svg>
+                              <p className="text-xs">{(article.title || 'Article').substring(0,10)}</p>
+                            </div>
+                          ) : (
+                            <div>
+                              <img src={wizardData.images.blog[index]} className="max-h-10 mx-auto" alt={`Blog ${index}`} />
+                              <p className="text-xs text-green-600">✓</p>
+                            </div>
+                          )}
+                        </div>
+                        <input
+                          type="file"
+                          ref={(el) => { blogInputRefs.current[index] = el; }}
+                          onChange={(e) => handleFileUpload(e, `blog_${index}`)}
+                          accept="image/*"
+                          className="hidden"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Help Text */}
+              <div className="text-sm text-gray-700 bg-blue-50 rounded-lg p-3">
+                <div className="space-y-1">
+                  <div><strong>Images requises:</strong></div>
+                  <div>• <strong>Logo principal:</strong> Logo affiché dans la navigation</div>
+                  <div>• <strong>Image bannière:</strong> Grande image d'accueil (hero)</div>
+                  <div className="mt-2"><strong>Images optionnelles:</strong></div>
+                  <div>• <strong>Logo footer:</strong> Version alternative pour le pied de page</div>
+                  <div>• <strong>Favicons:</strong> Icônes du site (32x32px)</div>
+                  <div>• <strong>Images {wizardData.terminology || 'services'}:</strong> Illustrations pour vos {wizardData.terminology || 'services'}</div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Option 2: AI Generation - WITH QUEUE INTEGRATION */}
+        <div 
+          className={`border-2 rounded-lg p-6 cursor-pointer transition-all ${
+            wizardData.imageApproach === 'ai' 
+              ? 'border-purple-500 bg-purple-50' 
+              : 'border-gray-200 hover:border-gray-300'
+          }`}
+          onClick={() => selectImageApproach('ai')}
+        >
+          <div className="flex items-start space-x-4">
+            <div className="flex-shrink-0">
+              <input 
+                type="radio" 
+                checked={wizardData.imageApproach === 'ai'} 
+                onChange={() => {}} 
+                className="mt-1" 
+              />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-semibold text-lg mb-1 text-gray-900">Générer mes images par IA</h4>
+              <p className="text-gray-800 text-sm">Un expert créera toutes vos images selon votre activité</p>
+              <div className="mt-2 text-purple-600 font-medium text-sm">🎨 Création professionnelle</div>
+            </div>
+          </div>
+          
+          {/* AI Options if selected - WITH QUEUE INTEGRATION */}
+          {wizardData.imageApproach === 'ai' && (
+            <div className="mt-6 border-t pt-6 space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">Style visuel souhaité</label>
+                <select 
+                  value={wizardData.aiStyle || 'modern'} 
+                  onChange={(e) => updateWizardData({ aiStyle: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900"
+                >
+                  <option value="modern">Moderne et épuré</option>
+                  <option value="professional">Professionnel corporate</option>
+                  <option value="creative">Créatif et artistique</option>
+                  <option value="warm">Chaleureux et accessible</option>
+                </select>
+              </div>
+              
+              {/* AI Request Button - INTEGRATED WITH ADMIN QUEUE */}
+              <button 
+                onClick={requestImageGeneration}
+                disabled={aiRequest.status === 'pending' || aiRequest.status === 'processing'}
+                className={`w-full px-4 py-3 rounded-lg font-medium transition-colors ${
+                  aiRequest.status === 'pending' || aiRequest.status === 'processing'
+                    ? 'bg-gray-400 cursor-not-allowed text-white'
+                    : aiRequest.status === 'completed'
+                    ? 'bg-green-600 hover:bg-green-700 text-white'
+                    : 'bg-purple-600 hover:bg-purple-700 text-white'
+                }`}
+              >
+                {!aiRequest.id && '🎨 Demander la génération de toutes les images'}
+                {aiRequest.status === 'pending' && '⏳ En attente de traitement...'}
+                {aiRequest.status === 'processing' && '🎨 Génération en cours...'}
+                {aiRequest.status === 'completed' && '✅ Images prêtes !'}
+                {aiRequest.status === 'rejected' && '❌ Demande rejetée'}
+                {aiRequest.status === 'failed' && '⚠️ Erreur - Réessayer'}
+              </button>
+              
+              {/* AI Request Status */}
+              {aiRequest.id && (
+                <div className="bg-purple-100 rounded-lg p-3 text-sm">
+                  <p className="text-purple-800">
+                    Demande #{aiRequest.id} créée.
+                    Un expert va générer vos images et les intégrer directement à votre site.
+                  </p>
+                  {aiRequest.elapsedTime && (
+                    <p className="text-purple-600 mt-1 font-mono text-xs">
+                      ⏱️ Temps écoulé: {aiRequest.elapsedTime}
+                    </p>
+                  )}
+                </div>
+              )}
+              
+              {/* V2.1: Show upload fields with generated images after completion */}
+              {aiRequest.status === 'completed' && aiRequest.generatedContent && (
+                <div className="space-y-4">
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <h4 className="font-semibold text-green-900 mb-2">✅ Images générées avec succès!</h4>
+                    <p className="text-green-800 text-sm">
+                      Vos images sont maintenant disponibles ci-dessous. Vous pouvez les télécharger ou les remplacer.
+                    </p>
+                  </div>
+
+                  {/* V2.1: Shared upload fields - same as manual mode */}
+                  <div className="border-t pt-6 space-y-6">
+                    {/* Hero Banner */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <label className="block text-sm font-medium mb-2 text-blue-900">🏠 Image Bannière (Hero)</label>
+                      <p className="text-xs text-blue-700 mb-3">Grande image d'accueil en arrière-plan de votre page principale</p>
+                      <div className="flex justify-center">
+                        <div
+                          onDrop={(e) => handleFileDrop(e, 'hero')}
+                          onDragOver={(e) => e.preventDefault()}
+                          className="border-2 border-dashed border-blue-300 rounded-lg p-4 text-center hover:border-blue-400 cursor-pointer h-32 w-48 flex items-center justify-center bg-white"
+                          onClick={() => heroInputRef.current?.click()}
+                        >
+                          {!wizardData.images?.hero ? (
+                            <div className="text-blue-400">
+                              <svg className="w-8 h-8 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z"></path>
+                              </svg>
+                              <p className="text-xs">Bannière hero</p>
+                            </div>
+                          ) : (
+                            <div className="relative">
+                              <img src={wizardData.images.hero} className="max-h-20 mx-auto" alt="Hero" crossOrigin="anonymous" />
+                              <p className="text-xs text-green-600 mt-1">✓ Disponible</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {wizardData.images?.hero && (
+                        <div className="flex justify-center gap-2 mt-2">
+                          <a
+                            href={wizardData.images.hero}
+                            download="hero-image.png"
+                            className="text-xs bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            📥 Télécharger
+                          </a>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); heroInputRef.current?.click(); }}
+                            className="text-xs bg-orange-600 text-white px-3 py-1 rounded hover:bg-orange-700"
+                          >
+                            🔄 Remplacer
+                          </button>
+                        </div>
+                      )}
+                      <p className="text-xs text-gray-700 text-center mt-2">Recommandé: 1920x1080px</p>
+                      <input
+                        type="file"
+                        ref={heroInputRef}
+                        onChange={(e) => handleFileUpload(e, 'hero')}
+                        accept="image/*"
+                        className="hidden"
+                      />
+                    </div>
+
+                    {/* Logos Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Logo Navigation */}
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <label className="block text-sm font-medium mb-3 text-gray-900">📱 Logo Navigation</label>
+                        <div className="flex justify-center">
+                          <div
+                            onDrop={(e) => handleFileDrop(e, 'logo')}
+                            onDragOver={(e) => e.preventDefault()}
+                            className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 cursor-pointer h-24 w-32 flex items-center justify-center bg-white"
+                            onClick={() => logoInputRef.current?.click()}
+                          >
+                            {!wizardData.images?.logo ? (
+                              <div className="text-gray-600">
+                                <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <p className="text-xs">Menu principal</p>
+                              </div>
+                            ) : (
+                              <div>
+                                <img src={wizardData.images.logo} className="max-h-16 mx-auto" alt="Logo" crossOrigin="anonymous" />
+                                <p className="text-xs text-green-600 mt-1">✓ Disponible</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        {wizardData.images?.logo && (
+                          <div className="flex justify-center gap-2 mt-2">
+                            <a
+                              href={wizardData.images.logo}
+                              download="logo.png"
+                              className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              📥 Télécharger
+                            </a>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); logoInputRef.current?.click(); }}
+                              className="text-xs bg-orange-600 text-white px-2 py-1 rounded hover:bg-orange-700"
+                            >
+                              🔄 Remplacer
+                            </button>
+                          </div>
+                        )}
+                        <input
+                          type="file"
+                          ref={logoInputRef}
+                          onChange={(e) => handleFileUpload(e, 'logo')}
+                          accept="image/*"
+                          className="hidden"
+                        />
+                      </div>
+
+                      {/* Logo Footer */}
+                      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                        <label className="block text-sm font-medium mb-3 text-gray-900">🦶 Logo Pied de page</label>
+                        <div className="flex justify-center">
+                          <div
+                            onDrop={(e) => handleFileDrop(e, 'logoFooter')}
+                            onDragOver={(e) => e.preventDefault()}
+                            className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 cursor-pointer h-24 w-32 flex items-center justify-center bg-white"
+                            onClick={() => logoFooterInputRef.current?.click()}
+                          >
+                            {!wizardData.images?.logoFooter ? (
+                              <div className="text-gray-600">
+                                <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                                <p className="text-xs">Pied de page</p>
+                              </div>
+                            ) : (
+                              <div>
+                                <img src={wizardData.images.logoFooter} className="max-h-16 mx-auto" alt="Logo Footer" crossOrigin="anonymous" />
+                                <p className="text-xs text-green-600 mt-1">✓ Disponible</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        {wizardData.images?.logoFooter && (
+                          <div className="flex justify-center gap-2 mt-2">
+                            <a
+                              href={wizardData.images.logoFooter}
+                              download="logo-footer.png"
+                              className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              📥 Télécharger
+                            </a>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); logoFooterInputRef.current?.click(); }}
+                              className="text-xs bg-orange-600 text-white px-2 py-1 rounded hover:bg-orange-700"
+                            >
+                              🔄 Remplacer
+                            </button>
+                          </div>
+                        )}
+                        <input
+                          type="file"
+                          ref={logoFooterInputRef}
+                          onChange={(e) => handleFileUpload(e, 'logoFooter')}
+                          accept="image/*"
+                          className="hidden"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Blog Header Image */}
+                    {wizardData.images?.blog && typeof wizardData.images.blog === 'string' && (
+                      <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                        <label className="block text-sm font-medium mb-3 text-purple-900">📰 Image d'en-tête Blog</label>
+                        <div className="flex justify-center">
+                          <div className="border-2 border-dashed border-purple-300 rounded-lg p-3 text-center h-24 w-32 flex items-center justify-center bg-white">
+                            <div>
+                              <img
+                                src={wizardData.images.blog}
+                                className="max-h-16 mx-auto"
+                                alt="Blog Header"
+                                crossOrigin="anonymous"
+                              />
+                              <p className="text-xs text-green-600 mt-1">✓ Disponible</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex justify-center gap-2 mt-2">
+                          <a
+                            href={wizardData.images.blog}
+                            download="blog-header.png"
+                            className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                          >
+                            📥 Télécharger
+                          </a>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Favicons */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {wizardData.images?.faviconLight && (
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                          <label className="block text-sm font-medium mb-3 text-blue-900">☀️ Favicon Clair</label>
+                          <div className="flex justify-center">
+                            <div className="border-2 border-dashed border-blue-300 rounded-lg p-3 text-center h-20 w-20 flex items-center justify-center bg-white">
+                              <img
+                                src={wizardData.images.faviconLight}
+                                className="max-h-12 mx-auto"
+                                alt="Favicon Light"
+                                crossOrigin="anonymous"
+                              />
+                            </div>
+                          </div>
+                          <div className="flex justify-center gap-2 mt-2">
+                            <a
+                              href={wizardData.images.faviconLight}
+                              download="favicon-light.png"
+                              className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                            >
+                              📥 Télécharger
+                            </a>
+                          </div>
+                        </div>
+                      )}
+
+                      {wizardData.images?.faviconDark && (
+                        <div className="bg-gray-700 border border-gray-600 rounded-lg p-4">
+                          <label className="block text-sm font-medium mb-3 text-gray-100">🌙 Favicon Sombre</label>
+                          <div className="flex justify-center">
+                            <div className="border-2 border-dashed border-gray-500 rounded-lg p-3 text-center h-20 w-20 flex items-center justify-center bg-gray-800">
+                              <img
+                                src={wizardData.images.faviconDark}
+                                className="max-h-12 mx-auto"
+                                alt="Favicon Dark"
+                                crossOrigin="anonymous"
+                              />
+                            </div>
+                          </div>
+                          <div className="flex justify-center gap-2 mt-2">
+                            <a
+                              href={wizardData.images.faviconDark}
+                              download="favicon-dark.png"
+                              className="text-xs bg-gray-600 text-white px-2 py-1 rounded hover:bg-gray-500"
+                            >
+                              📥 Télécharger
+                            </a>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Service Images - Display if any exist */}
+                    {Object.keys(wizardData.images || {}).some(key => key.startsWith('service')) && (
+                      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <label className="block text-sm font-medium mb-3 text-green-900">
+                          🔧 Images de Services
+                        </label>
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                          {Object.entries(wizardData.images || {})
+                            .filter(([key, url]) => key.startsWith('service') && typeof url === 'string')
+                            .map(([key, url], index) => (
+                              <div key={key}>
+                                <div className="flex justify-center">
+                                  <div className="border-2 border-dashed border-green-300 rounded-lg p-2 text-center h-20 w-24 flex items-center justify-center bg-white">
+                                    <img
+                                      src={url as string}
+                                      className="max-h-14 mx-auto"
+                                      alt={`Service ${index + 1}`}
+                                      crossOrigin="anonymous"
+                                    />
+                                  </div>
+                                </div>
+                                <div className="flex justify-center mt-1">
+                                  <a
+                                    href={url as string}
+                                    download={`service-${index + 1}.png`}
+                                    className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                                  >
+                                    📥
+                                  </a>
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Blog Article Images - V2.3: Show generated blog images */}
+                    {wizardData.blog?.articles && wizardData.blog.articles.length > 0 && (
+                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <label className="block text-sm font-medium mb-3 text-yellow-900">
+                          📝 Images pour vos articles de blog
+                        </label>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {wizardData.blog.articles.map((article, index) => (
+                            <div key={index}>
+                              <p className="text-xs text-gray-700 mb-2 truncate" title={article.title}>
+                                {article.title || `Article ${index + 1}`}
+                              </p>
+                              <div className="flex justify-center">
+                                <div
+                                  onDrop={(e) => handleFileDrop(e, `blog_${index}`)}
+                                  onDragOver={(e) => e.preventDefault()}
+                                  className="border-2 border-dashed border-yellow-300 rounded-lg p-3 text-center hover:border-yellow-400 cursor-pointer h-24 w-32 flex items-center justify-center bg-white"
+                                  onClick={() => triggerBlogUpload(index)}
+                                >
+                                  {!((wizardData.images as any)?.[`blog_${index}`]) ? (
+                                    <div className="text-yellow-600">
+                                      <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z"></path>
+                                      </svg>
+                                      <p className="text-xs">Article {index + 1}</p>
+                                    </div>
+                                  ) : (
+                                    <div>
+                                      <img
+                                        src={(wizardData.images as any)[`blog_${index}`]}
+                                        className="max-h-16 mx-auto"
+                                        alt={`Blog ${index + 1}`}
+                                        crossOrigin="anonymous"
+                                      />
+                                      <p className="text-xs text-green-600 mt-1">✓ Disponible</p>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              {(wizardData.images as any)?.[`blog_${index}`] && (
+                                <div className="flex justify-center gap-2 mt-2">
+                                  <a
+                                    href={(wizardData.images as any)[`blog_${index}`]}
+                                    download={`blog-${index + 1}.png`}
+                                    className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    📥 Télécharger
+                                  </a>
+                                  <button
+                                    onClick={(e) => { e.stopPropagation(); triggerBlogUpload(index); }}
+                                    className="text-xs bg-orange-600 text-white px-2 py-1 rounded hover:bg-orange-700"
+                                  >
+                                    🔄 Remplacer
+                                  </button>
+                                </div>
+                              )}
+                              <input
+                                type="file"
+                                ref={(el) => { blogInputRefs.current[index] = el; }}
+                                onChange={(e) => handleFileUpload(e, `blog_${index}`)}
+                                accept="image/*"
+                                className="hidden"
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Note: Display blog images even without blog.articles structure */}
+                    {!wizardData.blog?.articles && Object.keys(wizardData.images || {}).some(key => key.startsWith('blog_')) && (
+                      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <label className="block text-sm font-medium mb-3 text-yellow-900">
+                          📝 Images d'articles de blog
+                        </label>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {Object.entries(wizardData.images || {})
+                            .filter(([key, url]) => key.startsWith('blog_') && typeof url === 'string')
+                            .map(([key, url], index) => (
+                              <div key={key}>
+                                <p className="text-xs text-gray-700 mb-2">
+                                  Article {parseInt(key.replace('blog_', '')) + 1}
+                                </p>
+                                <div className="flex justify-center">
+                                  <div className="border-2 border-dashed border-yellow-300 rounded-lg p-3 text-center h-24 w-32 flex items-center justify-center bg-white">
+                                    <div>
+                                      <img
+                                        src={url as string}
+                                        className="max-h-16 mx-auto"
+                                        alt={`Blog ${index + 1}`}
+                                        crossOrigin="anonymous"
+                                      />
+                                      <p className="text-xs text-green-600 mt-1">✓ Disponible</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex justify-center gap-2 mt-2">
+                                  <a
+                                    href={url as string}
+                                    download={`blog-article-${index + 1}.png`}
+                                    className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                                  >
+                                    📥 Télécharger
+                                  </a>
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Error State */}
+              {(aiRequest.status === 'rejected' || aiRequest.status === 'failed') && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-red-900 mb-2">
+                    {aiRequest.status === 'rejected' ? '❌ Demande rejetée' : '⚠️ Erreur de génération'}
+                  </h4>
+                  <p className="text-red-800 text-sm">
+                    {aiRequest.errorMessage || 'Une erreur est survenue lors de la génération des images.'}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Option 3: Mixed Approach - V1 FEATURE */}
+        <div 
+          className={`border-2 rounded-lg p-6 cursor-pointer transition-all ${
+            wizardData.imageApproach === 'mixed' 
+              ? 'border-orange-500 bg-orange-50' 
+              : 'border-gray-200 hover:border-gray-300'
+          }`}
+          onClick={() => selectImageApproach('mixed')}
+        >
+          <div className="flex items-start space-x-4">
+            <div className="flex-shrink-0">
+              <input 
+                type="radio" 
+                checked={wizardData.imageApproach === 'mixed'} 
+                onChange={() => {}} 
+                className="mt-1" 
+              />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-semibold text-lg mb-1 text-gray-900">Approche mixte</h4>
+              <p className="text-gray-800 text-sm">Uploadez certaines images et générez les autres par IA</p>
+              <div className="mt-2 text-orange-600 font-medium text-sm">🔄 Flexible</div>
+            </div>
+          </div>
+          
+          {/* Mixed approach interface - V1 style */}
+          {wizardData.imageApproach === 'mixed' && (
+            <div className="mt-6 border-t pt-6 space-y-4">
+              <p className="text-gray-800 text-sm mb-4">Pour chaque image, choisissez si vous voulez l'uploader ou la faire générer par IA :</p>
+              
+              <div className="space-y-3">
+                {/* Logo Navigation */}
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-800">Logo navigation</span>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => {
+                          setImageChoice('logo', 'upload');
+                          logoInputRef.current?.click();
+                        }}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.logo === 'upload'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        {!wizardData.images?.logo ? 'Upload' : '✓ Uploadé'}
+                      </button>
+                      <button
+                        onClick={() => setImageChoice('logo', 'ai')}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.logo === 'ai'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        IA
+                      </button>
+                    </div>
+                  </div>
+                  {wizardData.images?.logo && (
+                    <div className="mt-2 flex items-center justify-center p-2 bg-white rounded border border-gray-200">
+                      <img
+                        src={wizardData.images.logo}
+                        alt="Logo"
+                        className="max-h-16 cursor-pointer"
+                        onClick={() => logoInputRef.current?.click()}
+                        title="Cliquer pour changer"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Logo Footer */}
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-800">Logo footer</span>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => {
+                          setImageChoice('logoFooter', 'upload');
+                          logoFooterInputRef.current?.click();
+                        }}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.logoFooter === 'upload'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        {!wizardData.images?.logoFooter ? 'Upload' : '✓ Uploadé'}
+                      </button>
+                      <button
+                        onClick={() => setImageChoice('logoFooter', 'ai')}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.logoFooter === 'ai'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        IA
+                      </button>
+                    </div>
+                  </div>
+                  {wizardData.images?.logoFooter && (
+                    <div className="mt-2 flex items-center justify-center p-2 bg-white rounded border border-gray-200">
+                      <img
+                        src={wizardData.images.logoFooter}
+                        alt="Logo Footer"
+                        className="max-h-16 cursor-pointer"
+                        onClick={() => logoFooterInputRef.current?.click()}
+                        title="Cliquer pour changer"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Hero Banner */}
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-800">Image bannière hero</span>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => {
+                          setImageChoice('hero', 'upload');
+                          heroInputRef.current?.click();
+                        }}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.hero === 'upload'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        {!wizardData.images?.hero ? 'Upload' : '✓ Uploadé'}
+                      </button>
+                      <button
+                        onClick={() => setImageChoice('hero', 'ai')}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.hero === 'ai'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        IA
+                      </button>
+                    </div>
+                  </div>
+                  {wizardData.images?.hero && (
+                    <div className="mt-2 flex items-center justify-center p-2 bg-white rounded border border-gray-200">
+                      <img
+                        src={wizardData.images.hero}
+                        alt="Hero"
+                        className="max-h-20 cursor-pointer"
+                        onClick={() => heroInputRef.current?.click()}
+                        title="Cliquer pour changer"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Favicon Light */}
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-800">Favicon clair</span>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => {
+                          setImageChoice('faviconLight', 'upload');
+                          faviconLightInputRef.current?.click();
+                        }}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.faviconLight === 'upload'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        {!wizardData.images?.faviconLight ? 'Upload' : '✓ Uploadé'}
+                      </button>
+                      <button
+                        onClick={() => setImageChoice('faviconLight', 'ai')}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.faviconLight === 'ai'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        IA
+                      </button>
+                    </div>
+                  </div>
+                  {wizardData.images?.faviconLight && (
+                    <div className="mt-2 flex items-center justify-center p-2 bg-white rounded border border-gray-200">
+                      <img
+                        src={wizardData.images.faviconLight}
+                        alt="Favicon Light"
+                        className="max-h-8 cursor-pointer"
+                        onClick={() => faviconLightInputRef.current?.click()}
+                        title="Cliquer pour changer"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Favicon Dark */}
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-gray-800">Favicon sombre</span>
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => {
+                          setImageChoice('faviconDark', 'upload');
+                          faviconDarkInputRef.current?.click();
+                        }}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.faviconDark === 'upload'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        {!wizardData.images?.faviconDark ? 'Upload' : '✓ Uploadé'}
+                      </button>
+                      <button
+                        onClick={() => setImageChoice('faviconDark', 'ai')}
+                        className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                          wizardData.imageChoices?.faviconDark === 'ai'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                        }`}
+                      >
+                        IA
+                      </button>
+                    </div>
+                  </div>
+                  {wizardData.images?.faviconDark && (
+                    <div className="mt-2 flex items-center justify-center p-2 bg-white rounded border border-gray-200">
+                      <img
+                        src={wizardData.images.faviconDark}
+                        alt="Favicon Dark"
+                        className="max-h-8 cursor-pointer"
+                        onClick={() => faviconDarkInputRef.current?.click()}
+                        title="Cliquer pour changer"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Service Images */}
+                {wizardData.services && wizardData.services.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-sm font-medium mt-3 text-gray-800">
+                      Images pour vos {wizardData.terminology || 'services'}:
+                    </p>
+                    {wizardData.services.map((service, index) => (
+                      <div key={service.id || index} className="p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-medium text-gray-800">
+                            {(service.name || service.title || `Service ${index + 1}`).substring(0, 25)}
+                          </span>
+                          <div className="flex space-x-2">
+                            <button
+                              onClick={() => {
+                                setImageChoice(`service_${index}`, 'upload');
+                                triggerServiceUpload(index);
+                              }}
+                              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                                wizardData.imageChoices?.services && wizardData.imageChoices.services[index] === 'upload'
+                                  ? 'bg-blue-600 text-white'
+                                  : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                              }`}
+                            >
+                              {!wizardData.images?.services?.[index] ? 'Upload' : '✓ Uploadé'}
+                            </button>
+                            <button
+                              onClick={() => setImageChoice(`service_${index}`, 'ai')}
+                              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                                wizardData.imageChoices?.services && wizardData.imageChoices.services[index] === 'ai'
+                                  ? 'bg-purple-600 text-white'
+                                  : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                              }`}
+                            >
+                              IA
+                            </button>
+                          </div>
+                        </div>
+                        {wizardData.images?.services?.[index] && (
+                          <div className="mt-2 flex items-center justify-center p-2 bg-white rounded border border-gray-200">
+                            <img
+                              src={wizardData.images.services[index]}
+                              alt={`Service ${index}`}
+                              className="max-h-16 cursor-pointer"
+                              onClick={() => triggerServiceUpload(index)}
+                              title="Cliquer pour changer"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Blog Images */}
+                {wizardData.blog?.articles && wizardData.blog.articles.length > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-sm font-medium mt-3 text-gray-800">Images pour vos articles de blog:</p>
+                    {wizardData.blog.articles.map((article, index) => (
+                      <div key={index} className="p-3 bg-gray-50 rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-medium text-gray-800">
+                            {(article.title || `Article ${index + 1}`).substring(0, 30)}
+                          </span>
+                          <div className="flex space-x-2">
+                            <button
+                              onClick={() => {
+                                setImageChoice(`blog_${index}`, 'upload');
+                                triggerBlogUpload(index);
+                              }}
+                              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                                wizardData.imageChoices?.blog && wizardData.imageChoices.blog[index] === 'upload'
+                                  ? 'bg-blue-600 text-white'
+                                  : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                              }`}
+                            >
+                              {!wizardData.images?.blog?.[index] ? 'Upload' : '✓ Uploadé'}
+                            </button>
+                            <button
+                              onClick={() => setImageChoice(`blog_${index}`, 'ai')}
+                              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                                wizardData.imageChoices?.blog && wizardData.imageChoices.blog[index] === 'ai'
+                                  ? 'bg-purple-600 text-white'
+                                  : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                              }`}
+                            >
+                              IA
+                            </button>
+                          </div>
+                        </div>
+                        {wizardData.images?.blog?.[index] && (
+                          <div className="mt-2 flex items-center justify-center p-2 bg-white rounded border border-gray-200">
+                            <img
+                              src={wizardData.images.blog[index]}
+                              alt={`Blog ${index}`}
+                              className="max-h-16 cursor-pointer"
+                              onClick={() => triggerBlogUpload(index)}
+                              title="Cliquer pour changer"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Mixed AI Request Button */}
+              <div className="mt-6 pt-4 border-t">
+                <button
+                  onClick={requestImageGeneration}
+                  disabled={aiRequest.status === 'pending' || aiRequest.status === 'processing'}
+                  className={`w-full px-4 py-3 rounded-lg font-medium transition-colors ${
+                    aiRequest.status === 'pending' || aiRequest.status === 'processing'
+                      ? 'bg-gray-400 cursor-not-allowed text-white'
+                      : aiRequest.status === 'completed'
+                      ? 'bg-green-600 hover:bg-green-700 text-white'
+                      : 'bg-orange-600 hover:bg-orange-700 text-white'
+                  }`}
+                >
+                  {!aiRequest.id && '🔄 Générer toutes les images IA sélectionnées'}
+                  {aiRequest.status === 'pending' && '⏳ En attente de traitement...'}
+                  {aiRequest.status === 'processing' && '🎨 Génération en cours...'}
+                  {aiRequest.status === 'completed' && '✅ Images générées avec succès'}
+                  {aiRequest.status === 'rejected' && '❌ Demande rejetée'}
+                  {aiRequest.status === 'failed' && '⚠️ Erreur - Réessayer'}
+                </button>
+              </div>
+
+              {/* Hidden file inputs for mixed approach */}
+              <input 
+                type="file" 
+                ref={heroInputRef} 
+                onChange={(e) => handleFileUpload(e, 'hero')} 
+                accept="image/*" 
+                className="hidden" 
+              />
+              <input 
+                type="file" 
+                ref={logoInputRef} 
+                onChange={(e) => handleFileUpload(e, 'logo')} 
+                accept="image/*" 
+                className="hidden" 
+              />
+              <input 
+                type="file" 
+                ref={logoFooterInputRef} 
+                onChange={(e) => handleFileUpload(e, 'logoFooter')} 
+                accept="image/*" 
+                className="hidden" 
+              />
+              <input 
+                type="file" 
+                ref={faviconLightInputRef} 
+                onChange={(e) => handleFileUpload(e, 'faviconLight')} 
+                accept="image/*" 
+                className="hidden" 
+              />
+              <input
+                type="file"
+                ref={faviconDarkInputRef}
+                onChange={(e) => handleFileUpload(e, 'faviconDark')}
+                accept="image/*"
+                className="hidden"
+              />
+
+              {/* Hidden blog image inputs for mixed approach */}
+              {wizardData.blog?.articles?.map((_, index) => (
+                <input
+                  key={`blog-input-${index}`}
+                  type="file"
+                  ref={(el) => { blogInputRefs.current[index] = el; }}
+                  onChange={(e) => handleFileUpload(e, `blog_${index}`)}
+                  accept="image/*"
+                  className="hidden"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

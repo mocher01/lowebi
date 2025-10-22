@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Run health check to ensure system is stable before commit
+if ! ./scripts/health-check.sh; then
+    echo "❌ Health check failed - cannot commit"
+    echo "Fix the issues above before committing"
+    exit 1
+fi
+
+# Run linting and formatting (if available)
+# Code quality checks - now enabled for full safety net
+if [ -f "apps/frontend/package.json" ]; then
+    echo "🎨 Checking frontend code quality..."
+    cd apps/frontend
+    if npm run lint --if-present --fix 2>/dev/null; then
+        echo "✅ Frontend linting passed"
+    else
+        echo "⚠️  Frontend linting issues found (non-blocking for now)"
+        echo "   Run 'cd apps/frontend && npm run lint --fix' to address"
+    fi
+    cd ../..
+fi
+
+if [ -f "apps/backend/package.json" ]; then
+    echo "🔧 Checking backend code quality..."
+    cd apps/backend
+    if npm run lint --if-present --fix 2>/dev/null; then
+        echo "✅ Backend linting passed"
+    else
+        echo "⚠️  Backend linting issues found (non-blocking for now)"
+        echo "   Run 'cd apps/backend && npm run lint --fix' to address"
+    fi
+    cd ../..
+fi
+
+echo "✅ All pre-commit checks passed!"

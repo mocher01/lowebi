@@ -1,0 +1,32 @@
+{
+  "generated": "2025-08-01T09:21:01.988Z",
+  "count": 3,
+  "files": [
+    "defis-traduction-chinois-francais.md",
+    "differences-espagnol-amerique-espagne.md",
+    "tarifs-traduction-professionnelle-guide.md"
+  ],
+  "articles": [
+    {
+      "file": "defis-traduction-chinois-francais.md",
+      "slug": "defis-traduction-chinois-francais",
+      "title": "Les défis de la traduction chinois-français : entre langue et culture",
+      "description": "*Publié le 25 mai 2024 • 8 min de lecture*",
+      "summary": "*Publié le 25 mai 2024 • 8 min de lecture*"
+    },
+    {
+      "file": "differences-espagnol-amerique-espagne.md",
+      "slug": "differences-espagnol-amerique-espagne",
+      "title": "Les différences entre l'espagnol d'Amérique et d'Espagne : guide du traducteur",
+      "description": "*Publié le 10 juin 2024 • 7 min de lecture*",
+      "summary": "*Publié le 10 juin 2024 • 7 min de lecture*"
+    },
+    {
+      "file": "tarifs-traduction-professionnelle-guide.md",
+      "slug": "tarifs-traduction-professionnelle-guide",
+      "title": "Guide des tarifs de traduction professionnelle : comprendre les prix",
+      "description": "*Publié le 15 avril 2024 • 6 min de lecture*",
+      "summary": "*Publié le 15 avril 2024 • 6 min de lecture*"
+    }
+  ]
+}

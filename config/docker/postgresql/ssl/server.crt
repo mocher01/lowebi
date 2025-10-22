@@ -1,0 +1,78 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            7b:6b:df:f0:7c:cc:2c:49:d1:2e:d9:0b:b2:46:69:8a:50:36:d1:0d
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN = logen-postgres, O = Locod.AI, C = US
+        Validity
+            Not Before: Aug 21 16:08:53 2025 GMT
+            Not After : Aug 21 16:08:53 2026 GMT
+        Subject: CN = logen-postgres, O = Locod.AI, C = US
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:b5:ba:86:4a:a1:eb:f6:ec:4d:85:3f:0b:53:6e:
+                    0a:73:f3:00:55:03:83:47:02:13:75:3a:52:ae:d9:
+                    8c:69:01:68:5e:47:2d:da:57:f6:50:50:d9:65:7f:
+                    5f:fa:70:a4:5a:c4:ea:cb:41:cc:ed:7e:24:67:95:
+                    43:91:e4:46:40:62:73:7a:db:85:05:b6:5e:99:98:
+                    23:28:b8:dd:25:c6:09:22:a4:05:8a:62:ef:47:a1:
+                    1b:ac:a0:d9:ca:d3:ad:67:dc:ae:b3:53:c1:cd:ea:
+                    94:84:99:e3:39:9d:f1:83:41:e9:f2:73:37:32:94:
+                    be:7c:c9:79:b0:ea:38:e6:0f:ff:0a:d1:df:1f:4d:
+                    a6:9c:c8:a5:29:f1:3c:f0:ec:91:08:51:3f:02:39:
+                    fb:55:18:4e:48:ea:9c:30:0a:d2:f0:4c:1f:92:30:
+                    73:ef:57:00:2d:b9:15:ac:97:89:46:93:f8:b4:31:
+                    34:29:ce:ef:b7:de:32:36:2e:52:b6:8f:90:cc:48:
+                    19:cf:6c:3b:8b:0a:0f:6c:20:78:38:57:6a:3d:8d:
+                    4b:7b:d2:e0:5a:32:66:2a:cf:f8:ad:92:f0:32:49:
+                    71:02:8f:97:92:f9:56:00:84:fa:4e:49:be:20:1f:
+                    1d:a1:14:e7:65:59:94:2b:d7:5e:8b:f5:43:45:4a:
+                    17:b9
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                0D:71:06:86:88:EF:E8:E0:17:08:2C:CB:A9:B2:E7:82:B0:2B:6A:28
+            X509v3 Authority Key Identifier: 
+                0D:71:06:86:88:EF:E8:E0:17:08:2C:CB:A9:B2:E7:82:B0:2B:6A:28
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+    Signature Algorithm: sha256WithRSAEncryption
+    Signature Value:
+        0b:83:38:65:cb:5c:26:9c:c8:46:97:4a:58:86:87:63:e1:51:
+        72:9d:80:77:e7:bd:d3:be:d6:48:40:d4:a0:b2:32:61:f3:a4:
+        4c:54:16:05:49:d0:8a:90:a6:08:6f:3f:c8:52:69:46:e4:2d:
+        42:c9:2f:32:3b:d7:e6:fa:4c:67:2e:56:5d:72:20:e6:70:f3:
+        99:7e:0f:13:78:37:9e:b6:80:98:26:df:c9:58:59:35:0d:b9:
+        7c:83:84:72:cb:bd:b3:87:fa:2f:ee:9e:b7:68:8e:8b:2b:dc:
+        a1:5b:36:42:8f:d8:29:de:8b:26:22:62:21:ea:64:ce:7e:9f:
+        a9:36:09:04:7b:2f:50:74:70:e1:68:37:9a:c2:97:69:7e:54:
+        94:df:a5:e5:5a:ef:18:d7:1c:45:5e:2c:83:f0:a3:19:28:68:
+        db:1d:58:e0:0e:52:34:5c:c0:99:1f:22:27:e0:6b:c6:3b:2d:
+        c5:11:d7:59:5e:5e:66:7c:72:19:b4:41:65:32:0e:79:2f:1b:
+        c2:ee:f6:a2:b1:0f:a0:af:27:1f:aa:cd:29:de:ab:21:25:59:
+        2a:3b:ef:07:66:64:15:ea:89:f8:14:c7:46:7b:1d:cc:cf:d2:
+        e7:98:4f:4b:9e:44:e4:d6:2a:3e:23:58:fd:15:f9:f9:3a:6b:
+        41:d0:2f:4e
+-----BEGIN CERTIFICATE-----
+MIIDUzCCAjugAwIBAgIUe2vf8HzMLEnRLtkLskZpilA20Q0wDQYJKoZIhvcNAQEL
+BQAwOTEXMBUGA1UEAwwObG9nZW4tcG9zdGdyZXMxETAPBgNVBAoMCExvY29kLkFJ
+MQswCQYDVQQGEwJVUzAeFw0yNTA4MjExNjA4NTNaFw0yNjA4MjExNjA4NTNaMDkx
+FzAVBgNVBAMMDmxvZ2VuLXBvc3RncmVzMREwDwYDVQQKDAhMb2NvZC5BSTELMAkG
+A1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC1uoZKoev2
+7E2FPwtTbgpz8wBVA4NHAhN1OlKu2YxpAWheRy3aV/ZQUNllf1/6cKRaxOrLQczt
+fiRnlUOR5EZAYnN624UFtl6ZmCMouN0lxgkipAWKYu9HoRusoNnK061n3K6zU8HN
+6pSEmeM5nfGDQenyczcylL58yXmw6jjmD/8K0d8fTaacyKUp8Tzw7JEIUT8COftV
+GE5I6pwwCtLwTB+SMHPvVwAtuRWsl4lGk/i0MTQpzu+33jI2LlK2j5DMSBnPbDuL
+Cg9sIHg4V2o9jUt70uBaMmYqz/itkvAySXECj5eS+VYAhPpOSb4gHx2hFOdlWZQr
+116L9UNFShe5AgMBAAGjUzBRMB0GA1UdDgQWBBQNcQaGiO/o4BcILMupsueCsCtq
+KDAfBgNVHSMEGDAWgBQNcQaGiO/o4BcILMupsueCsCtqKDAPBgNVHRMBAf8EBTAD
+AQH/MA0GCSqGSIb3DQEBCwUAA4IBAQALgzhly1wmnMhGl0pYhodj4VFynYB3573T
+vtZIQNSgsjJh86RMVBYFSdCKkKYIbz/IUmlG5C1CyS8yO9fm+kxnLlZdciDmcPOZ
+fg8TeDeetoCYJt/JWFk1Dbl8g4Ryy72zh/ov7p63aI6LK9yhWzZCj9gp3osmImIh
+6mTOfp+pNgkEey9QdHDhaDeawpdpflSU36XlWu8Y1xxFXiyD8KMZKGjbHVjgDlI0
+XMCZHyIn4GvGOy3FEddZXl5mfHIZtEFlMg55LxvC7vaisQ+grycfqs0p3qshJVkq
+O+8HZmQV6on4FMdGex3Mz9LnmE9LnkTk1io+I1j9Ffn5OmtB0C9O
+-----END CERTIFICATE-----

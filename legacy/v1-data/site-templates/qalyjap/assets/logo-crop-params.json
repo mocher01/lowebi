@@ -1,0 +1,116 @@
+{
+  "v4.30": {
+    "crop": "75%x25%+25%+25%",
+    "dimensions": "1152x256",
+    "description": "Base: lat V4.20 + haut V4.15 + bas V4.20",
+    "timestamp": "2025-07-27T11:15:09.977Z"
+  },
+  "v4.31": {
+    "crop": "72%x25%+28%+25%",
+    "dimensions": "1106x256",
+    "description": "Un peu plus latéral gauche",
+    "timestamp": "2025-07-27T11:15:10.327Z"
+  },
+  "v4.32": {
+    "crop": "70%x25%+30%+25%",
+    "dimensions": "1075x256",
+    "description": "Encore plus latéral gauche",
+    "timestamp": "2025-07-27T11:15:10.645Z"
+  },
+  "v4.33": {
+    "crop": "68%x25%+32%+25%",
+    "dimensions": "1044x256",
+    "description": "Plus latéral gauche",
+    "timestamp": "2025-07-27T11:15:10.970Z"
+  },
+  "v4.34": {
+    "crop": "65%x25%+35%+25%",
+    "dimensions": "998x256",
+    "description": "Maximum latéral gauche",
+    "timestamp": "2025-07-27T11:15:11.252Z"
+  },
+  "v4.35": {
+    "crop": "62%x25%+38%+25%",
+    "dimensions": "952x256",
+    "description": "Ultra latéral gauche",
+    "timestamp": "2025-07-27T11:15:11.599Z"
+  },
+  "v4.40": {
+    "crop": "74%x27%+26%+20%",
+    "dimensions": "1137x276",
+    "description": "Latéral optimal + moins de rognage haut + peu plus bas",
+    "timestamp": "2025-07-27T11:17:24.265Z"
+  },
+  "v4.41": {
+    "crop": "73%x28%+27%+20%",
+    "dimensions": "1121x287",
+    "description": "Latéral optimal + légèrement moins haut",
+    "timestamp": "2025-07-27T11:17:24.643Z"
+  },
+  "v4.42": {
+    "crop": "74%x26%+26%+22%",
+    "dimensions": "1137x266",
+    "description": "Latéral optimal + un peu plus haut + plus bas",
+    "timestamp": "2025-07-27T11:17:25.029Z"
+  },
+  "v4.43": {
+    "crop": "73%x27%+27%+22%",
+    "dimensions": "1121x276",
+    "description": "Latéral optimal + équilibré vertical",
+    "timestamp": "2025-07-27T11:17:25.373Z"
+  },
+  "v4.44": {
+    "crop": "74%x25%+26%+24%",
+    "dimensions": "1137x256",
+    "description": "Latéral optimal + moins haut + encore plus bas",
+    "timestamp": "2025-07-27T11:17:25.688Z"
+  },
+  "v4.45": {
+    "crop": "73%x26%+27%+23%",
+    "dimensions": "1121x266",
+    "description": "Latéral optimal + version finale ajustée",
+    "timestamp": "2025-07-27T11:17:26.008Z"
+  },
+  "v4.50": {
+    "crop": "72%x23%+28%+24%",
+    "dimensions": "1106x236",
+    "description": "Version finale: 28% gauche + 24% haut + 53% bas",
+    "timestamp": "2025-07-27T11:25:07.854Z"
+  },
+  "v4.51": {
+    "crop": "74%x25%+26%+20%",
+    "dimensions": "1137x256",
+    "description": "Moins de rognage: 26% gauche + 20% haut + 55% bas",
+    "timestamp": "2025-07-27T11:31:04.615Z"
+  },
+  "v4.52": {
+    "crop": "75%x24%+25%+22%",
+    "dimensions": "1152x246",
+    "description": "Version équilibrée: 25% gauche + 22% haut + 54% bas",
+    "timestamp": "2025-07-27T11:31:04.923Z"
+  },
+  "v4.53": {
+    "crop": "74%x28%+26%+16%",
+    "dimensions": "1137x287",
+    "description": "Comme V4.51 mais moins en haut: 26% gauche + 16% haut + 56% bas",
+    "timestamp": "2025-07-27T11:33:53.097Z"
+  },
+  "v4.54": {
+    "crop": "74%x30%+26%+12%",
+    "dimensions": "1137x307",
+    "description": "Comme V4.53 mais encore moins en haut: 26% gauche + 12% haut + 58% bas",
+    "timestamp": "2025-07-27T11:36:57.197Z"
+  },
+  "v4.55": {
+    "crop": "74%x32%+26%+8%",
+    "dimensions": "1137x328",
+    "description": "Rognage minimal en haut: 26% gauche + 8% haut + 60% bas",
+    "timestamp": "2025-07-27T11:39:15.433Z"
+  },
+  "v4.56": {
+    "crop": "74%x34%+26%+5%",
+    "dimensions": "1137x348",
+    "description": "Rognage ultra minimal en haut: 26% gauche + 5% haut + 61% bas",
+    "timestamp": "2025-07-27T11:43:23.552Z"
+  }
+}

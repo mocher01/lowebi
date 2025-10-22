@@ -1,0 +1,1 @@
+../legacy/maintenance/generate-blog-index.js

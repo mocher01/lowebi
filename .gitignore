@@ -1,0 +1,89 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build outputs
+dist/
+build/
+*/dist/
+*/build/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Test results
+test-results/
+tests/test-results/
+*/test-results/
+coverage/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+.claude/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Generated sites (keep configs but not builds)
+generated-sites/*/node_modules/
+generated-sites/*/dist/
+generated-sites/*/package-lock.json
+
+# Broken file paths
+C*UsersMDocumentsRoot*
+
+# Archive (old/deprecated files)
+.archive/
+
+# v2 development
+v2/node_modules/
+v2/dist/
+v2/.env
+v2/.env.local
+
+# Test configs
+configs/test*/
+configs/*test*/
+configs/wizard-*/
+configs/demo*/
+configs/temp*/
+
+# Test screenshots and results
+test-*.png
+playwright-report/
+
+# Prevent test file accumulation in root
+test-*.js
+test-*.html
+debug-*.js
+validate-*.js
+wizard-*-test.*
+*-test-*.js
+*.test-temp.*
+
+# Prevent temporary files in root
+parse-*.js
+live-*.sh
+monitor-*.js
+quick-*.js
+
+# Build logs and temporary build files
+build-*.log
+deploy-*.log
+logen-build-*.log
+
+# Screenshot and image artifacts
+step-*.png
+wizard-*.png
+error-*.png
+admin-*.png

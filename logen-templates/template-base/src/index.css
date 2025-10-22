@@ -1,0 +1,283 @@
+/* 🎯 NOUVEAU : Imports CSS Variables Layout (Architecture Clean v1.1) */
+@import './styles/layout-variables.css';
+@import './styles/site-variables.css';
+@import './styles/page-layout.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%; /* Light gray-blue */
+    --foreground: 220 15% 25%; /* Dark desaturated blue (almost black) */
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 25%;
+    
+    /* 🔧 FIX v1.1.1.2: Variables shadcn/ui avec fallbacks NEUTRES (pas de couleur spécifique) */
+    --primary: var(--color-primary, 210 40% 50%);
+    --primary-foreground: 0 0% 100%; /* White */
+    --secondary: var(--color-secondary, 210 40% 90%);
+    --secondary-foreground: 220 15% 25%;
+    --accent: var(--color-accent, 210 40% 70%);
+    --accent-foreground: 220 15% 25%;
+    
+    --muted: 210 30% 90%;
+    --muted-foreground: 215 20% 45%; /* Medium gray */
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 20% 85%; /* Light gray border */
+    --input: 210 20% 85%;
+    --ring: var(--color-primary, 210 40% 50%);
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 220 15% 15%; /* Dark blue-gray */
+    --foreground: 210 40% 98%;
+    --card: 220 15% 20%; /* Slightly lighter dark blue-gray */
+    --card-foreground: 210 40% 98%;
+    --popover: 220 15% 15%;
+    --popover-foreground: 210 40% 98%;
+    
+    /* 🔧 FIX v1.1.1.2: Dark mode avec fallbacks neutres */
+    --primary: var(--color-primary, 210 40% 60%);
+    --primary-foreground: 0 0% 100%;
+    --secondary: var(--color-secondary, 220 15% 25%);
+    --secondary-foreground: 210 40% 98%;
+    --accent: var(--color-accent, 210 40% 70%);
+    --accent-foreground: 210 40% 98%;
+    
+    --muted: 220 15% 25%;
+    --muted-foreground: 215 20% 65%; /* Lighter gray for dark mode */
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 15% 30%; /* Darker gray border */
+    --input: 220 15% 30%;
+    --ring: var(--color-primary, 210 40% 60%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+/* 🎨 Classes CSS propres qui utilisent nos variables */
+.text-primary {
+  color: hsl(var(--primary));
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)));
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+}
+
+.hero-pattern {
+  background-color: hsl(var(--background));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%232563eb' fill-opacity='0.03'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.service-card {
+  @apply relative overflow-hidden rounded-xl p-6 border border-border bg-card transition-all duration-300 hover:shadow-lg;
+}
+
+.service-card::before {
+  content: '';
+  background: linear-gradient(135deg, hsl(var(--secondary) / 0.2), hsl(var(--primary) / 0.2));
+  @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+}
+
+.service-card:hover::before {
+  @apply opacity-100;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.blob {
+  @apply absolute -z-10 rounded-full blur-3xl opacity-30;
+}
+
+/* 🎨 UX PROFESSIONAL: Règle 60-30-10 pour les couleurs */
+
+/* Links - Accent color (10% rule) pour attirer l'attention */
+a {
+  color: hsl(var(--accent));
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+}
+
+/* Navigation links avec accent au survol */
+nav a {
+  transition: all 0.2s ease;
+}
+
+nav a:hover,
+.nav-link:hover {
+  color: hsl(var(--accent)) !important;
+  border-bottom: 2px solid hsl(var(--accent));
+}
+
+/* Active menu items */
+nav a.active,
+.nav-link.active {
+  color: hsl(var(--primary)) !important;
+  border-bottom: 2px solid hsl(var(--accent));
+  font-weight: 600;
+}
+
+/* Badge avec accent color */
+.badge-accent {
+  background-color: hsl(var(--accent) / 0.15);
+  color: hsl(var(--accent));
+  border: 1px solid hsl(var(--accent) / 0.3);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Secondary background sections (30% rule) */
+.bg-secondary-light {
+  background-color: hsl(var(--secondary) / 0.1);
+}
+
+.bg-secondary {
+  background-color: hsl(var(--secondary));
+  color: white;
+}
+
+/* Card avec bordure secondaire */
+.card-secondary {
+  border: 2px solid hsl(var(--secondary) / 0.3);
+  background-color: hsl(var(--secondary) / 0.05);
+}
+
+/* Accent decorative elements */
+.accent-decoration {
+  position: relative;
+}
+
+.accent-decoration::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--primary)));
+  border-radius: 2px;
+}
+
+/* 🔧 FIX: Contraste - Éviter le texte blanc sur fond blanc */
+.text-on-light {
+  color: hsl(var(--foreground));
+}
+
+.text-on-dark {
+  color: hsl(0 0% 100%);
+}
+
+/* Assurer le contraste des éléments avec couleurs primaires */
+.bg-primary-safe {
+  background-color: hsl(var(--primary));
+  color: white;
+}
+
+/* Pour les sections avec fond clair, forcer texte sombre */
+section[style*="background"] {
+  color: hsl(var(--foreground));
+}
+
+/* Assurer le contraste des boutons */
+button, .btn {
+  position: relative;
+  z-index: 1;
+}
+
+/* Texte toujours visible sur fond de couleur */
+[style*="backgroundColor"] {
+  /* Si background est défini, s'assurer que le texte a du contraste */
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer links avec accent */
+footer a {
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: hsl(var(--accent));
+  text-decoration: none;
+}

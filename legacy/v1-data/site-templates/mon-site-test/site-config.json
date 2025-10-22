@@ -1,0 +1,325 @@
+{
+  "meta": {
+    "siteId": "mon-site-test",
+    "domain": "mon-site-test.com",
+    "language": "fr",
+    "timezone": "Europe/Paris",
+    "template": "custom"
+  },
+  "businessType": "business",
+  "terminology": "services",
+  "brand": {
+    "name": "Mon Site Test",
+    "slogan": "Mon slogan de test",
+    "logos": {
+      "navbar": "mon-site-test-logo-clair.png",
+      "footer": "mon-site-test-logo-sombre.png",
+      "default": "mon-site-test-logo-clair.png"
+    },
+    "favicons": {
+      "light": "mon-site-test-favicon-clair.png",
+      "dark": "mon-site-test-favicon-sombre.png",
+      "default": "mon-site-test-favicon.ico"
+    },
+    "colors": {
+      "primary": "#1F2937",
+      "secondary": "#4B5563",
+      "accent": "#6B7280"
+    }
+  },
+  "design": {
+    "pageHeaders": {
+      "background": {
+        "type": "solid",
+        "color": "#050f1d"
+      },
+      "title": {
+        "color": "#FFFFFF",
+        "size": "text-3xl md:text-4xl",
+        "weight": "font-bold",
+        "margin": "mb-4"
+      },
+      "subtitle": {
+        "color": "#FFFFFF",
+        "size": "text-lg md:text-xl",
+        "weight": "font-medium",
+        "margin": "mb-6"
+      }
+    },
+    "textColors": {
+      "primary": "#1F2937",
+      "secondary": "#4B5563",
+      "muted": "#6B7280"
+    }
+  },
+  "sections": {
+    "hero": {
+      "background": "#FFFFFF",
+      "textColor": "#1F2937"
+    },
+    "services": {
+      "background": "#ffffff",
+      "textColor": "#1F2937",
+      "cardBackground": "#FFFFFF"
+    },
+    "about": {
+      "background": "#FFFFFF",
+      "textColor": "#1F2937",
+      "cardBackground": "#ffffff"
+    },
+    "testimonials": {
+      "background": "#ffffff",
+      "textColor": "#1F2937"
+    },
+    "faq": {
+      "background": "#FFFFFF",
+      "textColor": "#1F2937"
+    },
+    "cta": {
+      "background": "#ffffff",
+      "textColor": "#1F2937"
+    },
+    "values": {
+      "background": "#FFFFFF",
+      "textColor": "#1F2937",
+      "cardBackground": "#ffffff"
+    },
+    "blog": {
+      "background": "#FFFFFF",
+      "titleBackground": "#050f1d",
+      "titleTextColor": "#FFFFFF",
+      "subtitleTextColor": "#FFFFFF",
+      "textColor": "#1F2937"
+    },
+    "services-page": {
+      "background": "#FFFFFF",
+      "titleBackground": "#050f1d",
+      "titleTextColor": "#FFFFFF",
+      "subtitleTextColor": "#FFFFFF",
+      "textColor": "#1F2937"
+    },
+    "contact": {
+      "background": "#FFFFFF",
+      "titleBackground": "#050f1d",
+      "titleTextColor": "#FFFFFF",
+      "subtitleTextColor": "#FFFFFF",
+      "textColor": "#1F2937"
+    }
+  },
+  "layout": {
+    "components": {
+      "pageHeader": {
+        "spacing": "pt-16 pb-8 md:pt-20 md:pb-12",
+        "titleSize": "text-3xl md:text-4xl lg:text-5xl",
+        "subtitleSize": "text-lg md:text-xl",
+        "titleMargin": "mb-4",
+        "subtitleMargin": "mb-6"
+      },
+      "section": {
+        "spacing": "py-20",
+        "spacingSmall": "py-16"
+      }
+    }
+  },
+  "routing": {
+    "scrollBehavior": "smooth",
+    "scrollOffset": 80,
+    "routes": {
+      "/": {
+        "scroll": "top"
+      },
+      "/services": {
+        "scroll": "top"
+      },
+      "/service/*": {
+        "scroll": "top"
+      },
+      "/blog": {
+        "scroll": "top"
+      },
+      "/contact": {
+        "scroll": "top",
+        "anchor": "contact-form"
+      },
+      "/about": {
+        "scroll": "top"
+      }
+    }
+  },
+  "navbar": {
+    "contrast": "medium",
+    "tone": "professional",
+    "background": "#ffffff",
+    "textColor": "#000004",
+    "accentColor": "#1F2937"
+  },
+  "footer": {
+    "background": "#050f1d",
+    "textColor": "#ebf5ff"
+  },
+  "navigation": {
+    "links": [
+      {
+        "name": "Accueil",
+        "path": "/"
+      },
+      {
+        "name": "Services",
+        "path": "/services"
+      },
+      {
+        "name": "À propos",
+        "path": "/about"
+      }
+    ],
+    "cta": {
+      "text": "Contactez-nous",
+      "path": "/contact"
+    }
+  },
+  "content": {
+    "hero": {
+      "title": "Mon slogan de test",
+      "subtitle": "Business Consulting Excellence",
+      "description": "Mon Site Test offre des services professionnels adaptés à vos besoins spécifiques.",
+      "image": "mon-site-test-hero.png",
+      "cta": {
+        "primary": "Commencer",
+        "secondary": "En savoir plus"
+      }
+    },
+    "services": [
+      {
+        "title": "Consultation professionelle",
+        "description": "Services professionnels en consultation professionelle",
+        "slug": "consultation-professionelle",
+        "image": "mon-site-test-services-1.png",
+        "features": [
+          "Services professionnel",
+          "Qualité garantie",
+          "Prix compétitifs",
+          "Service personnalisé"
+        ]
+      }
+    ],
+    "images": {
+      "image-1": "mon-site-test-services-1.png",
+      "image-2": "mon-site-test-services-2.png",
+      "image-3": "mon-site-test-services-3.png"
+    },
+    "servicesSection": {
+      "viewAllText": "Voir tous nos services",
+      "learnMoreText": "En savoir plus"
+    },
+    "servicesPage": {
+      "subtitle": "Découvrez nos services professionnels en business",
+      "ctaTitle": "Prêt à commencer ?",
+      "ctaDescription": "Contactez-nous dès aujourd'hui pour discuter de votre projet",
+      "ctaButton": "Nous contacter"
+    },
+    "about": {
+      "title": "À propos de Mon Site Test",
+      "subtitle": "Votre partenaire de confiance en business",
+      "description": "Nous offrons des services professionnels en business avec un engagement envers la qualité et la satisfaction client.",
+      "values": [
+        {
+          "title": "Strategic Vision",
+          "description": "Long-term business growth strategies"
+        },
+        {
+          "title": "Industry Expertise",
+          "description": "Deep knowledge of your sector"
+        },
+        {
+          "title": "Results Driven",
+          "description": "Focus on measurable outcomes"
+        }
+      ]
+    },
+    "testimonials": [
+      {
+        "text": "Excellent business services. Professional, reliable, and great results!",
+        "name": "Sarah Johnson",
+        "position": "CEO, Tech Company",
+        "rating": 5
+      },
+      {
+        "text": "Outstanding quality and attention to detail. Highly recommend!",
+        "name": "Michael Chen",
+        "position": "Marketing Director",
+        "rating": 5
+      },
+      {
+        "text": "Great experience from start to finish. Will definitely work with them again.",
+        "name": "Emma Davis",
+        "position": "Business Owner",
+        "rating": 5
+      }
+    ],
+    "faq": [
+      {
+        "question": "What services do you offer?",
+        "answer": "We offer comprehensive business services tailored to your specific needs."
+      },
+      {
+        "question": "How long does a typical project take?",
+        "answer": "Project timelines vary based on scope and complexity. We provide detailed estimates for each project."
+      },
+      {
+        "question": "What are your rates?",
+        "answer": "Our pricing is competitive and transparent. Contact us for a personalized quote."
+      },
+      {
+        "question": "Do you offer ongoing support?",
+        "answer": "Yes, we provide comprehensive support throughout and after project completion."
+      }
+    ]
+  },
+  "contact": {
+    "email": "test@mon-site.com",
+    "phone": "",
+    "address": {
+      "street": "",
+      "city": "",
+      "country": "France"
+    },
+    "hours": "Lundi - Vendredi : 9h00 - 18h00",
+    "social": {}
+  },
+  "features": {
+    "blog": false,
+    "testimonials": true,
+    "faq": true,
+    "newsletter": false,
+    "darkMode": false,
+    "adaptiveLogos": true,
+    "adaptiveFavicons": true,
+    "blogSearch": false
+  },
+  "seo": {
+    "title": "Mon Site Test - Mon slogan de test",
+    "description": "Mon Site Test - Professional business services",
+    "keywords": [
+      "mon site test",
+      "business",
+      "business services",
+      "professional services",
+      "consultation professionelle"
+    ],
+    "ogImage": "mon-site-test-logo.png",
+    "analytics": {
+      "googleAnalytics": ""
+    }
+  },
+  "integrations": {
+    "n8n": {
+      "enabled": false,
+      "instance": "https://automation.locod-ai.fr",
+      "workflows": {}
+    },
+    "captcha": {
+      "enabled": false,
+      "provider": "recaptcha"
+    }
+  }
+}

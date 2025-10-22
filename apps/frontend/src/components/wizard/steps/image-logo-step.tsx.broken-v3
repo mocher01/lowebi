@@ -1,0 +1,527 @@
+'use client';
+
+import React, { useRef, useState } from 'react';
+import { useWizard } from '../wizard-provider';
+
+export function ImageLogoStep() {
+  const { wizardData, updateWizardData, requestAiContent, getAiRequestStatus } = useWizard();
+
+  // Local state for selective generation mode
+  const [selectiveMode, setSelectiveMode] = useState(false);
+  const [selectedImages, setSelectedImages] = useState<Set<string>>(new Set());
+
+  // File input refs for manual uploads
+  const heroInputRef = useRef<HTMLInputElement>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const logoFooterInputRef = useRef<HTMLInputElement>(null);
+  const faviconLightInputRef = useRef<HTMLInputElement>(null);
+  const faviconDarkInputRef = useRef<HTMLInputElement>(null);
+  const serviceInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const blogInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  // Get AI request status for images
+  const aiRequest = getAiRequestStatus('images');
+
+  // Get dynamic counts
+  const servicesCount = wizardData.services?.length || 0;
+  const blogArticlesCount = wizardData.blog?.articles?.length || 0;
+
+  // Toggle image selection for selective generation
+  const toggleImageSelection = (imageKey: string) => {
+    const newSelection = new Set(selectedImages);
+    if (newSelection.has(imageKey)) {
+      newSelection.delete(imageKey);
+    } else {
+      newSelection.add(imageKey);
+    }
+    setSelectedImages(newSelection);
+  };
+
+  // Handle file upload for specific image type
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, imageType: string) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const imageUrl = URL.createObjectURL(file);
+    const newImages = { ...wizardData.images };
+
+    if (imageType.startsWith('service_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      (newImages as any)[`service_${index}`] = imageUrl;
+    } else if (imageType.startsWith('blog_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      (newImages as any)[`blog_${index}`] = imageUrl;
+    } else {
+      (newImages as any)[imageType] = imageUrl;
+    }
+
+    updateWizardData({ images: newImages });
+  };
+
+  // Handle drag and drop
+  const handleFileDrop = (event: React.DragEvent, imageType: string) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files?.[0];
+    if (!file) return;
+
+    const imageUrl = URL.createObjectURL(file);
+    const newImages = { ...wizardData.images };
+
+    if (imageType.startsWith('service_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      (newImages as any)[`service_${index}`] = imageUrl;
+    } else if (imageType.startsWith('blog_')) {
+      const index = parseInt(imageType.split('_')[1]);
+      (newImages as any)[`blog_${index}`] = imageUrl;
+    } else {
+      (newImages as any)[imageType] = imageUrl;
+    }
+
+    updateWizardData({ images: newImages });
+  };
+
+  // Request AI image generation - ALL images
+  const requestAllImagesGeneration = async () => {
+    try {
+      const imagesNeeded: any = {
+        logo: true,
+        logoFooter: true,
+        hero: true,
+        faviconLight: true,
+        faviconDark: true,
+        services: wizardData.services?.map(s => s.name || s.title) || [],
+        blogArticles: wizardData.blog?.articles?.map(a => a.title) || []
+      };
+
+      const requestData = {
+        siteName: wizardData.siteName,
+        businessType: wizardData.businessType,
+        businessDescription: wizardData.businessDescription,
+        terminology: wizardData.terminology,
+        aiStyle: wizardData.aiStyle || 'modern',
+        colors: wizardData.colors,
+        approach: 'ai',
+        imagesNeeded: imagesNeeded,
+        blog: wizardData.blog,
+        services: wizardData.services,
+        wizardData: wizardData
+      };
+
+      await requestAiContent('images', requestData);
+    } catch (error) {
+      console.error('Failed to request AI image generation:', error);
+    }
+  };
+
+  // Request AI image generation - SELECTED images only
+  const requestSelectedImagesGeneration = async () => {
+    if (selectedImages.size === 0) {
+      alert('Veuillez sélectionner au moins une image à générer');
+      return;
+    }
+
+    try {
+      const imagesNeeded: any = {};
+      const servicesForAI: string[] = [];
+      const blogArticlesForAI: string[] = [];
+
+      selectedImages.forEach(key => {
+        if (key === 'logo' || key === 'logoFooter' || key === 'hero' ||
+            key === 'faviconLight' || key === 'faviconDark') {
+          imagesNeeded[key] = true;
+        } else if (key.startsWith('service_')) {
+          const index = parseInt(key.split('_')[1]);
+          const service = wizardData.services?.[index];
+          if (service) {
+            servicesForAI.push(service.name || service.title || `Service ${index + 1}`);
+          }
+        } else if (key.startsWith('blog_')) {
+          const index = parseInt(key.split('_')[1]);
+          const article = wizardData.blog?.articles?.[index];
+          if (article) {
+            blogArticlesForAI.push(article.title || `Article ${index + 1}`);
+          }
+        }
+      });
+
+      if (servicesForAI.length > 0) imagesNeeded.services = servicesForAI;
+      if (blogArticlesForAI.length > 0) imagesNeeded.blogArticles = blogArticlesForAI;
+
+      const requestData = {
+        siteName: wizardData.siteName,
+        businessType: wizardData.businessType,
+        businessDescription: wizardData.businessDescription,
+        terminology: wizardData.terminology,
+        aiStyle: wizardData.aiStyle || 'modern',
+        colors: wizardData.colors,
+        approach: 'mixed',
+        imagesNeeded: imagesNeeded,
+        blog: wizardData.blog,
+        services: wizardData.services,
+        wizardData: wizardData
+      };
+
+      await requestAiContent('images', requestData);
+
+      // Reset selective mode after generation
+      setSelectiveMode(false);
+      setSelectedImages(new Set());
+    } catch (error) {
+      console.error('Failed to request AI image generation:', error);
+    }
+  };
+
+  // Render image field
+  const renderImageField = (
+    label: string,
+    imageKey: string,
+    inputRef: React.RefObject<HTMLInputElement | null>,
+    emoji: string = '🖼️'
+  ) => {
+    const hasImage = !!(wizardData.images as any)?.[imageKey];
+    const imageUrl = (wizardData.images as any)?.[imageKey];
+    const isSelected = selectedImages.has(imageKey);
+
+    return (
+      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+        <div className="flex items-center justify-between mb-3">
+          <label className="block text-sm font-medium text-gray-900">
+            {emoji} {label}
+          </label>
+          {selectiveMode && (
+            <input
+              type="checkbox"
+              checked={isSelected}
+              onChange={() => toggleImageSelection(imageKey)}
+              className="w-5 h-5 text-blue-600 rounded"
+            />
+          )}
+        </div>
+        <div className="flex justify-center">
+          <div
+            onDrop={(e) => handleFileDrop(e, imageKey)}
+            onDragOver={(e) => e.preventDefault()}
+            className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 cursor-pointer h-24 w-32 flex items-center justify-center bg-white"
+            onClick={() => inputRef.current?.click()}
+          >
+            {!hasImage ? (
+              <div className="text-gray-600">
+                <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                <p className="text-xs">Upload</p>
+              </div>
+            ) : (
+              <div>
+                <img src={imageUrl} className="max-h-16 mx-auto" alt={label} crossOrigin="anonymous" />
+                <p className="text-xs text-green-600 mt-1">✓</p>
+              </div>
+            )}
+          </div>
+        </div>
+        {hasImage && (
+          <div className="flex justify-center gap-2 mt-2">
+            <a
+              href={imageUrl}
+              download={`${imageKey}.png`}
+              className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+              onClick={(e) => e.stopPropagation()}
+            >
+              📥 Télécharger
+            </a>
+            <button
+              onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}
+              className="text-xs bg-orange-600 text-white px-2 py-1 rounded hover:bg-orange-700"
+            >
+              🔄 Remplacer
+            </button>
+          </div>
+        )}
+        <input
+          type="file"
+          ref={inputRef}
+          onChange={(e) => handleFileUpload(e, imageKey)}
+          accept="image/*"
+          className="hidden"
+        />
+      </div>
+    );
+  };
+
+  // Render waiting/processing state
+  if (aiRequest?.status === 'pending' || aiRequest?.status === 'processing') {
+    return (
+      <div className="wizard-step p-8">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">Images et Visuels</h2>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+          <h3 className="text-lg font-semibold text-blue-900 mb-2">
+            {aiRequest.status === 'pending' ? '⏳ Demande envoyée' : '🎨 Génération en cours...'}
+          </h3>
+          <p className="text-blue-800">
+            {aiRequest.status === 'pending'
+              ? 'Votre demande est en attente de traitement par l\'administrateur'
+              : 'Les images sont en cours de génération par IA'}
+          </p>
+          {aiRequest.elapsedTime && (
+            <p className="text-sm text-blue-600 mt-2">
+              ⏱️ Temps écoulé: {aiRequest.elapsedTime}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="wizard-step p-8">
+      <h2 className="text-2xl font-bold mb-6 text-gray-900">Images et Visuels</h2>
+
+      {/* Action Buttons */}
+      <div className="mb-6 flex gap-4">
+        {!selectiveMode ? (
+          <>
+            <button
+              onClick={requestAllImagesGeneration}
+              className="flex-1 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 font-semibold"
+            >
+              🎨 Générer TOUTES mes images par IA
+            </button>
+            <button
+              onClick={() => setSelectiveMode(true)}
+              className="flex-1 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-semibold"
+            >
+              ✅ Générer CERTAINES images par IA
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={requestSelectedImagesGeneration}
+              disabled={selectedImages.size === 0}
+              className="flex-1 bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              🚀 Générer les {selectedImages.size} image(s) sélectionnée(s)
+            </button>
+            <button
+              onClick={() => {
+                setSelectiveMode(false);
+                setSelectedImages(new Set());
+              }}
+              className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 font-semibold"
+            >
+              Annuler
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Selective Mode Info */}
+      {selectiveMode && (
+        <div className="mb-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+          <p className="text-sm text-yellow-900">
+            <strong>Mode sélectif :</strong> Cochez les images que vous souhaitez générer par IA, puis cliquez sur "Générer".
+          </p>
+        </div>
+      )}
+
+      {/* Single Unified Block - All Image Fields */}
+      <div className="space-y-6 border border-gray-300 rounded-lg p-6 bg-white">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Toutes vos images</h3>
+
+        {/* Core Images */}
+        <div>
+          <h4 className="text-md font-medium text-gray-800 mb-3">Images principales</h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {renderImageField('Hero Image', 'hero', heroInputRef, '🌄')}
+            {renderImageField('Logo Navigation', 'logo', logoInputRef, '📱')}
+            {renderImageField('Logo Footer', 'logoFooter', logoFooterInputRef, '🦶')}
+          </div>
+        </div>
+
+        {/* Favicons */}
+        <div>
+          <h4 className="text-md font-medium text-gray-800 mb-3">Favicons</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {renderImageField('Favicon Clair', 'faviconLight', faviconLightInputRef, '☀️')}
+            {renderImageField('Favicon Sombre', 'faviconDark', faviconDarkInputRef, '🌙')}
+          </div>
+        </div>
+
+        {/* Service Images */}
+        {servicesCount > 0 && (
+          <div>
+            <h4 className="text-md font-medium text-gray-800 mb-3">
+              Images de Services ({servicesCount})
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {wizardData.services?.map((service, index) => {
+                const serviceKey = `service_${index}`;
+                const hasImage = !!(wizardData.images as any)?.[serviceKey];
+                const imageUrl = (wizardData.images as any)?.[serviceKey];
+                const isSelected = selectedImages.has(serviceKey);
+
+                return (
+                  <div key={index} className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <label className="block text-sm font-medium text-gray-900 truncate" title={service.name || service.title}>
+                        🔧 {service.name || service.title || `Service ${index + 1}`}
+                      </label>
+                      {selectiveMode && (
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleImageSelection(serviceKey)}
+                          className="w-5 h-5 text-blue-600 rounded"
+                        />
+                      )}
+                    </div>
+                    <div className="flex justify-center">
+                      <div
+                        onDrop={(e) => handleFileDrop(e, serviceKey)}
+                        onDragOver={(e) => e.preventDefault()}
+                        className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 cursor-pointer h-20 w-24 flex items-center justify-center bg-white"
+                        onClick={() => serviceInputRefs.current[index]?.click()}
+                      >
+                        {!hasImage ? (
+                          <div className="text-gray-600">
+                            <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                            </svg>
+                            <p className="text-xs">Upload</p>
+                          </div>
+                        ) : (
+                          <div>
+                            <img src={imageUrl} className="max-h-14 mx-auto" alt={`Service ${index + 1}`} crossOrigin="anonymous" />
+                            <p className="text-xs text-green-600 mt-1">✓</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {hasImage && (
+                      <div className="flex justify-center gap-2 mt-2">
+                        <a
+                          href={imageUrl}
+                          download={`service-${index + 1}.png`}
+                          className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          📥
+                        </a>
+                      </div>
+                    )}
+                    <input
+                      type="file"
+                      ref={(el) => { serviceInputRefs.current[index] = el; }}
+                      onChange={(e) => handleFileUpload(e, serviceKey)}
+                      accept="image/*"
+                      className="hidden"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Blog Article Images */}
+        {blogArticlesCount > 0 && (
+          <div>
+            <h4 className="text-md font-medium text-gray-800 mb-3">
+              Images d'Articles de Blog ({blogArticlesCount})
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {wizardData.blog?.articles?.map((article, index) => {
+                const blogKey = `blog_${index}`;
+                const hasImage = !!(wizardData.images as any)?.[blogKey];
+                const imageUrl = (wizardData.images as any)?.[blogKey];
+                const isSelected = selectedImages.has(blogKey);
+
+                return (
+                  <div key={index} className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <label className="block text-sm font-medium text-gray-900 truncate" title={article.title}>
+                        📝 {article.title || `Article ${index + 1}`}
+                      </label>
+                      {selectiveMode && (
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => toggleImageSelection(blogKey)}
+                          className="w-5 h-5 text-blue-600 rounded"
+                        />
+                      )}
+                    </div>
+                    <div className="flex justify-center">
+                      <div
+                        onDrop={(e) => handleFileDrop(e, blogKey)}
+                        onDragOver={(e) => e.preventDefault()}
+                        className="border-2 border-dashed border-gray-300 rounded-lg p-3 text-center hover:border-gray-400 cursor-pointer h-24 w-32 flex items-center justify-center bg-white"
+                        onClick={() => blogInputRefs.current[index]?.click()}
+                      >
+                        {!hasImage ? (
+                          <div className="text-gray-600">
+                            <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2z"></path>
+                            </svg>
+                            <p className="text-xs">Upload</p>
+                          </div>
+                        ) : (
+                          <div>
+                            <img src={imageUrl} className="max-h-16 mx-auto" alt={`Blog ${index + 1}`} crossOrigin="anonymous" />
+                            <p className="text-xs text-green-600 mt-1">✓</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {hasImage && (
+                      <div className="flex justify-center gap-2 mt-2">
+                        <a
+                          href={imageUrl}
+                          download={`blog-${index + 1}.png`}
+                          className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          📥
+                        </a>
+                      </div>
+                    )}
+                    <input
+                      type="file"
+                      ref={(el) => { blogInputRefs.current[index] = el; }}
+                      onChange={(e) => handleFileUpload(e, blogKey)}
+                      accept="image/*"
+                      className="hidden"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Success State */}
+      {aiRequest?.status === 'completed' && (
+        <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
+          <h4 className="font-semibold text-green-900 mb-2">✅ Images générées avec succès!</h4>
+          <p className="text-green-800 text-sm">
+            Vos images ont été générées et sont maintenant disponibles ci-dessus.
+          </p>
+        </div>
+      )}
+
+      {/* Error State */}
+      {(aiRequest?.status === 'rejected' || aiRequest?.status === 'failed') && (
+        <div className="mt-6 bg-red-50 border border-red-200 rounded-lg p-4">
+          <h4 className="font-semibold text-red-900 mb-2">
+            {aiRequest.status === 'rejected' ? '❌ Demande rejetée' : '⚠️ Erreur de génération'}
+          </h4>
+          <p className="text-red-800 text-sm">
+            {aiRequest.errorMessage || 'Une erreur est survenue lors de la génération des images.'}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}

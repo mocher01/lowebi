@@ -1,0 +1,44 @@
+version: '3.8'
+
+networks:
+  default:
+    external: true
+    name: logen-network
+
+services:
+  # NestJS Backend
+  backend:
+    build:
+      context: ../../../apps/backend
+      dockerfile: Dockerfile.prod
+    image: logen-backend:dev
+    container_name: logen-backend
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=7600
+      - DB_HOST=logen-postgres
+      - DB_PORT=5432
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_SSL=${DB_SSL}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+      - REDIS_HOST=logen-redis
+      - REDIS_PORT=6379
+    ports:
+      - "7600:7600"
+    networks:
+      - default
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7600/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped

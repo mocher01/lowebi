@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Remove all manual color utilities - let Tailwind handle everything */
+/* Remove dark mode overrides that force black/white */
+/* Clean CSS for proper Tailwind functionality */
+
+/* Only keep essential custom styles if needed */
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  
+  body {
+    @apply bg-white text-gray-900;
+    /* Remove conflicting gradients and color overrides */
+  }
+}

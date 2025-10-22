@@ -1,0 +1,91 @@
+:root {
+  --color-primary: #059669;
+  --color-secondary: #10B981;
+  --color-accent: #34D399;
+  --navbar-background: #ECFDF5;
+  --navbar-text: #047857;
+  --navbar-accent: #059669;
+  --section-hero-bg: #FFFFFF;
+  --section-hero-text: #1F2937;
+  --section-services-bg: #F0FDF4;
+  --section-services-text: #1F2937;
+  --section-about-bg: #FFFFFF;
+  --section-about-text: #1F2937;
+  --section-testimonials-bg: #F0FDF4;
+  --section-testimonials-text: #1F2937;
+  --section-faq-bg: #FFFFFF;
+  --section-faq-text: #1F2937;
+  --section-cta-bg: #F0FDF4;
+  --section-cta-text: #1F2937;
+  --section-values-bg: #FFFFFF;
+  --section-values-text: #1F2937;
+  --section-blog-bg: #FFFFFF;
+  --section-blog-text: #1F2937;
+  --section-services-page-bg: #FFFFFF;
+  --section-services-page-text: #1F2937;
+  --section-contact-bg: #FFFFFF;
+  --section-contact-text: #1F2937;
+}
+
+.hero-section {
+  background-color: #FFFFFF;
+  color: #1F2937;
+}
+
+.section-services {
+  background-color: #F0FDF4;
+  color: #1F2937;
+}
+
+.section-about {
+  background-color: #FFFFFF;
+  color: #1F2937;
+}
+
+.section-testimonials {
+  background-color: #F0FDF4;
+  color: #1F2937;
+}
+
+.section-faq {
+  background-color: #FFFFFF;
+  color: #1F2937;
+}
+
+.section-cta {
+  background-color: #F0FDF4;
+  color: #1F2937;
+}
+
+.section-values {
+  background-color: #FFFFFF;
+  color: #1F2937;
+}
+
+.section-blog {
+  background-color: #FFFFFF;
+  color: #1F2937;
+}
+
+.section-services-page {
+  background-color: #FFFFFF;
+  color: #1F2937;
+}
+
+.section-contact {
+  background-color: #FFFFFF;
+  color: #1F2937;
+}
+
+body[data-page="contact"] .page-header {
+  background-color: #047857;
+}
+
+body[data-page="contact"] .page-header h1 {
+  color: #FFFFFF;
+}
+
+body[data-page="contact"] .page-header .subtitle {
+  color: #FFFFFF;
+}
+

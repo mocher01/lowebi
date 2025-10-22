@@ -1,0 +1,93 @@
+[
+  {
+    "id": "backup_1755563161931_x5h3hh",
+    "timestamp": "2025-08-19T00:26:01.931Z",
+    "environment": "development",
+    "databaseName": "development",
+    "filePath": "/var/apps/website-generator/v2/backend/backups/backup_1755563161931_x5h3hh_development_development_2025-08-19T00-26-01-931Z.sqlite",
+    "size": 49152,
+    "checksum": "86be0cdeabb224ce3dec35e8f6432041da56ba7102110ecb91511802748ac08c",
+    "migrationVersion": "TestMigration1755562142815"
+  },
+  {
+    "id": "backup_1755563333666_mxvx1w",
+    "timestamp": "2025-08-19T00:28:53.666Z",
+    "environment": "development",
+    "databaseName": "development",
+    "filePath": "/var/apps/website-generator/v2/backend/backups/backup_1755563333666_mxvx1w_development_development_2025-08-19T00-28-53-666Z.sqlite",
+    "size": 49152,
+    "checksum": "bd3807240a216dca3c624b67afd4e3651f8307cda5478ae8ac82e688a6e22b4f",
+    "migrationVersion": "TestMigration1755563229695"
+  },
+  {
+    "id": "backup_1755563574569_p90n8r",
+    "timestamp": "2025-08-19T00:32:54.569Z",
+    "environment": "development",
+    "databaseName": "development",
+    "filePath": "/var/apps/website-generator/v2/backend/backups/backup_1755563574569_p90n8r_development_development_2025-08-19T00-32-54-569Z.sqlite",
+    "size": 49152,
+    "checksum": "1609e6255bf222e9a1ec70a1a8f4e8a1b98cc9e6cecfc0f5571583808fdc8d0c",
+    "migrationVersion": "CLITestMigration1755563340308"
+  },
+  {
+    "id": "backup_1755563667222_uvki1y",
+    "timestamp": "2025-08-19T00:34:27.222Z",
+    "environment": "test",
+    "databaseName": "development",
+    "filePath": "/var/apps/website-generator/v2/backend/backups/backup_1755563667222_uvki1y_test_development_2025-08-19T00-34-27-222Z.sqlite",
+    "size": 49152,
+    "checksum": "08b1d97992131610e36e4fb57f0b7ea984a9f28207963dcfaca08882acdb359b",
+    "migrationVersion": "TestNewMigration1755563589216"
+  },
+  {
+    "id": "backup_1755563675024_wle7rv",
+    "timestamp": "2025-08-19T00:34:35.024Z",
+    "environment": "test",
+    "databaseName": "development",
+    "filePath": "/var/apps/website-generator/v2/backend/backups/backup_1755563675024_wle7rv_test_development_2025-08-19T00-34-35-024Z.sqlite",
+    "size": 49152,
+    "checksum": "08b1d97992131610e36e4fb57f0b7ea984a9f28207963dcfaca08882acdb359b",
+    "migrationVersion": "TestNewMigration1755563589216"
+  },
+  {
+    "id": "backup_1755563684986_el967s",
+    "timestamp": "2025-08-19T00:34:44.986Z",
+    "environment": "test",
+    "databaseName": "development",
+    "filePath": "/var/apps/website-generator/v2/backend/backups/backup_1755563684986_el967s_test_development_2025-08-19T00-34-44-986Z.sqlite",
+    "size": 49152,
+    "checksum": "08b1d97992131610e36e4fb57f0b7ea984a9f28207963dcfaca08882acdb359b",
+    "migrationVersion": "TestNewMigration1755563589216"
+  },
+  {
+    "id": "backup_1755563783458_jzgywm",
+    "timestamp": "2025-08-19T00:36:23.458Z",
+    "environment": "development",
+    "databaseName": "development",
+    "filePath": "/var/apps/website-generator/v2/backend/backups/backup_1755563783458_jzgywm_development_development_2025-08-19T00-36-23-458Z.sqlite",
+    "size": 49152,
+    "checksum": "08b1d97992131610e36e4fb57f0b7ea984a9f28207963dcfaca08882acdb359b",
+    "migrationVersion": "TestNewMigration1755563589216"
+  },
+  {
+    "id": "backup_1755565390573_24c45h",
+    "timestamp": "2025-08-19T01:03:10.573Z",
+    "environment": "production",
+    "databaseName": "production",
+    "filePath": "/var/apps/website-generator/v2/backend/backups/backup_1755565390573_24c45h_production_production_2025-08-19T01-03-10-573Z.sqlite",
+    "size": 12288,
+    "checksum": "7e5dc9b77dbf549f7b61a1dbc778cdd0fdc6c8fcce7cdd559b895d76626c6f1e",
+    "migrationVersion": "CLITestMigration1755563790782"
+  },
+  {
+    "id": "backup_1755565647593_22dhdp",
+    "timestamp": "2025-08-19T01:07:27.593Z",
+    "environment": "production",
+    "databaseName": "production",
+    "filePath": "/var/apps/website-generator/v2/backend/backups/backup_1755565647593_22dhdp_production_production_2025-08-19T01-07-27-593Z.sqlite",
+    "size": 12288,
+    "checksum": "7e5dc9b77dbf549f7b61a1dbc778cdd0fdc6c8fcce7cdd559b895d76626c6f1e",
+    "description": "Production deployment backup",
+    "migrationVersion": "CLITestMigration1755563790782"
+  }
+]

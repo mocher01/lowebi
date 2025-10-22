@@ -1,0 +1,143 @@
+version: '3.8'
+
+networks:
+  logen-network-prod:
+    driver: bridge
+    name: logen-network-prod
+
+volumes:
+  logen-postgres-main_data:
+    external: true
+    name: logen-postgres-main_data
+  logen-redis-prod-data:
+    name: logen-redis-prod-data
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: logen-postgres-prod
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+      PGPORT: 7633
+    volumes:
+      - logen-postgres-main_data:/var/lib/postgresql/data
+    ports:
+      - "7633:7633"
+    command: postgres -p 7633
+    networks:
+      - logen-network-prod
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE} -p 7633"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: logen-redis-prod
+    ports:
+      - "7679:6379"
+    volumes:
+      - logen-redis-prod-data:/data
+    networks:
+      - logen-network-prod
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # NestJS Backend
+  backend:
+    build:
+      context: ../../../apps/backend
+      dockerfile: Dockerfile.prod
+    image: logen-backend:prod
+    container_name: logen-backend-prod
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_SSL=${DB_SSL}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    ports:
+      - "7600:7600"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - logen-network-prod
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7600/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+
+  # Admin Frontend
+  admin-frontend:
+    build:
+      context: ../../../apps/admin-frontend
+      dockerfile: Dockerfile.prod
+    image: logen-admin-frontend:prod
+    container_name: logen-admin-frontend-prod
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=7602
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_APP_ENV=${NEXT_PUBLIC_APP_ENV}
+    ports:
+      - "7602:7602"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - logen-network-prod
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7602"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+
+  # Customer Frontend
+  customer-frontend:
+    build:
+      context: ../../../apps/frontend
+      dockerfile: Dockerfile.prod
+    image: logen-customer-frontend:prod
+    container_name: logen-customer-frontend-prod
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - PORT=7601
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_APP_ENV=${NEXT_PUBLIC_APP_ENV}
+    ports:
+      - "7601:7601"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - logen-network-prod
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7601"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped

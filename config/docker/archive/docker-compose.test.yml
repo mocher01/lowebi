@@ -1,0 +1,83 @@
+version: '3.8'
+
+services:
+  postgres-test:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: logen_test
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d logen_test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - logen-test
+
+  redis-test:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - logen-test
+
+  backend-test:
+    build:
+      context: ./v2/backend
+      dockerfile: Dockerfile
+      target: development
+    environment:
+      NODE_ENV: test
+      DATABASE_URL: postgresql://test_user:test_password@postgres-test:5432/logen_test
+      REDIS_URL: redis://redis-test:6379
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./v2/backend:/app
+      - /app/node_modules
+    command: npm run start:dev
+    networks:
+      - logen-test
+
+  frontend-test:
+    build:
+      context: ./v2/frontend
+      dockerfile: Dockerfile
+      target: development
+    environment:
+      NODE_ENV: test
+      NEXT_PUBLIC_API_URL: http://backend-test:3000
+    depends_on:
+      - backend-test
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./v2/frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+    networks:
+      - logen-test
+
+volumes:
+  postgres_test_data:
+    driver: local
+
+networks:
+  logen-test:
+    driver: bridge

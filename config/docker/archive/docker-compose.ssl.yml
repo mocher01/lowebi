@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database with SSL - Production Ready
+  postgres-ssl:
+    image: postgres:15-alpine
+    container_name: logen-postgres-ssl
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-logen_prod}
+      POSTGRES_USER: ${POSTGRES_USER:-logen_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-logen_pass_2024_secure}
+      POSTGRES_MAX_CONNECTIONS: ${POSTGRES_MAX_CONNECTIONS:-200}
+    ports:
+      - "7634:5432"
+    volumes:
+      - postgres_ssl_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./postgresql/ssl:/var/lib/postgresql/ssl
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    networks:
+      - logen-production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-logen_user} -d ${POSTGRES_DB:-logen_prod}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  logen-production:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.101.0/24
+
+volumes:
+  postgres_ssl_data:

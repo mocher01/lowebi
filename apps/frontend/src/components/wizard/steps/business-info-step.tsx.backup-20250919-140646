@@ -1,0 +1,539 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import { useWizard } from '../wizard-provider';
+
+export function BusinessInfoStep() {
+  console.log('🔍 BusinessInfoStep component loaded');
+  const { wizardData, updateWizardData, createWizardSession } = useWizard();
+  const [businessTypes, setBusinessTypes] = useState<Array<{
+    key: string;
+    name: string;
+    description: string;
+    terminology: string;
+  }>>([]);
+  const [loading, setLoading] = useState(true);
+  const [showBusinessTypeSuggestions, setShowBusinessTypeSuggestions] = useState(false);
+  const [filteredBusinessTypes, setFilteredBusinessTypes] = useState<Array<{
+    key: string;
+    name: string;
+    description: string;
+    terminology: string;
+  }>>([]);
+  const [errors, setErrors] = useState<{
+    siteName?: string;
+    businessType?: string;
+    domain?: string;
+  }>({});
+
+  // Load business types - matches V1 exactly
+  useEffect(() => {
+    const loadBusinessTypes = async () => {
+      try {
+        // V1-compatible business types with terminology mapping
+        const types = [
+          {
+            key: 'translation',
+            name: 'Traduction',
+            description: 'Services de traduction professionnelle',
+            terminology: 'services'
+          },
+          {
+            key: 'education',
+            name: 'Éducation',
+            description: 'Formation et enseignement',
+            terminology: 'cours'
+          },
+          {
+            key: 'plomberie',
+            name: 'Plomberie',
+            description: 'Services de plomberie et réparations',
+            terminology: 'interventions'
+          },
+          {
+            key: 'restaurant',
+            name: 'Restaurant',
+            description: 'Restaurant et gastronomie',
+            terminology: 'spécialités'
+          },
+          {
+            key: 'consulting',
+            name: 'Conseil',
+            description: 'Conseil et expertise',
+            terminology: 'services'
+          },
+          {
+            key: 'creative',
+            name: 'Services créatifs',
+            description: 'Design et créativité',
+            terminology: 'services'
+          },
+          {
+            key: 'healthcare',
+            name: 'Santé',
+            description: 'Services de santé et bien-être',
+            terminology: 'soins'
+          },
+          {
+            key: 'legal',
+            name: 'Juridique',
+            description: 'Services juridiques et légaux',
+            terminology: 'services'
+          },
+          {
+            key: 'technology',
+            name: 'Technologie',
+            description: 'Services informatiques et techniques',
+            terminology: 'solutions'
+          },
+          {
+            key: 'real-estate',
+            name: 'Immobilier',
+            description: 'Services immobiliers',
+            terminology: 'services'
+          }
+        ];
+        
+        setBusinessTypes(types);
+        setFilteredBusinessTypes(types);
+      } catch (error) {
+        console.error('Failed to load business types:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadBusinessTypes();
+  }, []);
+
+  // Generate unique Site ID from site name using backend API
+  const generateUniqueSiteId = async (siteName: string): Promise<string> => {
+    if (!siteName || siteName.trim().length < 2) return '';
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('/customer/wizard-sessions/generate-site-id', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token ? `Bearer ${token}` : '',
+        },
+        body: JSON.stringify({ businessName: siteName.trim() }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          return data.siteId;
+        }
+      }
+    } catch (error) {
+      console.error('Error generating unique site ID:', error);
+    }
+
+    // Fallback to local generation if API fails
+    return siteName
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove accents
+      .replace(/[^a-z0-9\s-]/g, '') // Remove special chars except spaces and hyphens
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .replace(/-+/g, '-') // Replace multiple hyphens with single
+      .replace(/^-+|-+$/g, '') // Remove leading/trailing hyphens
+      .slice(0, 30); // Limit length
+  };
+
+  // Auto-generate site ID when site name changes (with option to edit)
+  const handleSiteNameChange = async (siteName: string) => {
+    console.log('🔄 handleSiteNameChange CALLED with:', siteName);
+    console.log('🔍 createWizardSession function available:', typeof createWizardSession);
+
+    // Clear any existing site ID from localStorage to force fresh generation
+    localStorage.removeItem('wizard-site-id');
+    console.log('🧹 Cleared stored site ID to force fresh generation');
+
+    // Generate unique site ID using backend API
+    console.log('🔍 About to call generateUniqueSiteId with:', siteName);
+    const newSiteId = await generateUniqueSiteId(siteName);
+    console.log('🔍 generateUniqueSiteId returned:', newSiteId);
+
+    // Get current site ID for comparison (local fallback)
+    const currentLocalSiteId = (wizardData.siteName || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 30);
+
+    const updatedData = {
+      siteName,
+      // Always update site ID when business name changes
+      siteId: newSiteId
+    };
+    
+    updateWizardData(updatedData);
+    
+    validateSiteName(siteName);
+    
+    // FORCE IMMEDIATE SESSION CREATION - no throttling, no delays
+    if (siteName && siteName.trim().length > 0) {
+      console.log('🔥 FORCING IMMEDIATE SESSION CREATION for:', siteName);
+      console.log('🔍 About to call createWizardSession with sessionData');
+      try {
+        // Call the clean session creation function
+        const sessionData = { ...wizardData, ...updatedData };
+        console.log('🔍 sessionData prepared:', { siteName: sessionData.siteName, siteId: sessionData.siteId });
+        await createWizardSession(sessionData);
+        console.log('✅ FORCED SESSION CREATED SUCCESSFULLY');
+      } catch (error) {
+        console.error('❌ FORCED SESSION CREATION FAILED:', error);
+        console.error('❌ Error details:', error);
+      }
+    } else {
+      console.log('⚠️ Skipping session creation - empty siteName');
+    }
+  };
+
+  // Handle manual site ID changes
+  const handleSiteIdChange = (siteId: string) => {
+    // Clean the site ID using same logic as generation
+    const cleanId = siteId
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9-]/g, '')
+      .replace(/-+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 30);
+    
+    updateWizardData({ siteId: cleanId });
+  };
+
+  // Business type input handling (V1 style)
+  const handleBusinessTypeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    updateWizardData({ businessType: value });
+    
+    // Filter suggestions based on input
+    if (value.length > 0) {
+      const filtered = businessTypes.filter(type =>
+        type.name.toLowerCase().includes(value.toLowerCase()) ||
+        type.description.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredBusinessTypes(filtered);
+      setShowBusinessTypeSuggestions(true);
+    } else {
+      setFilteredBusinessTypes(businessTypes);
+      setShowBusinessTypeSuggestions(false);
+    }
+    
+    // Clear terminology if not from suggestions
+    const matchingType = businessTypes.find(type => type.name.toLowerCase() === value.toLowerCase());
+    if (matchingType) {
+      updateWizardData({ businessType: value, terminology: matchingType.terminology });
+    } else {
+      updateWizardData({ businessType: value, terminology: wizardData.terminology || 'services' });
+    }
+    
+    validateBusinessType(value);
+  };
+
+  // Select business type suggestion
+  const selectBusinessTypeSuggestion = (key: string, name: string) => {
+    const selectedType = businessTypes.find(type => type.key === key);
+    updateWizardData({ 
+      businessType: name,
+      terminology: selectedType?.terminology || 'services'
+    });
+    setShowBusinessTypeSuggestions(false);
+    setErrors(prev => ({ ...prev, businessType: undefined }));
+  };
+
+  // Validation functions (V1 style)
+  const validateSiteName = (siteName: string) => {
+    if (!siteName || siteName.trim().length < 2) {
+      setErrors(prev => ({ ...prev, siteName: 'Le nom du site doit contenir au moins 2 caractères' }));
+    } else if (siteName.length > 50) {
+      setErrors(prev => ({ ...prev, siteName: 'Le nom du site ne peut pas dépasser 50 caractères' }));
+    } else {
+      setErrors(prev => ({ ...prev, siteName: undefined }));
+    }
+  };
+
+  const validateBusinessType = (businessType: string) => {
+    if (!businessType || businessType.trim().length < 2) {
+      setErrors(prev => ({ ...prev, businessType: 'Le type d\'activité est requis' }));
+    } else {
+      setErrors(prev => ({ ...prev, businessType: undefined }));
+    }
+  };
+
+  const validateDomain = () => {
+    const domain = wizardData.domain || '';
+    if (domain && !domain.match(/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/)) {
+      setErrors(prev => ({ ...prev, domain: 'Format de domaine invalide (ex: monsite.com)' }));
+    } else {
+      setErrors(prev => ({ ...prev, domain: undefined }));
+    }
+  };
+
+  // Check if can proceed from this step
+  const canProceedFromStep2 = () => {
+    return wizardData.siteName && 
+           wizardData.siteName.length >= 2 && 
+           wizardData.businessType && 
+           wizardData.businessType.length >= 2 &&
+           !errors.siteName && 
+           !errors.businessType && 
+           !errors.domain;
+  };
+
+  if (loading) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p>Chargement des types d'activités...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="wizard-step p-8">
+      <h2 className="text-2xl font-bold mb-6 text-gray-900">Informations sur votre Entreprise</h2>
+      <p className="text-gray-600 mb-8">Parlez-nous de votre entreprise pour personnaliser votre site</p>
+      
+      <div className="space-y-6">
+        {/* Site Name */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Nom de votre site/entreprise *
+          </label>
+          <input
+            type="text"
+            value={wizardData.siteName || ''}
+            onChange={(e) => {
+              console.log('🔍 Business name onChange triggered with:', e.target.value);
+              handleSiteNameChange(e.target.value);
+            }}
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 ${
+              errors.siteName ? 'border-red-500' : 'border-gray-300'
+            }`}
+            placeholder="Mon Entreprise"
+            maxLength={50}
+          />
+          {errors.siteName && (
+            <div className="text-red-500 text-sm mt-1">{errors.siteName}</div>
+          )}
+        </div>
+
+        {/* Business Type (Free Input with Suggestions) */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Type d'activité *
+          </label>
+          <div className="relative">
+            <input
+              type="text"
+              value={wizardData.businessType || ''}
+              onChange={handleBusinessTypeInput}
+              onFocus={() => setShowBusinessTypeSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowBusinessTypeSuggestions(false), 200)}
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 ${
+                errors.businessType ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="Ex: Traduction, Éducation, Plomberie, Restaurant..."
+              maxLength={50}
+            />
+            
+            {/* Suggestions Dropdown */}
+            {showBusinessTypeSuggestions && filteredBusinessTypes.length > 0 && (
+              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                {filteredBusinessTypes.map((suggestion) => (
+                  <div
+                    key={suggestion.key}
+                    onClick={() => selectBusinessTypeSuggestion(suggestion.key, suggestion.name)}
+                    className="px-3 py-2 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                  >
+                    <div className="font-medium text-gray-900">{suggestion.name}</div>
+                    <div className="text-sm text-gray-600">{suggestion.description}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          {errors.businessType && (
+            <div className="text-red-500 text-sm mt-1">{errors.businessType}</div>
+          )}
+          <p className="text-sm text-gray-700 mt-1">Tapez librement ou choisissez une suggestion</p>
+        </div>
+
+        {/* Business Description */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Description de votre entreprise
+          </label>
+          <textarea
+            value={wizardData.businessDescription || ''}
+            onChange={(e) => updateWizardData({ businessDescription: e.target.value })}
+            rows={4}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+            placeholder="Décrivez votre entreprise et vos services en quelques mots"
+            maxLength={200}
+          />
+          <div className="text-sm text-gray-600 mt-1">
+            {(wizardData.businessDescription || '').length}/200 caractères
+          </div>
+        </div>
+
+        {/* Terminology */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Terme pour désigner vos prestations *
+          </label>
+          <input
+            type="text"
+            value={wizardData.terminology || 'services'}
+            onChange={(e) => updateWizardData({ terminology: e.target.value || 'services' })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+            placeholder={`Ex: ${wizardData.terminology || 'services'}`}
+            maxLength={30}
+          />
+          <p className="text-sm text-gray-700 mt-1">
+            Ce terme sera utilisé dans la navigation et les titres (ex: "Services", "Interventions", "Cours", "Spécialités")
+          </p>
+        </div>
+
+        {/* Domain */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Nom de domaine souhaité
+          </label>
+          <input
+            type="text"
+            value={wizardData.domain || ''}
+            onChange={(e) => updateWizardData({ domain: e.target.value })}
+            onBlur={validateDomain}
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 ${
+              errors.domain ? 'border-red-500' : 'border-gray-300'
+            }`}
+            placeholder="mon-entreprise.com"
+          />
+          {errors.domain && (
+            <div className="text-red-500 text-sm mt-1">{errors.domain}</div>
+          )}
+          <p className="text-sm text-gray-700 mt-1">Optionnel - Format: domain.com (sans http://)</p>
+        </div>
+
+        {/* Slogan */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Slogan/Phrase d'accroche
+          </label>
+          <textarea
+            value={wizardData.slogan || ''}
+            onChange={(e) => updateWizardData({ slogan: e.target.value })}
+            rows={2}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+            placeholder="Phrase accrocheuse pour votre site"
+            maxLength={100}
+          />
+          <div className="text-sm text-gray-600 mt-1">
+            {(wizardData.slogan || '').length}/100 caractères
+          </div>
+        </div>
+
+        {/* Generated Site ID Preview - EDITABLE */}
+        {wizardData.siteName && (
+          <div className="bg-gray-50 p-4 rounded-lg">
+            <h3 className="font-semibold text-gray-700 mb-2">Identifiant du site</h3>
+            <p className="text-sm text-gray-600 mb-2">Identifiant unique pour votre site :</p>
+            <div className="flex items-center space-x-2">
+              <input
+                type="text"
+                value={wizardData.siteId || ''}
+                onChange={(e) => handleSiteIdChange(e.target.value)}
+                className="bg-white px-2 py-1 rounded text-blue-600 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
+                maxLength={30}
+                placeholder="En cours de génération..."
+              />
+              <button
+                onClick={async () => {
+                  const newSiteId = await generateUniqueSiteId(wizardData.siteName || '');
+                  updateWizardData({ siteId: newSiteId });
+                }}
+                className="text-xs text-blue-600 hover:text-blue-800 underline"
+                type="button"
+              >
+                Régénérer
+              </button>
+            </div>
+            <p className="text-sm text-gray-700 mt-1">
+              Cet identifiant sera utilisé pour créer votre site. Vous pouvez le modifier.
+            </p>
+          </div>
+        )}
+
+        {/* Contact Information */}
+        <div className="border-t border-gray-200 pt-6">
+          <h3 className="text-lg font-semibold mb-4 text-gray-900">📞 Informations de Contact</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+              <input
+                type="email"
+                value={wizardData.contact?.email || ''}
+                onChange={(e) => updateWizardData({
+                  contact: { ...wizardData.contact, email: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="contact@votre-site.com"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+              <input
+                type="tel"
+                value={wizardData.contact?.phone || ''}
+                onChange={(e) => updateWizardData({
+                  contact: { ...wizardData.contact, phone: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="+33 1 23 45 67 89"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Adresse</label>
+              <input
+                type="text"
+                value={wizardData.contact?.address || ''}
+                onChange={(e) => updateWizardData({
+                  contact: { ...wizardData.contact, address: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="123 Rue de la Paix, 75001 Paris"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">Horaires d'ouverture</label>
+              <input
+                type="text"
+                value={wizardData.contact?.hours || ''}
+                onChange={(e) => updateWizardData({
+                  contact: { ...wizardData.contact, hours: e.target.value }
+                })}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Lun-Ven 9h-18h"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

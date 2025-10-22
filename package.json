@@ -1,0 +1,66 @@
+{
+  "name": "logen",
+  "version": "2.0.0",
+  "description": "LOGEN v2 - Multi-tenant website generation platform with NestJS backend and Next.js frontends",
+  "main": "apps/backend/dist/main.js",
+  "scripts": {
+    "dev:backend": "cd apps/backend && npm run start:dev",
+    "dev:admin": "cd apps/admin-frontend && npm run dev",
+    "dev:customer": "cd apps/frontend && npm run dev",
+    "build:backend": "cd apps/backend && npm run build",
+    "build:admin": "cd apps/admin-frontend && npm run build",
+    "build:customer": "cd apps/frontend && npm run build",
+    "build:all": "npm run build:backend && npm run build:admin && npm run build:customer",
+    "test": "npm run test --prefix tests/browser-automation",
+    "test:e2e": "npm run test --prefix tests/browser-automation",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:rebuild": "docker-compose up --build -d",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "website-generator",
+    "docker",
+    "automation",
+    "template"
+  ],
+  "author": "mocher01",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mocher01/logen.git"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "chalk": "^4.1.2",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2",
+    "fs-extra": "^11.3.0",
+    "helmet": "^7.1.0",
+    "inquirer": "^8.2.6",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^7.0.5",
+    "openai": "^5.11.0",
+    "ora": "^5.4.1",
+    "sharp": "^0.33.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/jest": "^30.0.0",
+    "axios": "^1.12.2",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^30.0.5",
+    "lint-staged": "^16.1.6",
+    "node-fetch": "^2.7.0",
+    "nodemon": "^3.0.1",
+    "playwright": "^1.55.0",
+    "prettier": "^3.6.2",
+    "puppeteer": "^24.17.0",
+    "supertest": "^6.3.3",
+    "tailwindcss": "^4.1.11"
+  }
+}
