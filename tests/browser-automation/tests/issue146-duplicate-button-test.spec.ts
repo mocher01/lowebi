@@ -18,7 +18,7 @@ test.describe('Issue #146 - Duplicate Name Button Behavior', () => {
     try {
       // Login
       console.log('\n🔐 Step 1: Authentication...');
-      await page.goto('https://logen.locod-ai.com/login');
+      await page.goto('https://dev.lowebi.com/login');
       await page.fill('input[type="email"]', 'test@example.com');
       await page.fill('input[type="password"]', 'Administrator2025');
       await page.click('button[type="submit"]');
@@ -27,7 +27,7 @@ test.describe('Issue #146 - Duplicate Name Button Behavior', () => {
 
       // Navigate to sites page
       console.log('\n🏠 Step 2: Navigate to My Sites...');
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(3000);
 
       // Create New Site

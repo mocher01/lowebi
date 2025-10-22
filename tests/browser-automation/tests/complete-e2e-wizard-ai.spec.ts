@@ -22,7 +22,7 @@ test.describe('Complete E2E V2 Wizard with AI Generation', () => {
     
     // Navigate to V2 wizard
     console.log('📍 Step 0: Navigating to V2 wizard...');
-    await page.goto('https://logen.locod-ai.com/wizard-v2');
+    await page.goto('https://dev.lowebi.com/wizard-v2');
     await page.waitForLoadState('networkidle');
     
     // ==========================================
@@ -253,7 +253,7 @@ test.describe('Complete E2E V2 Wizard with AI Generation', () => {
     console.log('\n🔍 VERIFYING AI REQUEST CREATION...');
     
     // Get all requests from admin queue
-    const response = await request.get('http://localhost:7600/admin/queue');
+    const response = await request.get('http://localhost:7610/admin/queue');
     
     if (!response.ok()) {
       console.warn('⚠️ Admin queue requires authentication, checking recent requests...');
@@ -306,7 +306,7 @@ test.describe('Complete E2E V2 Wizard with AI Generation', () => {
       return;
     }
     
-    const response = await request.get(`http://localhost:7600/admin/queue/${createdRequestId}/prompt`);
+    const response = await request.get(`http://localhost:7610/admin/queue/${createdRequestId}/prompt`);
     expect(response.ok()).toBe(true);
     
     const promptData = await response.json();
@@ -360,7 +360,7 @@ test.describe('Complete E2E V2 Wizard with AI Generation', () => {
     if (createdRequestId) {
       console.log(`📊 Created Request ID: ${createdRequestId}`);
       console.log('🔗 To verify in admin dashboard:');
-      console.log(`   1. Go to: https://admin.logen.locod-ai.com/dashboard/ai-queue`);
+      console.log(`   1. Go to: https://admin.dev.lowebi.com/dashboard/ai-queue`);
       console.log(`   2. Find request ID: ${createdRequestId}`); 
       console.log(`   3. Click "Traiter" to see the comprehensive prompt`);
       console.log(`   4. Verify prompt is comprehensive (>4000 chars) not fallback`);

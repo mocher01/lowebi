@@ -6,7 +6,7 @@ import { test, expect, Page } from '@playwright/test';
  * Tests the fix for: Site and Customer columns displaying incomprehensible IDs
  */
 
-const ADMIN_URL = 'http://localhost:7602/dashboard/ai-queue';
+const ADMIN_URL = 'http://localhost:7612/dashboard/ai-queue';
 const ADMIN_LOGIN = {
   email: 'admin@locod.ai',
   password: 'admin123'

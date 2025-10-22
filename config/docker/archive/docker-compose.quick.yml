@@ -19,7 +19,7 @@ services:
       JWT_EXPIRES_IN: 24h
       PORT: 7600
     ports:
-      - "7600:7600"
+      - "7600:7610"
     restart: unless-stopped
 
   # Next.js Frontend - Production
@@ -30,10 +30,10 @@ services:
     container_name: logen-frontend-quick
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: http://162.55.213.90:7600
+      NEXT_PUBLIC_API_URL: http://162.55.213.90:7610
       PORT: 7601
     ports:
-      - "7601:7601"
+      - "7601:7611"
     depends_on:
       - backend
     restart: unless-stopped

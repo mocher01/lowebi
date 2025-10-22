@@ -17,7 +17,7 @@ test('Issue #146: Duplicate Site Name Detection', async ({ page }) => {
   try {
     // Step 1: Login
     console.log('\n🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -26,7 +26,7 @@ test('Issue #146: Duplicate Site Name Detection', async ({ page }) => {
 
     // Step 2: Navigate to My Sites
     console.log('\n🏠 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Verify we're on sites page
@@ -39,7 +39,7 @@ test('Issue #146: Duplicate Site Name Detection', async ({ page }) => {
       await page.fill('input[type="password"]', 'Administrator2025');
       await page.click('button[type="submit"]');
       await page.waitForTimeout(3000);
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(2000);
     }
 
@@ -155,14 +155,14 @@ test('Issue #146: Unique Site Name (No Warning)', async ({ page }) => {
   try {
     // Login
     console.log('\n🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForTimeout(3000);
 
     // Navigate to sites
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Create new site

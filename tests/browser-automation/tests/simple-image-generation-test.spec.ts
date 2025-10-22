@@ -7,13 +7,13 @@ test('Simple Image Generation to Test V1.2 Enhanced Blog Elements', async ({ pag
   const siteName = `TestV1.2_${timestamp}`;
 
   // Login
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.fill('input[type="email"]', 'test@example.com');
   await page.fill('input[type="password"]', 'Administrator2025');
   await page.click('button[type="submit"]');
 
   // Go to sites
-  await page.goto('https://logen.locod-ai.com/sites');
+  await page.goto('https://dev.lowebi.com/sites');
 
   // Find existing site with Continue button
   console.log('🔍 Looking for existing site with Continue button...');
@@ -95,12 +95,12 @@ test('Simple Image Generation to Test V1.2 Enhanced Blog Elements', async ({ pag
 
   // Check admin queue
   const adminPage = await browser.newPage();
-  await adminPage.goto('https://admin.logen.locod-ai.com');
+  await adminPage.goto('https://admin.dev.lowebi.com');
   await adminPage.fill('#email', 'admin@locod.ai');
   await adminPage.fill('#password', 'admin123');
   await adminPage.click('button[type="submit"]');
 
-  await adminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+  await adminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
 
   // Look for the newest image request
   console.log('🔍 Looking for newest IMAGE request...');

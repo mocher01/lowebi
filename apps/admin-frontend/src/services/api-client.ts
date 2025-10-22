@@ -82,17 +82,17 @@ class AdminAPIClient {
       const hostname = window.location.hostname;
       
       if (hostname === 'localhost' || hostname === '127.0.0.1') {
-        return 'http://localhost:7600';
-      } else if (hostname === 'admin.logen.locod-ai.com') {
+        return 'http://localhost:7610';
+      } else if (hostname === 'admin.dev.lowebi.com') {
         return '';  // Use same origin - nginx will proxy /admin/* to backend
-      } else if (hostname === 'logen.locod-ai.com') {
+      } else if (hostname === 'dev.lowebi.com') {
         return '';  // Use same origin
       } else if (hostname.includes('162.55.213.90')) {
-        return 'http://162.55.213.90:7600';
+        return 'http://162.55.213.90:7610';
       }
     }
     
-    return 'http://localhost:7600'; // Default fallback
+    return 'http://localhost:7610'; // Default fallback
   }
 
   private getAuthHeaders(): HeadersInit {

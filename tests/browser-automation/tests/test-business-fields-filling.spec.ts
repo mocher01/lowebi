@@ -19,7 +19,7 @@ test('Test Business Fields Filling: Business Type, Slogan, and Description', asy
 
     // Step 1: Login
     console.log('🔐 Step 1: Login...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -27,7 +27,7 @@ test('Test Business Fields Filling: Business Type, Slogan, and Description', asy
 
     // Navigate directly to wizard
     console.log('🧙 Step 2: Navigate to wizard...');
-    await page.goto('https://logen.locod-ai.com/wizard?new=true');
+    await page.goto('https://dev.lowebi.com/wizard?new=true');
     await page.waitForTimeout(3000);
 
     // Check for and handle consent if present

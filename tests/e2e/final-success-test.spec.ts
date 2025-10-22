@@ -11,7 +11,7 @@ test('FINAL SUCCESS TEST - Complete login flow', async ({ page }) => {
   });
 
   console.log('🌐 Navigating to login page...');
-  await page.goto('https://logen.locod-ai.com/login', { timeout: 15000 });
+  await page.goto('https://dev.lowebi.com/login', { timeout: 15000 });
   
   await page.waitForSelector('input[type="email"]', { timeout: 10000 });
   console.log('📝 Login form loaded');

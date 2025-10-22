@@ -18,7 +18,7 @@ test('Admin Image Upload Test - Direct Upload to Request #551', async ({ page })
   try {
     // Step 1: Navigate to admin login
     console.log('🔐 Step 1: Admin Authentication...');
-    await page.goto('https://admin.logen.locod-ai.com');
+    await page.goto('https://admin.dev.lowebi.com');
     await page.waitForTimeout(2000);
 
     // Admin login
@@ -74,7 +74,7 @@ test('Admin Image Upload Test - Direct Upload to Request #551', async ({ page })
 
     // Step 2: Navigate to AI Queue
     console.log('📋 Step 2: Navigate to AI Queue...');
-    await page.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await page.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await page.waitForTimeout(3000);
 
     // Step 3: Find and open request #551 specifically

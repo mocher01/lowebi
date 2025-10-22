@@ -22,7 +22,7 @@ describe('DomainManagementService', () => {
   const mockConfigService = {
     get: jest.fn((key: string) => {
       const config = {
-        DOMAIN_BASE: 'logen.locod-ai.com',
+        DOMAIN_BASE: 'dev.lowebi.com',
         SUBDOMAIN_RATE_LIMIT: 10,
       };
       return config[key];
@@ -50,12 +50,12 @@ describe('DomainManagementService', () => {
   const mockSiteDomain = {
     id: 'domain-uuid-123',
     wizardSessionId: 'session-uuid-123',
-    domain: 'test-site.logen.locod-ai.com',
+    domain: 'test-site.dev.lowebi.com',
     domainType: DomainType.SUBDOMAIN,
     isTemporary: false,
     status: DomainStatus.ACTIVE,
     containerName: 'test-site-session-u',
-    getFullUrl: () => 'https://test-site.logen.locod-ai.com',
+    getFullUrl: () => 'https://test-site.dev.lowebi.com',
     toDto: jest.fn(),
   } as any;
 

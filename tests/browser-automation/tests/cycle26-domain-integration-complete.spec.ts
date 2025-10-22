@@ -32,7 +32,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     const siteName = `cycle26test${timestamp}`;
     const subdomain = siteName.toLowerCase();
     console.log(`🆔 Generated site name: ${siteName}`);
-    console.log(`🌐 Subdomain: ${subdomain}.logen.locod-ai.com`);
+    console.log(`🌐 Subdomain: ${subdomain}.dev.lowebi.com`);
 
     // ============================================================================
     // FOUNDATION STEPS 1-6 (Required Base for All Cycles 10+)
@@ -43,7 +43,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
 
     // Step 1: Authentication
     console.log('🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -52,7 +52,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
 
     // Step 2: Navigate to My Sites
     console.log('🏠 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Verify we're actually on sites page, not redirected to login
@@ -67,7 +67,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
       await page.waitForTimeout(3000);
 
       // Navigate to sites again after re-login
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(2000);
 
       const finalUrl = page.url();
@@ -182,7 +182,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     }
 
     // Domain is auto-saved by wizard session API
-    console.log(`✅ Domain will be auto-created: ${subdomain}.logen.locod-ai.com`);
+    console.log(`✅ Domain will be auto-created: ${subdomain}.dev.lowebi.com`);
     console.log('='.repeat(50));
 
     await page.waitForTimeout(2000);
@@ -242,7 +242,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     console.log('\n👨‍💼 Step 11: Processing CONTENT request in admin (CYCLE 13 PATTERN)...');
 
     const adminPage = await page.context().newPage();
-    await adminPage.goto('https://admin.logen.locod-ai.com');
+    await adminPage.goto('https://admin.dev.lowebi.com');
 
     // Admin login (from Cycle13)
     const emailSelectors = ['#email', 'input[type="email"]', 'input[name="email"]', '[placeholder*="email"]', '[placeholder*="Email"]'];
@@ -274,7 +274,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     console.log('✅ Admin login successful');
 
     // Navigate to AI queue
-    await adminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await adminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await adminPage.waitForTimeout(3000);
 
     // STEP 12: Process the content request (CYCLE 13 PATTERN)
@@ -461,7 +461,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     console.log('🔍 Navigate back to customer portal to check if AI content appears...');
 
     // Navigate back to customer portal (from Cycle13)
-    await page.goto('https://logen.locod-ai.com');
+    await page.goto('https://dev.lowebi.com');
     await page.waitForTimeout(2000);
 
     // Check if we need to re-login
@@ -476,7 +476,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
 
     // Navigate to My Sites
     console.log('🏠 Navigate to My Sites to find processed site...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     // Find our site by name and click Continue (from Cycle13)
@@ -789,13 +789,13 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     const imageAdminContext = await browser.newContext();
     const imageAdminPage = await imageAdminContext.newPage();
 
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com');
     await imageAdminPage.fill('input[type="email"]', 'admin@locod.ai');
     await imageAdminPage.fill('input[type="password"]', 'admin123');
     await imageAdminPage.click('button[type="submit"]');
     await imageAdminPage.waitForURL('**/dashboard');
 
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
 
     const imageRequestSelector = `tr:has-text("${siteName}"):has-text("images")`;
     await imageAdminPage.waitForSelector(imageRequestSelector);
@@ -1208,7 +1208,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     await imageAdminPage.waitForTimeout(3000);
 
     // Verify admin processing success
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await imageAdminPage.waitForTimeout(2000);
 
     const processedRequestSelector = `tr:has-text("${siteName}"):has-text("images")`;
@@ -1293,7 +1293,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
 
     // Navigate to My Sites to find our processed site
     console.log('🏠 Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Find and click Continue for our site
@@ -1353,7 +1353,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     let navigationSuccess = false;
     if (continueParam) {
       console.log('🎯 Navigating directly to Images step (step=4)...');
-      await page.goto(`https://logen.locod-ai.com/wizard?continue=${continueParam}&step=4`);
+      await page.goto(`https://dev.lowebi.com/wizard?continue=${continueParam}&step=4`);
       await page.waitForTimeout(4000);
 
       // V2.3: Check for unified design button "Générer TOUTES mes images par IA"
@@ -1377,7 +1377,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
 
       // Navigate back to Step 4 (Content) to verify hero content
       console.log('🔙 Navigating to Step 4 (Content) to check Principal tab...');
-      await page.goto(`https://logen.locod-ai.com/wizard?continue=${continueParam}&step=3`);
+      await page.goto(`https://dev.lowebi.com/wizard?continue=${continueParam}&step=3`);
       await page.waitForTimeout(3000);
 
       // Click on Principal tab
@@ -1455,7 +1455,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
 
       // Now navigate back to Step 5 (Images) to verify images
       console.log('\n➡️ Returning to Step 5 (Images) to verify image processing...');
-      await page.goto(`https://logen.locod-ai.com/wizard?continue=${continueParam}&step=4`);
+      await page.goto(`https://dev.lowebi.com/wizard?continue=${continueParam}&step=4`);
       await page.waitForTimeout(3000); // Additional wait for Step 5 to load
 
       // Better Step 5 detection: look for specific Step 5 elements (V2.3 unified design)
@@ -2449,7 +2449,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     console.log('\n🔒 VERIFY HTTPS SUBDOMAIN ACCESS (Issue #153)');
     console.log('='.repeat(50));
 
-    const httpsUrl = `https://${subdomain}.logen.locod-ai.com`;
+    const httpsUrl = `https://${subdomain}.dev.lowebi.com`;
     console.log(`📍 Testing URL: ${httpsUrl}`);
     console.log('⏳ Waiting up to 60 seconds for container to start and Nginx to configure...');
 
@@ -2496,7 +2496,7 @@ test('Cycle 26: Complete Domain Integration E2E Test', async ({ page, browser })
     console.log('🎉 CYCLE 26 COMPLETE: Domain Integration E2E Test');
     console.log('='.repeat(80));
     console.log(`✅ Site Name: ${siteName}`);
-    console.log(`✅ Subdomain: ${subdomain}.logen.locod-ai.com`);
+    console.log(`✅ Subdomain: ${subdomain}.dev.lowebi.com`);
     console.log(`✅ HTTPS URL: ${httpsUrl}`);
     console.log('='.repeat(80));
 

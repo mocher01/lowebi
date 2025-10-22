@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const WIZARD_BASE_URL = 'https://logen.locod-ai.com/wizard-v2';
+const WIZARD_BASE_URL = 'https://dev.lowebi.com/wizard-v2';
 
 test('Simple Step Validation', async ({ page }) => {
   await page.goto(WIZARD_BASE_URL, { waitUntil: 'networkidle' });

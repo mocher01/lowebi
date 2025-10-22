@@ -127,7 +127,7 @@ export class OAuth2Controller {
       // Redirect back to frontend Advanced Features step (index 5) with success
       // CRITICAL: Use 'continue' parameter so frontend loads the session properly
       const frontendUrl =
-        process.env.FRONTEND_URL || 'https://logen.locod-ai.com';
+        process.env.FRONTEND_URL || 'https://dev.lowebi.com';
       const redirectUrl = `${frontendUrl}/wizard?continue=${wizardSessionId}&step=5&oauth2Status=success&credentialId=${credential.id}&email=${encodeURIComponent(credential.email)}`;
 
       return res.redirect(redirectUrl);
@@ -136,7 +136,7 @@ export class OAuth2Controller {
 
       // Redirect back to frontend with error (Advanced Features step = index 5)
       const frontendUrl =
-        process.env.FRONTEND_URL || 'https://logen.locod-ai.com';
+        process.env.FRONTEND_URL || 'https://dev.lowebi.com';
       const redirectUrl = `${frontendUrl}/wizard?step=5&oauth2Status=error&message=${encodeURIComponent(error.message || 'Failed to connect Google account')}`;
 
       return res.redirect(redirectUrl);

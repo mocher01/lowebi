@@ -266,7 +266,7 @@ test.describe('Admin Portal - Network & API Validation', () => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
     
-    // The frontend makes requests to '/auth/login' which should be rewritten to 'http://localhost:7600/auth/login'
+    // The frontend makes requests to '/auth/login' which should be rewritten to 'http://localhost:7610/auth/login'
     // Let's verify this is working
     
     const networkPromise = page.waitForRequest(request => 
@@ -280,8 +280,8 @@ test.describe('Admin Portal - Network & API Validation', () => {
     const request = await networkPromise;
     console.log('Actual request URL:', request.url());
     
-    // The request should be going to the proxy URL (localhost:7602) but internally hitting localhost:7600
-    expect(request.url()).toContain('localhost:7602');
+    // The request should be going to the proxy URL (localhost:7612) but internally hitting localhost:7610
+    expect(request.url()).toContain('localhost:7612');
     
     await page.waitForTimeout(2000);
     

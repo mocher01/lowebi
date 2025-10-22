@@ -11,7 +11,7 @@ test.describe('Issue #146: Duplicate Detection API Test', () => {
   test.beforeAll(async ({ request }) => {
     // Register test user
     console.log('\n📝 Registering test user:', TEST_EMAIL);
-    const registerResponse = await request.post('http://localhost:7600/auth/register', {
+    const registerResponse = await request.post('http://localhost:7610/auth/register', {
       data: {
         email: TEST_EMAIL,
         password: TEST_PASSWORD,
@@ -29,7 +29,7 @@ test.describe('Issue #146: Duplicate Detection API Test', () => {
     // Create a wizard session with duplicate name
     console.log('\n📝 Creating initial wizard session with name "test-duplicate"...');
     const sessionId = 'test-session-' + Date.now();
-    const createSessionResponse = await request.post(`http://localhost:7600/customer/wizard-sessions/${sessionId}`, {
+    const createSessionResponse = await request.post(`http://localhost:7610/customer/wizard-sessions/${sessionId}`, {
       headers: {
         'Authorization': `Bearer ${authToken}`,
         'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ test.describe('Issue #146: Duplicate Detection API Test', () => {
 
     // Call check-duplicate API with existing name
     console.log('📡 Calling /customer/wizard-sessions/check-duplicate with "test-duplicate"...');
-    const response = await request.post('http://localhost:7600/customer/wizard-sessions/check-duplicate', {
+    const response = await request.post('http://localhost:7610/customer/wizard-sessions/check-duplicate', {
       headers: {
         'Authorization': `Bearer ${authToken}`,
         'Content-Type': 'application/json'
@@ -97,7 +97,7 @@ test.describe('Issue #146: Duplicate Detection API Test', () => {
 
     // Call check-duplicate API with unique name
     console.log(`📡 Calling /customer/wizard-sessions/check-duplicate with "${uniqueName}"...`);
-    const response = await request.post('http://localhost:7600/customer/wizard-sessions/check-duplicate', {
+    const response = await request.post('http://localhost:7610/customer/wizard-sessions/check-duplicate', {
       headers: {
         'Authorization': `Bearer ${authToken}`,
         'Content-Type': 'application/json'
@@ -128,7 +128,7 @@ test.describe('Issue #146: Duplicate Detection API Test', () => {
     // Create test-duplicate-1
     console.log('Creating "test-duplicate-1"...');
     const session1Id = 'test-session-1-' + Date.now();
-    await request.post(`http://localhost:7600/customer/wizard-sessions/${session1Id}`, {
+    await request.post(`http://localhost:7610/customer/wizard-sessions/${session1Id}`, {
       headers: {
         'Authorization': `Bearer ${authToken}`,
         'Content-Type': 'application/json'
@@ -143,7 +143,7 @@ test.describe('Issue #146: Duplicate Detection API Test', () => {
     // Create test-duplicate-2
     console.log('Creating "test-duplicate-2"...');
     const session2Id = 'test-session-2-' + Date.now();
-    await request.post(`http://localhost:7600/customer/wizard-sessions/${session2Id}`, {
+    await request.post(`http://localhost:7610/customer/wizard-sessions/${session2Id}`, {
       headers: {
         'Authorization': `Bearer ${authToken}`,
         'Content-Type': 'application/json'
@@ -157,7 +157,7 @@ test.describe('Issue #146: Duplicate Detection API Test', () => {
 
     // Now check duplicate again - should suggest test-duplicate-3
     console.log('Checking duplicate for "test-duplicate" again...');
-    const response = await request.post('http://localhost:7600/customer/wizard-sessions/check-duplicate', {
+    const response = await request.post('http://localhost:7610/customer/wizard-sessions/check-duplicate', {
       headers: {
         'Authorization': `Bearer ${authToken}`,
         'Content-Type': 'application/json'

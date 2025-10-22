@@ -47,7 +47,7 @@ describe('AdminAPIClient', () => {
       const result = await apiClient.login('admin@locod.ai', 'admin123');
 
       expect(fetch).toHaveBeenCalledWith(
-        'http://localhost:7600/auth/login',
+        'http://localhost:7610/auth/login',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -84,7 +84,7 @@ describe('AdminAPIClient', () => {
       const result = await apiClient.refreshToken('old-refresh-token');
 
       expect(fetch).toHaveBeenCalledWith(
-        'http://localhost:7600/auth/refresh',
+        'http://localhost:7610/auth/refresh',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -121,7 +121,7 @@ describe('AdminAPIClient', () => {
       const result = await apiClient.getQueueStats();
 
       expect(fetch).toHaveBeenCalledWith(
-        'http://localhost:7600/admin/queue/stats',
+        'http://localhost:7610/admin/queue/stats',
         {
           headers: {
             'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ describe('AdminAPIClient', () => {
       const result = await apiClient.assignRequest(1);
 
       expect(fetch).toHaveBeenCalledWith(
-        'http://localhost:7600/admin/queue/1/assign',
+        'http://localhost:7610/admin/queue/1/assign',
         {
           method: 'PUT',
           headers: {
@@ -220,7 +220,7 @@ describe('AdminAPIClient', () => {
       const result = await apiClient.startProcessing(1);
 
       expect(fetch).toHaveBeenCalledWith(
-        'http://localhost:7600/admin/queue/1/start',
+        'http://localhost:7610/admin/queue/1/start',
         {
           method: 'PUT',
           headers: {
@@ -257,7 +257,7 @@ describe('AdminAPIClient', () => {
       const result = await apiClient.completeRequest(1, generatedContent, 'Processing notes', 2.50);
 
       expect(fetch).toHaveBeenCalledWith(
-        'http://localhost:7600/admin/queue/1/complete',
+        'http://localhost:7610/admin/queue/1/complete',
         {
           method: 'PUT',
           headers: {
@@ -297,7 +297,7 @@ describe('AdminAPIClient', () => {
       const result = await apiClient.rejectRequest(1, 'Invalid request data');
 
       expect(fetch).toHaveBeenCalledWith(
-        'http://localhost:7600/admin/queue/1/reject',
+        'http://localhost:7610/admin/queue/1/reject',
         {
           method: 'PUT',
           headers: {

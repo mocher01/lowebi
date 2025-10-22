@@ -67,7 +67,7 @@ services:
       APP_VERSION: 2.0.0
       LOG_LEVEL: ${LOG_LEVEL:-info}
     ports:
-      - "7600:7600"
+      - "7600:7610"
     depends_on:
       postgres:
         condition: service_healthy
@@ -77,7 +77,7 @@ services:
       - locod-production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7600/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:7610/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3

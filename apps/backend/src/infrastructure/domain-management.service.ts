@@ -56,7 +56,7 @@ export class DomainManagementService {
     private configService: ConfigService,
   ) {
     this.domainBase =
-      this.configService.get<string>('DOMAIN_BASE') || 'logen.locod-ai.com';
+      this.configService.get<string>('DOMAIN_BASE') || 'dev.lowebi.com';
     this.subdomainRateLimit =
       this.configService.get<number>('SUBDOMAIN_RATE_LIMIT') || 10;
   }

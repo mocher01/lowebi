@@ -20,7 +20,7 @@ test.describe('OAuth Console Logs Test', () => {
 
     // Login
     console.log('📍 Step 1: Login');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'testuser@example.com');
     await page.fill('input[type="password"]', 'TestPass123!');
     await page.click('button[type="submit"]');
@@ -29,7 +29,7 @@ test.describe('OAuth Console Logs Test', () => {
 
     // Create new session
     console.log('📍 Step 2: Create new wizard');
-    await page.goto('https://logen.locod-ai.com/wizard?new=true');
+    await page.goto('https://dev.lowebi.com/wizard?new=true');
     await page.waitForTimeout(2000);
 
     const sessionId = await page.evaluate(() => {
@@ -40,7 +40,7 @@ test.describe('OAuth Console Logs Test', () => {
     // Navigate to Step 6
     console.log('📍 Step 3: Navigate to Step 6');
     consoleLogs.length = 0; // Clear logs
-    await page.goto(`https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5`);
+    await page.goto(`https://dev.lowebi.com/wizard?continue=${sessionId}&step=5`);
     await page.waitForTimeout(2000);
     console.log('✅ At Step 6\n');
 
@@ -50,7 +50,7 @@ test.describe('OAuth Console Logs Test', () => {
 
     const mockCredentialId = 'oauth-' + Date.now();
     const mockEmail = 'test@example.com';
-    const callbackUrl = `https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
+    const callbackUrl = `https://dev.lowebi.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
 
     await page.goto(callbackUrl);
     console.log('📋 OAuth callback URL loaded');

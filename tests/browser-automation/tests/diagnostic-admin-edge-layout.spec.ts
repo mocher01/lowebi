@@ -14,7 +14,7 @@ test.describe('Admin Portal Layout - Edge Browser Diagnostic', () => {
     try {
       // Navigate to admin login
       console.log('📍 Navigating to admin login...');
-      await page.goto('http://localhost:7602/', { waitUntil: 'networkidle', timeout: 30000 });
+      await page.goto('http://localhost:7612/', { waitUntil: 'networkidle', timeout: 30000 });
 
       // Login (using test admin credentials - pattern from v2.5 test)
       console.log('🔐 Logging in as admin...');
@@ -51,7 +51,7 @@ test.describe('Admin Portal Layout - Edge Browser Diagnostic', () => {
 
       // Use domcontentloaded instead of networkidle (less strict)
       if (!currentUrl.includes('/dashboard')) {
-        await page.goto('http://localhost:7602/dashboard', { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await page.goto('http://localhost:7612/dashboard', { waitUntil: 'domcontentloaded', timeout: 30000 });
       }
       await page.waitForTimeout(2000);
 
@@ -104,7 +104,7 @@ test.describe('Admin Portal Layout - Edge Browser Diagnostic', () => {
 
       // ========== TEST 2: AI Queue Page ==========
       console.log('🤖 === AI QUEUE PAGE ANALYSIS ===');
-      await page.goto('http://localhost:7602/dashboard/ai-queue', { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await page.goto('http://localhost:7612/dashboard/ai-queue', { waitUntil: 'domcontentloaded', timeout: 30000 });
       await page.waitForTimeout(2000);
 
       // Measure main content area
@@ -157,7 +157,7 @@ test.describe('Admin Portal Layout - Edge Browser Diagnostic', () => {
       // ========== COMPARISON WITH CHROME ==========
       console.log('🔄 === CHROME COMPARISON ===');
       const chromePage = await browser.newPage();
-      await chromePage.goto('http://localhost:7602/', { waitUntil: 'domcontentloaded' });
+      await chromePage.goto('http://localhost:7612/', { waitUntil: 'domcontentloaded' });
 
       // Chrome login with same pattern
       const chromeEmailSelectors = ['#email', 'input[type="email"]', 'input[name="email"]', '[placeholder*="email"]', '[placeholder*="Email"]'];
@@ -183,7 +183,7 @@ test.describe('Admin Portal Layout - Edge Browser Diagnostic', () => {
 
       const chromeUrl = chromePage.url();
       if (!chromeUrl.includes('/dashboard')) {
-        await chromePage.goto('http://localhost:7602/dashboard', { waitUntil: 'domcontentloaded', timeout: 30000 });
+        await chromePage.goto('http://localhost:7612/dashboard', { waitUntil: 'domcontentloaded', timeout: 30000 });
       }
       await chromePage.waitForTimeout(2000);
 

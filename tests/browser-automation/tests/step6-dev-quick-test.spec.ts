@@ -21,7 +21,7 @@ test('Step 6 Dev Quick Test - Feature Cards UI', async ({ page }) => {
   try {
     // Step 1: Login
     console.log('\n🔐 Step 1: Login...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -30,7 +30,7 @@ test('Step 6 Dev Quick Test - Feature Cards UI', async ({ page }) => {
 
     // Step 2: Navigate to My Sites
     console.log('\n🏠 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(1000);
 
     // Step 3: Find and click Continue on existing site
@@ -194,7 +194,7 @@ test('Step 6 Dev Quick Test - Feature Cards UI', async ({ page }) => {
       console.log('✅ OAUTH2 SUCCESS: Redirected to Google consent screen!');
       await page.screenshot({ path: '/tmp/oauth2-google-consent.png', fullPage: true });
       console.log('📸 Google consent screenshot: /tmp/oauth2-google-consent.png');
-    } else if (finalUrl.includes('logen.locod-ai.com')) {
+    } else if (finalUrl.includes('dev.lowebi.com')) {
       console.log('⚠️ Still on Logen, redirect may have failed');
       await page.screenshot({ path: '/tmp/oauth2-no-redirect.png', fullPage: true });
       console.log('📸 Screenshot: /tmp/oauth2-no-redirect.png');

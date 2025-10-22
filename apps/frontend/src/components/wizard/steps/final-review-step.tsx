@@ -30,7 +30,7 @@ export function FinalReviewStep() {
               <span className="text-sm text-gray-500 mb-2 block">Domaine:</span>
               {wizardData.domain ? (
                 <>
-                  {wizardData.domain.includes('logen.locod-ai.com') ? (
+                  {wizardData.domain.includes('dev.lowebi.com') ? (
                     <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                       <div className="flex items-center gap-2 mb-2">
                         <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">

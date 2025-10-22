@@ -18,7 +18,7 @@ export default function AIQueuePage() {
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
-      window.location.href = 'https://admin.logen.locod-ai.com/';
+      window.location.href = 'https://admin.dev.lowebi.com/';
       return;
     }
 
@@ -58,7 +58,7 @@ export default function AIQueuePage() {
         }
         // Redirect to login after a short delay
         setTimeout(() => {
-          window.location.href = 'https://admin.logen.locod-ai.com/';
+          window.location.href = 'https://admin.dev.lowebi.com/';
         }, 2000);
       } else {
         showToast('Erreur lors du chargement de la queue IA: ' + errorMessage, 'error');

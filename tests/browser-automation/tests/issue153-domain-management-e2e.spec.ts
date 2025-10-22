@@ -18,7 +18,7 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -26,11 +26,11 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
     console.log('✅ Login successful');
 
     // Navigate to sites to verify login worked
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     // Navigate to wizard
-    await page.goto('https://logen.locod-ai.com/wizard');
+    await page.goto('https://dev.lowebi.com/wizard');
     await page.waitForLoadState('networkidle');
 
     // Navigate to Step 2 (Business Info)
@@ -78,14 +78,14 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForURL(/\/(dashboard|sites)/, { timeout: 10000 });
     console.log('✅ Login successful');
 
-    await page.goto('https://logen.locod-ai.com/wizard');
+    await page.goto('https://dev.lowebi.com/wizard');
     await page.waitForLoadState('networkidle');
 
     // Navigate to Step 2
@@ -126,14 +126,14 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForURL(/\/(dashboard|sites)/, { timeout: 10000 });
     console.log('✅ Login successful');
 
-    await page.goto('https://logen.locod-ai.com/wizard');
+    await page.goto('https://dev.lowebi.com/wizard');
     await page.waitForLoadState('networkidle');
 
     // Navigate to Step 2
@@ -177,14 +177,14 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForURL(/\/(dashboard|sites)/, { timeout: 10000 });
     console.log('✅ Login successful');
 
-    await page.goto('https://logen.locod-ai.com/wizard');
+    await page.goto('https://dev.lowebi.com/wizard');
     await page.waitForLoadState('networkidle');
 
     // Navigate to Step 2
@@ -237,14 +237,14 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForURL(/\/(dashboard|sites)/, { timeout: 10000 });
     console.log('✅ Login successful');
 
-    await page.goto('https://logen.locod-ai.com/wizard');
+    await page.goto('https://dev.lowebi.com/wizard');
     await page.waitForLoadState('networkidle');
 
     // Navigate to Step 2
@@ -278,7 +278,7 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
     console.log('✅ Suggestions section visible');
 
     // Verify at least one suggestion button exists
-    const suggestionButtons = page.locator('button:has-text(".logen.locod-ai.com")');
+    const suggestionButtons = page.locator('button:has-text(".dev.lowebi.com")');
     const buttonCount = await suggestionButtons.count();
     expect(buttonCount).toBeGreaterThan(0);
     console.log(`✅ ${buttonCount} suggestion(s) shown`);
@@ -291,14 +291,14 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForURL(/\/(dashboard|sites)/, { timeout: 10000 });
     console.log('✅ Login successful');
 
-    await page.goto('https://logen.locod-ai.com/wizard');
+    await page.goto('https://dev.lowebi.com/wizard');
     await page.waitForLoadState('networkidle');
 
     // Navigate to Step 2
@@ -339,7 +339,7 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -349,7 +349,7 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
     const uniqueSiteName = `TestCompany${Date.now()}`;
     const uniqueSubdomain = `test${Date.now()}`;
 
-    await page.goto('https://logen.locod-ai.com/wizard');
+    await page.goto('https://dev.lowebi.com/wizard');
     await page.waitForLoadState('networkidle');
 
     // Navigate to Step 2
@@ -403,7 +403,7 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -411,7 +411,7 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
     console.log('✅ Login successful');
 
     // Navigate to sites page
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(2000);
 
@@ -456,14 +456,14 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForURL(/\/(dashboard|sites)/, { timeout: 10000 });
     console.log('✅ Login successful');
 
-    await page.goto('https://logen.locod-ai.com/wizard');
+    await page.goto('https://dev.lowebi.com/wizard');
     await page.waitForLoadState('networkidle');
 
     // Navigate to Step 2
@@ -515,7 +515,7 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
 
     // Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -526,7 +526,7 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
     const siteName = `E2ETest${timestamp}`;
     const subdomain = `e2etest${timestamp}`;
 
-    await page.goto('https://logen.locod-ai.com/wizard');
+    await page.goto('https://dev.lowebi.com/wizard');
     await page.waitForLoadState('networkidle');
 
     // Step 1: Welcome - Click Next
@@ -556,7 +556,7 @@ test.describe('Issue #153 - Domain Management E2E Tests', () => {
     await subdomainInput.fill(subdomain);
     await page.waitForTimeout(2000);
 
-    console.log(`Domain set to: ${subdomain}.logen.locod-ai.com`);
+    console.log(`Domain set to: ${subdomain}.dev.lowebi.com`);
 
     // Note: A complete test would go through all wizard steps
     // For now, we verify the domain section works correctly

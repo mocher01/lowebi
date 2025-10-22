@@ -19,7 +19,7 @@ test('Cycle 16: OAuth2 Gmail Connection Flow', async ({ page }) => {
     // ============================================================================
 
     console.log('\n🔐 Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -31,7 +31,7 @@ test('Cycle 16: OAuth2 Gmail Connection Flow', async ({ page }) => {
     // ============================================================================
 
     console.log('\n🏠 Navigate to sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     // Check if there are existing sites
@@ -165,7 +165,7 @@ test('Cycle 16: OAuth2 Gmail Connection Flow', async ({ page }) => {
 
     // Test authorize endpoint (should redirect to Google)
     if (sessionId) {
-      const authorizeUrl = `https://logen.locod-ai.com/api/customer/oauth2/authorize?wizardSessionId=${sessionId}`;
+      const authorizeUrl = `https://dev.lowebi.com/api/customer/oauth2/authorize?wizardSessionId=${sessionId}`;
       console.log(`🔗 Testing authorize endpoint: ${authorizeUrl}`);
 
       // Use page.goto with waitUntil to catch redirect
@@ -204,7 +204,7 @@ test('Cycle 16: OAuth2 Gmail Connection Flow', async ({ page }) => {
     console.log('\n🧪 TEST 5: Backend Health Check');
     console.log('-'.repeat(50));
 
-    const healthResponse = await page.goto('https://logen.locod-ai.com/api/health');
+    const healthResponse = await page.goto('https://dev.lowebi.com/api/health');
     const healthData = await page.textContent('body');
     console.log(`📊 Backend health: ${healthData?.substring(0, 200)}`);
 

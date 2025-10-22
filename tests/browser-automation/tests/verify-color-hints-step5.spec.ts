@@ -4,7 +4,7 @@ test('Verify what user ACTUALLY sees in Step 5 color hints', async ({ page }) =>
   console.log('🔍 Vérification des hints visibles pour l\'utilisateur dans Step 5...\n');
 
   // 1. Start wizard
-  await page.goto('http://localhost:7601/wizard?new=true');
+  await page.goto('http://localhost:7611/wizard?new=true');
   await page.waitForTimeout(2000);
 
   // 2. Navigate to Step 5 (Images & Logo)

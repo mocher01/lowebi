@@ -12,7 +12,7 @@ test('Cycle14b: Test complet end-to-end V1 système d\'images', async ({ page, b
   // === ÉTAPES 1-13: Création complète du site ===
 
   // Step 1: Customer Portal Login
-  await page.goto('http://localhost:7601/login');
+  await page.goto('http://localhost:7611/login');
   await page.waitForLoadState('domcontentloaded');
   await page.waitForTimeout(2000);
 
@@ -139,7 +139,7 @@ test('Cycle14b: Test complet end-to-end V1 système d\'images', async ({ page, b
 
   // Open new tab for admin
   const adminPage = await page.context().newPage();
-  await adminPage.goto('http://localhost:7602/login');
+  await adminPage.goto('http://localhost:7612/login');
 
   await adminPage.fill('input[name="email"]', 'admin@locod.ai');
   await adminPage.fill('input[name="password"]', 'admin123');

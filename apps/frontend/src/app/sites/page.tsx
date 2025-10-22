@@ -409,7 +409,7 @@ export default function SitesPage() {
                                   <div className="text-sm text-gray-500 flex items-center gap-1">
                                     {site.domain && site.domain !== 'Not assigned' ? (
                                       <>
-                                        {site.domain.includes('logen.locod-ai.com') ? (
+                                        {site.domain.includes('dev.lowebi.com') ? (
                                           <a
                                             href={`https://${site.domain}`}
                                             target="_blank"
@@ -572,7 +572,7 @@ export default function SitesPage() {
                           <div className="mt-2">
                             {site.domain && site.domain !== 'Not assigned' ? (
                               <>
-                                {site.domain.includes('logen.locod-ai.com') ? (
+                                {site.domain.includes('dev.lowebi.com') ? (
                                   <a
                                     href={`https://${site.domain}`}
                                     target="_blank"

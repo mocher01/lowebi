@@ -9,7 +9,7 @@ test.describe('Continue Button End-to-End Tests', () => {
     const sessionId = `e2e-test-${Date.now()}`;
     
     // Create session at step 4 (Images & Logo)
-    const createResponse = await fetch('http://localhost:7600/customer/wizard-sessions/' + sessionId, {
+    const createResponse = await fetch('http://localhost:7610/customer/wizard-sessions/' + sessionId, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -34,7 +34,7 @@ test.describe('Continue Button End-to-End Tests', () => {
     console.log('🖱️ Simulating Continue button click...');
     
     // Navigate to wizard with continue parameters (simulating Continue button)
-    await page.goto(`http://localhost:7601/wizard-v2?continue=${sessionId}&step=4`);
+    await page.goto(`http://localhost:7611/wizard-v2?continue=${sessionId}&step=4`);
     
     // Wait for page to load
     await page.waitForLoadState('networkidle', { timeout: 10000 });
@@ -103,7 +103,7 @@ test.describe('Continue Button End-to-End Tests', () => {
     const sessionId = `e2e-content-${Date.now()}`;
     
     // Create session at step 3 (Content & Services)
-    const createResponse = await fetch('http://localhost:7600/customer/wizard-sessions/' + sessionId, {
+    const createResponse = await fetch('http://localhost:7610/customer/wizard-sessions/' + sessionId, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -124,7 +124,7 @@ test.describe('Continue Button End-to-End Tests', () => {
     console.log(`✅ Created test session ${sessionId} at step 3`);
     
     // Navigate with continue parameters
-    await page.goto(`http://localhost:7601/wizard-v2?continue=${sessionId}&step=3`);
+    await page.goto(`http://localhost:7611/wizard-v2?continue=${sessionId}&step=3`);
     await page.waitForLoadState('networkidle', { timeout: 10000 });
     await page.waitForTimeout(3000);
     

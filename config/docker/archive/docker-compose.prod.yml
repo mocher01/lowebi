@@ -65,7 +65,7 @@ services:
       APP_VERSION: 2.0.0
       LOG_LEVEL: ${LOG_LEVEL:-info}
     ports:
-      - "7600:7600"
+      - "7600:7610"
     depends_on:
       postgres:
         condition: service_healthy
@@ -75,7 +75,7 @@ services:
       - logen-production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7600/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:7610/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -90,10 +90,10 @@ services:
     container_name: logen-frontend-prod
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: http://backend:7600
+      NEXT_PUBLIC_API_URL: http://backend:7610
       PORT: 7601
     ports:
-      - "7601:7601"
+      - "7601:7611"
     depends_on:
       backend:
         condition: service_healthy
@@ -101,7 +101,7 @@ services:
       - logen-production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7601/"]
+      test: ["CMD", "curl", "-f", "http://localhost:7611/"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -114,10 +114,10 @@ services:
     container_name: logen-admin-frontend-prod
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: http://backend:7600
+      NEXT_PUBLIC_API_URL: http://backend:7610
       PORT: 7602
     ports:
-      - "7602:7602"
+      - "7602:7612"
     depends_on:
       backend:
         condition: service_healthy
@@ -125,7 +125,7 @@ services:
       - logen-production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7602/"]
+      test: ["CMD", "curl", "-f", "http://localhost:7612/"]
       interval: 30s
       timeout: 10s
       retries: 3

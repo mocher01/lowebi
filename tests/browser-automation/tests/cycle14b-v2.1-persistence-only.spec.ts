@@ -8,7 +8,7 @@ test('Cycle 14b V2.1: Verify Image Persistence on Request #551', async ({ page }
   try {
     // Step 1: Admin login
     console.log('\n🔐 Step 1: Admin Authentication...');
-    await page.goto('https://admin.logen.locod-ai.com');
+    await page.goto('https://admin.dev.lowebi.com');
     await page.fill('input[type="email"]', 'admin@locod.ai');
     await page.fill('input[type="password"]', 'admin123');
     await page.click('button[type="submit"]');
@@ -17,7 +17,7 @@ test('Cycle 14b V2.1: Verify Image Persistence on Request #551', async ({ page }
 
     // Step 2: Navigate to AI Queue
     console.log('\n📋 Step 2: Navigate to AI Queue...');
-    await page.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await page.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await page.waitForTimeout(2000);
     console.log('✅ AI Queue page loaded');
 

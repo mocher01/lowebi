@@ -14,7 +14,7 @@ test('Cycle 17: Simple Step 7 Generation', async ({ page }) => {
 
   // Login
   console.log('🔐 Login...');
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.fill('input[type="email"]', 'test@example.com');
   await page.fill('input[type="password"]', 'Administrator2025');
   await page.click('button[type="submit"]');
@@ -23,7 +23,7 @@ test('Cycle 17: Simple Step 7 Generation', async ({ page }) => {
 
   // Create new wizard
   console.log('🆕 Create new wizard...');
-  await page.goto('https://logen.locod-ai.com/wizard?new=true');
+  await page.goto('https://dev.lowebi.com/wizard?new=true');
   await page.waitForTimeout(2000);
 
   // Step 1: Business type

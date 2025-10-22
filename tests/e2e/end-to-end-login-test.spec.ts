@@ -17,7 +17,7 @@ test('End-to-end customer login test', async ({ page }) => {
 
   // Go to login page
   console.log('Navigating to login page...');
-  await page.goto('https://logen.locod-ai.com/login', { timeout: 20000 });
+  await page.goto('https://dev.lowebi.com/login', { timeout: 20000 });
   
   // Wait for page to load
   await page.waitForSelector('input[type="email"]', { timeout: 10000 });

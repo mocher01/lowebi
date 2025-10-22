@@ -16,7 +16,7 @@ test('Cycle 14b: Simple AI Image Generation Test', async ({ page }) => {
 
   // Step 1: Login
   console.log('🔐 Step 1: Customer login...');
-  await page.goto('http://localhost:7601/login');
+  await page.goto('http://localhost:7611/login');
   await page.fill('input[type="email"]', 'test@example.com');
   await page.fill('input[type="password"]', 'Administrator2025');
   await page.click('button[type="submit"]');
@@ -27,7 +27,7 @@ test('Cycle 14b: Simple AI Image Generation Test', async ({ page }) => {
   console.log('📸 Step 2: Direct navigation to Step 5...');
 
   // Try to find an existing site or create a simple one
-  await page.goto('http://localhost:7601/sites');
+  await page.goto('http://localhost:7611/sites');
   await page.waitForTimeout(2000);
 
   // Check if we have any existing sites
@@ -48,7 +48,7 @@ test('Cycle 14b: Simple AI Image Generation Test', async ({ page }) => {
     }
   } else {
     console.log('⚠️ No existing sites found, using direct wizard URL...');
-    await page.goto('http://localhost:7601/wizard?new=true');
+    await page.goto('http://localhost:7611/wizard?new=true');
     await page.waitForTimeout(3000);
 
     // Accept terms and start wizard
@@ -210,7 +210,7 @@ test('Cycle 14b: Simple AI Image Generation Test', async ({ page }) => {
 
   // Open admin portal
   const adminPage = await page.context().newPage();
-  await adminPage.goto('http://localhost:7602');
+  await adminPage.goto('http://localhost:7612');
   await adminPage.waitForTimeout(2000);
 
   // Quick admin login
@@ -223,7 +223,7 @@ test('Cycle 14b: Simple AI Image Generation Test', async ({ page }) => {
   }
 
   // Check AI queue
-  await adminPage.goto('http://localhost:7602/dashboard/ai-queue');
+  await adminPage.goto('http://localhost:7612/dashboard/ai-queue');
   await adminPage.waitForTimeout(2000);
 
   const requestRows = await adminPage.locator('tr').count();

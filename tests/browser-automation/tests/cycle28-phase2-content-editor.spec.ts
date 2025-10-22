@@ -30,7 +30,7 @@ test.describe('Cycle 28: Phase 2 - Content Editor & Blog Posts', () => {
 
     // Step 1: Login
     console.log('🔐 Step 1: Authentication...\n');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
 
     // Wait for login form to be ready
     await page.waitForSelector('input[type="email"]', { timeout: 5000 });
@@ -46,7 +46,7 @@ test.describe('Cycle 28: Phase 2 - Content Editor & Blog Posts', () => {
 
     // Navigate to /sites if not already there
     if (!currentUrl.includes('/sites')) {
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForLoadState('networkidle');
     }
 
@@ -54,7 +54,7 @@ test.describe('Cycle 28: Phase 2 - Content Editor & Blog Posts', () => {
 
     // Step 2: Navigate to deployed site's admin dashboard
     console.log('🏠 Step 2: Navigate to admin dashboard...\n');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
 
     // Find the deployed site (cycle26test1760385122507)
     const siteCard = page.locator('text=cycle26test1760385122507').first();

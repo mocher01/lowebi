@@ -11,14 +11,14 @@ test.describe('Simple Admin Prompt Test', () => {
     console.log('═'.repeat(60));
     
     // Login
-    await page.goto('https://admin.logen.locod-ai.com');
+    await page.goto('https://admin.dev.lowebi.com');
     await page.fill('input[type="email"]', 'admin@locod.ai');
     await page.fill('input[type="password"]', 'admin123');
     await page.click('button[type="submit"]');
     await page.waitForURL('**/dashboard**', { timeout: 10000 });
     
     // Go to AI queue
-    await page.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await page.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await page.waitForTimeout(5000);
     
     console.log('🖱️ Clicking first available "Traiter" button...');

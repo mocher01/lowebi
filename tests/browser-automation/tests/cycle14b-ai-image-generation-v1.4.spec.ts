@@ -30,7 +30,7 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
 
     // Step 1: Authentication
     console.log('🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -39,7 +39,7 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
 
     // Step 2: Navigate to My Sites
     console.log('🏠 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Verify we're actually on sites page, not redirected to login
@@ -54,7 +54,7 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
       await page.waitForTimeout(3000);
 
       // Navigate to sites again after re-login
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(2000);
 
       const finalUrl = page.url();
@@ -205,13 +205,13 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
     const contentAdminContext = await browser.newContext();
     const contentAdminPage = await contentAdminContext.newPage();
 
-    await contentAdminPage.goto('https://admin.logen.locod-ai.com');
+    await contentAdminPage.goto('https://admin.dev.lowebi.com');
     await contentAdminPage.fill('input[type="email"]', 'admin@locod.ai');
     await contentAdminPage.fill('input[type="password"]', 'admin123');
     await contentAdminPage.click('button[type="submit"]');
     await contentAdminPage.waitForURL('**/dashboard');
 
-    await contentAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await contentAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await contentAdminPage.waitForTimeout(2000);
 
     // Find the content request for our site
@@ -464,7 +464,7 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
     console.log('\n✅ Step 13: Verifying content processing completed...');
 
     // Return to queue to verify status change
-    await contentAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await contentAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await contentAdminPage.waitForTimeout(2000);
 
     const processedContentSelector = `tr:has-text("${siteName}")`;
@@ -495,7 +495,7 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
     console.log('🔄 Navigating back to customer portal Step 4 to verify content...');
 
     // Check if we need to re-login to customer portal
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     const customerUrl = page.url();
@@ -505,7 +505,7 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
       await page.fill('input[type="password"]', 'Administrator2025');
       await page.click('button[type="submit"]');
       await page.waitForTimeout(3000);
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(2000);
     }
 
@@ -823,13 +823,13 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
     const imageAdminContext = await browser.newContext();
     const imageAdminPage = await imageAdminContext.newPage();
 
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com');
     await imageAdminPage.fill('input[type="email"]', 'admin@locod.ai');
     await imageAdminPage.fill('input[type="password"]', 'admin123');
     await imageAdminPage.click('button[type="submit"]');
     await imageAdminPage.waitForURL('**/dashboard');
 
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
 
     const imageRequestSelector = `tr:has-text("${siteName}"):has-text("images")`;
     await imageAdminPage.waitForSelector(imageRequestSelector);
@@ -972,7 +972,7 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
     console.log('\n🔍 V1.4: VERIFYING ADMIN PROCESSING SUCCESS');
     console.log('-'.repeat(40));
 
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await imageAdminPage.waitForTimeout(2000);
 
     const processedRequestSelector = `tr:has-text("${siteName}"):has-text("images")`;
@@ -999,7 +999,7 @@ test('Cycle 14b V1.4: Complete AI Workflow - Proper Content + Image Generation',
     console.log('Purpose: Verify uploaded images actually appear in customer Step 5');
 
     // Return to customer portal Step 5 (Images)
-    await page.goto(`https://logen.locod-ai.com/wizard?step=5`);
+    await page.goto(`https://dev.lowebi.com/wizard?step=5`);
     await page.waitForTimeout(4000); // Give more time for images to load
 
     // Check for various image indicators

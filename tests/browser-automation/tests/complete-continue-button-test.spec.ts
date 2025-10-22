@@ -17,7 +17,7 @@ test('COMPLETE Continue Button Test - Cycles 1-9 Full End-to-End Test', async ({
     console.log('\n🔐 CYCLE 1: AUTHENTICATION');
     console.log('Testing: Login as test@example.com');
 
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.waitForTimeout(2000);
 
     // Fill login form
@@ -44,7 +44,7 @@ test('COMPLETE Continue Button Test - Cycles 1-9 Full End-to-End Test', async ({
 
     // Navigate to My Sites if not already there
     if (!loginUrl.includes('/sites')) {
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(3000);
     }
 

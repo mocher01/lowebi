@@ -12,7 +12,7 @@ test.describe('Admin UI Real Experience', () => {
     
     // Step 1: Go to admin login
     console.log('📍 Step 1: Navigate to admin login...');
-    await page.goto('https://admin.logen.locod-ai.com');
+    await page.goto('https://admin.dev.lowebi.com');
     await page.waitForLoadState('networkidle');
     
     // Step 2: Login
@@ -27,7 +27,7 @@ test.describe('Admin UI Real Experience', () => {
     
     // Step 3: Navigate to AI queue
     console.log('📋 Step 3: Navigate to AI queue...');
-    await page.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await page.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await page.waitForLoadState('networkidle');
     
     // Wait for queue to load

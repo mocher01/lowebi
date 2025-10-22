@@ -93,10 +93,10 @@ describe('Main Bootstrap Function', () => {
 
       expect(mockApp.enableCors).toHaveBeenCalledWith({
         origin: expect.arrayContaining([
-          'https://logen.locod-ai.com',
+          'https://dev.lowebi.com',
           'http://localhost:3000',
-          'http://162.55.213.90:7602',
-          'https://admin.logen.locod-ai.com',
+          'http://162.55.213.90:7612',
+          'https://admin.dev.lowebi.com',
         ]),
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
@@ -184,16 +184,16 @@ describe('Main Bootstrap Function', () => {
       await bootstrap();
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        '🚀 Server running on http://localhost:7600',
+        '🚀 Server running on http://localhost:7610',
       );
       expect(consoleSpy).toHaveBeenCalledWith(
-        '📚 API Documentation available at http://localhost:7600/api/docs',
+        '📚 API Documentation available at http://localhost:7610/api/docs',
       );
       expect(consoleSpy).toHaveBeenCalledWith(
-        '🔍 Health check available at http://localhost:7600/api/health',
+        '🔍 Health check available at http://localhost:7610/api/health',
       );
       expect(consoleSpy).toHaveBeenCalledWith(
-        '📊 System metrics available at http://localhost:7600/api/metrics',
+        '📊 System metrics available at http://localhost:7610/api/metrics',
       );
     });
 
@@ -208,10 +208,10 @@ describe('Main Bootstrap Function', () => {
       await bootstrap();
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        '🚀 Server running on http://162.55.213.90:7600',
+        '🚀 Server running on http://162.55.213.90:7610',
       );
       expect(consoleSpy).toHaveBeenCalledWith(
-        '📚 API Documentation available at http://162.55.213.90:7600/api/docs',
+        '📚 API Documentation available at http://162.55.213.90:7610/api/docs',
       );
     });
 
@@ -226,10 +226,10 @@ describe('Main Bootstrap Function', () => {
       await bootstrap();
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        '🚀 Server running on https://162.55.213.90:7600',
+        '🚀 Server running on https://162.55.213.90:7610',
       );
       expect(consoleSpy).toHaveBeenCalledWith(
-        '📚 API Documentation available at https://162.55.213.90:7600/api/docs',
+        '📚 API Documentation available at https://162.55.213.90:7610/api/docs',
       );
     });
 

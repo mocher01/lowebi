@@ -49,7 +49,7 @@ test.describe('Comprehensive Fix Validation', () => {
       estimatedCost: 2.50
     };
 
-    const response = await request.post('http://localhost:7600/admin/queue', {
+    const response = await request.post('http://localhost:7610/admin/queue', {
       data: testData
     });
 
@@ -69,7 +69,7 @@ test.describe('Comprehensive Fix Validation', () => {
     }
 
     // Login to admin
-    await page.goto('https://admin.logen.locod-ai.com');
+    await page.goto('https://admin.dev.lowebi.com');
     await page.fill('input[type="email"]', 'admin@locod.ai');
     await page.fill('input[type="password"]', 'admin123');
     await page.click('button[type="submit"]');
@@ -78,7 +78,7 @@ test.describe('Comprehensive Fix Validation', () => {
     console.log('✅ Admin login successful');
 
     // Go to AI queue
-    await page.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await page.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await page.waitForTimeout(3000);
     
     console.log('📋 Admin queue loaded');
@@ -166,7 +166,7 @@ test.describe('Comprehensive Fix Validation', () => {
     if (testRequestId) {
       console.log(`\n🔗 Test completed with request ID: ${testRequestId}`);
       console.log('You can manually verify at:');
-      console.log('  1. https://admin.logen.locod-ai.com/dashboard/ai-queue');
+      console.log('  1. https://admin.dev.lowebi.com/dashboard/ai-queue');
       console.log(`  2. Look for request #${testRequestId}`);
       console.log('  3. Click "Traiter" to see comprehensive prompt');
     }

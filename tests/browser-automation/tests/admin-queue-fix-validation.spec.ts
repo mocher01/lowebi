@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Admin Queue IA - Fix Validation', () => {
   test('should display readable site and customer names instead of UUIDs', async ({ page }) => {
     // Navigate to admin login
-    await page.goto('https://admin.logen.locod-ai.com/');
+    await page.goto('https://admin.dev.lowebi.com/');
     
     // Login with admin credentials
     await page.fill('input[type="email"]', 'admin@logen.com');
@@ -14,7 +14,7 @@ test.describe('Admin Queue IA - Fix Validation', () => {
     await page.waitForLoadState('networkidle');
     
     // Navigate to AI Queue page
-    await page.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await page.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     
     // Wait for the queue to load
     await page.waitForSelector('table', { timeout: 10000 });
@@ -70,7 +70,7 @@ test.describe('Admin Queue IA - Fix Validation', () => {
   
   test('should load queue without Internal Server Error', async ({ page }) => {
     // Navigate directly to AI queue with authentication
-    await page.goto('https://admin.logen.locod-ai.com/');
+    await page.goto('https://admin.dev.lowebi.com/');
     
     // Login
     await page.fill('input[type="email"]', 'admin@logen.com');
@@ -80,7 +80,7 @@ test.describe('Admin Queue IA - Fix Validation', () => {
     await page.waitForLoadState('networkidle');
     
     // Go to queue page
-    await page.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await page.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     
     // Wait for loading to complete
     await page.waitForTimeout(3000);

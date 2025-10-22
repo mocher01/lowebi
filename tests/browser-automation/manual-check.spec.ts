@@ -4,14 +4,14 @@ test('Manual check My Sites page', async ({ page }) => {
   console.log('🔍 Logging in and checking My Sites...');
   
   // Login
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.locator('input[type="email"]').fill('test@example.com');
   await page.locator('input[type="password"]').fill('Administrator2025');
   await page.locator('button[type="submit"]').click();
   await page.waitForTimeout(3000);
   
   // Go to My Sites
-  await page.goto('https://logen.locod-ai.com/sites');
+  await page.goto('https://dev.lowebi.com/sites');
   await page.waitForLoadState('networkidle');
   
   console.log('📋 Current sites in My Sites page:');

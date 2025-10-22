@@ -25,7 +25,7 @@ test.describe('Cycle 28: Phase 2 - Real Data Verification', () => {
   test.beforeAll(async ({ request }) => {
     // Login to get auth token
     console.log('🔐 Logging in to get auth token...\n');
-    const loginResponse = await request.post('http://localhost:7600/customer/auth/login', {
+    const loginResponse = await request.post('http://localhost:7610/customer/auth/login', {
       data: {
         email: 'test@example.com',
         password: 'Administrator2025',
@@ -55,7 +55,7 @@ test.describe('Cycle 28: Phase 2 - Real Data Verification', () => {
     }
 
     const blogResponse = await request.get(
-      `http://localhost:7600/customer/sites/${siteId}/blog`,
+      `http://localhost:7610/customer/sites/${siteId}/blog`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -102,7 +102,7 @@ test.describe('Cycle 28: Phase 2 - Real Data Verification', () => {
     }
 
     const contentResponse = await request.get(
-      `http://localhost:7600/customer/sites/${siteId}/content`,
+      `http://localhost:7610/customer/sites/${siteId}/content`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -190,7 +190,7 @@ test.describe('Cycle 28: Phase 2 - Real Data Verification', () => {
     }
 
     const updateResponse = await request.patch(
-      `http://localhost:7600/customer/sites/${siteId}/content/pages/hero`,
+      `http://localhost:7610/customer/sites/${siteId}/content/pages/hero`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -218,7 +218,7 @@ test.describe('Cycle 28: Phase 2 - Real Data Verification', () => {
 
     // Verify the update persisted
     const verifyResponse = await request.get(
-      `http://localhost:7600/customer/sites/${siteId}/content`,
+      `http://localhost:7610/customer/sites/${siteId}/content`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -232,7 +232,7 @@ test.describe('Cycle 28: Phase 2 - Real Data Verification', () => {
 
     // Restore original
     await request.patch(
-      `http://localhost:7600/customer/sites/${siteId}/content/pages/hero`,
+      `http://localhost:7610/customer/sites/${siteId}/content/pages/hero`,
       {
         headers: {
           Authorization: `Bearer ${authToken}`,

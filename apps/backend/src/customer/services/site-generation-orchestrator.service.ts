@@ -264,10 +264,10 @@ export class SiteGenerationOrchestratorService {
         return `162.55.213.90:${deploymentPort}`; // Return fallback URL
       }
 
-      // Extract subdomain prefix (remove .logen.locod-ai.com)
-      const subdomain = fullDomain.replace('.logen.locod-ai.com', '');
+      // Extract subdomain prefix (remove .dev.lowebi.com)
+      const subdomain = fullDomain.replace('.dev.lowebi.com', '');
 
-      this.logger.log(`Creating domain: ${subdomain}.logen.locod-ai.com`);
+      this.logger.log(`Creating domain: ${subdomain}.dev.lowebi.com`);
 
       // Create domain using DomainManagementService
       const siteDomain = await this.domainManagementService.createSubdomain(

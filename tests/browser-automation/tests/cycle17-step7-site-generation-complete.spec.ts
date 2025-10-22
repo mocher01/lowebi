@@ -29,7 +29,7 @@ test('Cycle 17: Complete Step 7 Site Generation', async ({ page, browser }) => {
   // PHASE 1: AUTHENTICATION
   // ============================================================================
   console.log('\n🔐 PHASE 1: Authentication...');
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.fill('input[type="email"]', 'test@example.com');
   await page.fill('input[type="password"]', 'Administrator2025');
   await page.click('button[type="submit"]');
@@ -40,7 +40,7 @@ test('Cycle 17: Complete Step 7 Site Generation', async ({ page, browser }) => {
   // PHASE 2: CREATE NEW WIZARD SESSION
   // ============================================================================
   console.log('\n🆕 PHASE 2: Creating new wizard session...');
-  await page.goto('https://logen.locod-ai.com/wizard?new=true');
+  await page.goto('https://dev.lowebi.com/wizard?new=true');
   await page.waitForTimeout(2000);
   console.log('✅ New wizard session created');
 
@@ -106,14 +106,14 @@ test('Cycle 17: Complete Step 7 Site Generation', async ({ page, browser }) => {
   const adminContext = await browser.newContext();
   const adminPage = await adminContext.newPage();
 
-  await adminPage.goto('https://admin.logen.locod-ai.com');
+  await adminPage.goto('https://admin.dev.lowebi.com');
   await adminPage.fill('input[type="email"]', 'admin@locod.ai');
   await adminPage.fill('input[type="password"]', 'admin123');
   await adminPage.click('button[type="submit"]');
   await adminPage.waitForURL('**/dashboard');
   console.log('✅ Admin logged in');
 
-  await adminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+  await adminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
   await adminPage.waitForTimeout(2000);
 
   // Find content request
@@ -176,13 +176,13 @@ test('Cycle 17: Complete Step 7 Site Generation', async ({ page, browser }) => {
   const adminContext2 = await browser.newContext();
   const adminPage2 = await adminContext2.newPage();
 
-  await adminPage2.goto('https://admin.logen.locod-ai.com');
+  await adminPage2.goto('https://admin.dev.lowebi.com');
   await adminPage2.fill('input[type="email"]', 'admin@locod.ai');
   await adminPage2.fill('input[type="password"]', 'admin123');
   await adminPage2.click('button[type="submit"]');
   await adminPage2.waitForURL('**/dashboard');
 
-  await adminPage2.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+  await adminPage2.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
   await adminPage2.waitForTimeout(2000);
 
   // Find images request

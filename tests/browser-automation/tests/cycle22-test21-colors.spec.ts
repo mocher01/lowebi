@@ -36,7 +36,7 @@ test('Cycle 22: test21 Complete with Color Improvements Validation', async ({ pa
 
     // Step 1: Authentication
     console.log('🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -45,7 +45,7 @@ test('Cycle 22: test21 Complete with Color Improvements Validation', async ({ pa
 
     // Step 2: Navigate to My Sites
     console.log('🏠 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     const currentUrl = page.url();
@@ -57,7 +57,7 @@ test('Cycle 22: test21 Complete with Color Improvements Validation', async ({ pa
       await page.fill('input[type="password"]', 'Administrator2025');
       await page.click('button[type="submit"]');
       await page.waitForTimeout(3000);
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(2000);
     }
 
@@ -137,7 +137,7 @@ test('Cycle 22: test21 Complete with Color Improvements Validation', async ({ pa
     // Switch to admin
     console.log('\n👨‍💼 Step 11: Processing in admin...');
     const adminPage = await browser.newPage();
-    await adminPage.goto('https://logen.locod-ai.com/admin/login');
+    await adminPage.goto('https://dev.lowebi.com/admin/login');
     await adminPage.fill('input[type="email"]', 'admin@example.com');
     await adminPage.fill('input[type="password"]', 'Administrator2025');
     await adminPage.click('button[type="submit"]');
@@ -146,7 +146,7 @@ test('Cycle 22: test21 Complete with Color Improvements Validation', async ({ pa
 
     // Process content request
     console.log('\n🔧 Step 12: Processing content request...');
-    await adminPage.goto('https://logen.locod-ai.com/admin/ai-queue');
+    await adminPage.goto('https://dev.lowebi.com/admin/ai-queue');
     await adminPage.waitForTimeout(2000);
 
     const requestRow = adminPage.locator(`tr:has-text("${siteName}")`).first();
@@ -163,7 +163,7 @@ test('Cycle 22: test21 Complete with Color Improvements Validation', async ({ pa
 
     // Verify content appears in customer portal
     console.log('\n✅ Step 13: Verify content in customer portal...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     const siteRow = page.locator(`tr:has-text("${siteName}")`).first();
@@ -191,14 +191,14 @@ test('Cycle 22: test21 Complete with Color Improvements Validation', async ({ pa
 
     // Process in admin
     const adminPage2 = await browser.newPage();
-    await adminPage2.goto('https://logen.locod-ai.com/admin/login');
+    await adminPage2.goto('https://dev.lowebi.com/admin/login');
     await adminPage2.fill('input[type="email"]', 'admin@example.com');
     await adminPage2.fill('input[type="password"]', 'Administrator2025');
     await adminPage2.click('button[type="submit"]');
     await adminPage2.waitForTimeout(3000);
 
     console.log('\n👨‍💼 Processing image request in admin...');
-    await adminPage2.goto('https://logen.locod-ai.com/admin/ai-queue');
+    await adminPage2.goto('https://dev.lowebi.com/admin/ai-queue');
     await adminPage2.waitForTimeout(2000);
 
     const imageRequestRow = adminPage2.locator(`tr:has-text("${siteName}")`).first();
@@ -241,7 +241,7 @@ test('Cycle 22: test21 Complete with Color Improvements Validation', async ({ pa
     await adminPage2.close();
 
     // Return to customer portal
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
     const siteRow2 = page.locator(`tr:has-text("${siteName}")`).first();
     const continueButton2 = siteRow2.locator('a:has-text("Continue")');

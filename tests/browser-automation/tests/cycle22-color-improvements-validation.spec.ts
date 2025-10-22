@@ -73,7 +73,7 @@ test.describe('Cycle 22: Professional Color Improvements', () => {
 
     // Step 1: Navigate to wizard
     console.log('\n📍 Step 1: Navigate to wizard');
-    await page.goto('http://localhost:7601/customer/wizard');
+    await page.goto('http://localhost:7611/customer/wizard');
     await page.waitForLoadState('networkidle');
 
     // Step 2: Basic Info

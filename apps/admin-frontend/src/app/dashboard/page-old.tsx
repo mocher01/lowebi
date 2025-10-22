@@ -30,7 +30,7 @@ export default function AdminDashboard() {
       // Only redirect on 401/403, not on network errors
       if (error?.status === 401 || error?.status === 403) {
         console.log('🔐 Authentication error, redirecting to login');
-        window.location.href = 'https://admin.logen.locod-ai.com/';
+        window.location.href = 'https://admin.dev.lowebi.com/';
       } else {
         // Set fallback data and show dashboard even with API errors
         console.log('📊 Setting fallback data and showing dashboard');
@@ -66,7 +66,7 @@ export default function AdminDashboard() {
     
     if (!token) {
       console.log('❌ No admin token, redirecting to login');
-      window.location.href = 'https://admin.logen.locod-ai.com/';
+      window.location.href = 'https://admin.dev.lowebi.com/';
       return;
     }
 
@@ -111,7 +111,7 @@ export default function AdminDashboard() {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('adminUser');
-    window.location.href = 'https://admin.logen.locod-ai.com/';
+    window.location.href = 'https://admin.dev.lowebi.com/';
   };
 
   if (isLoading) {

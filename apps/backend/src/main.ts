@@ -30,28 +30,28 @@ async function bootstrap() {
   // Enable CORS for frontend integration - Production Ready
   app.enableCors({
     origin: [
-      'https://logen.locod-ai.com', // Production frontend domain
-      'http://logen.locod-ai.com', // HTTP fallback for production
+      'https://dev.lowebi.com', // Production frontend domain
+      'http://dev.lowebi.com', // HTTP fallback for production
       'http://localhost:3000', // Next.js dev server
       'http://localhost:3001', // Next.js production port
       'http://162.55.213.90:3001', // Frontend production HTTP
       'https://162.55.213.90:3001', // Frontend production HTTPS
       'http://162.55.213.90:6001', // Frontend production HTTP
       'https://162.55.213.90:6001', // Frontend production HTTPS
-      'http://162.55.213.90:7601', // Frontend QA testing port
-      'https://162.55.213.90:7601', // Frontend QA testing HTTPS
+      'http://162.55.213.90:7611', // Frontend QA testing port
+      'https://162.55.213.90:7611', // Frontend QA testing HTTPS
       'http://localhost:6001',
       'https://localhost:6001',
       'http://localhost:6000',
       'https://localhost:6000',
-      'http://localhost:7600',
-      'https://localhost:7600',
-      'http://localhost:7601',
-      'https://localhost:7601',
-      'http://localhost:7602', // Admin frontend
-      'https://localhost:7602', // Admin frontend HTTPS
-      'https://admin.logen.locod-ai.com', // Production admin portal
-      'http://admin.logen.locod-ai.com', // Admin portal HTTP fallback
+      'http://localhost:7610',
+      'https://localhost:7610',
+      'http://localhost:7611',
+      'https://localhost:7611',
+      'http://localhost:7612', // Admin frontend
+      'https://localhost:7612', // Admin frontend HTTPS
+      'https://admin.dev.lowebi.com', // Production admin portal
+      'http://admin.dev.lowebi.com', // Admin portal HTTP fallback
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],

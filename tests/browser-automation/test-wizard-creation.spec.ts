@@ -11,14 +11,14 @@ test('Test wizard session creation with console logs', async ({ page }) => {
   });
 
   // Login
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.locator('input[type="email"]').fill('test@example.com');
   await page.locator('input[type="password"]').fill('Administrator2025');
   await page.locator('button[type="submit"]').click();
   await page.waitForTimeout(3000);
   
   // Navigate to create site
-  await page.goto('https://logen.locod-ai.com/sites/create');
+  await page.goto('https://dev.lowebi.com/sites/create');
   await page.waitForLoadState('networkidle');
   
   // Click Assistant Classique
@@ -52,7 +52,7 @@ test('Test wizard session creation with console logs', async ({ page }) => {
   await page.waitForTimeout(5000);
   
   // Navigate back to My Sites
-  await page.goto('https://logen.locod-ai.com/sites');
+  await page.goto('https://dev.lowebi.com/sites');
   await page.waitForLoadState('networkidle');
   
   // Check what's in My Sites

@@ -14,7 +14,7 @@ test('Quick customer login test', async ({ page }) => {
   });
 
   // Go to login page with a shorter timeout
-  await page.goto('https://logen.locod-ai.com/login', { timeout: 15000 });
+  await page.goto('https://dev.lowebi.com/login', { timeout: 15000 });
   
   // Wait a bit for the page to load
   await page.waitForTimeout(3000);

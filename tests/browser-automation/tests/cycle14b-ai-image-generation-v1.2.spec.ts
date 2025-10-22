@@ -26,7 +26,7 @@ test('Cycle 14b V1.2: AI Image Generation - Enhanced Blog Elements', async ({ pa
 
     // Step 1: Authentication
     console.log('🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -35,7 +35,7 @@ test('Cycle 14b V1.2: AI Image Generation - Enhanced Blog Elements', async ({ pa
 
     // Step 2: Navigate to My Sites
     console.log('🏠 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Verify we're actually on sites page, not redirected to login
@@ -50,7 +50,7 @@ test('Cycle 14b V1.2: AI Image Generation - Enhanced Blog Elements', async ({ pa
       await page.waitForTimeout(3000);
 
       // Navigate to sites again after re-login
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(2000);
 
       const finalUrl = page.url();
@@ -182,13 +182,13 @@ test('Cycle 14b V1.2: AI Image Generation - Enhanced Blog Elements', async ({ pa
     const contentAdminContext = await browser.newContext();
     const contentAdminPage = await contentAdminContext.newPage();
 
-    await contentAdminPage.goto('https://admin.logen.locod-ai.com');
+    await contentAdminPage.goto('https://admin.dev.lowebi.com');
     await contentAdminPage.fill('input[type="email"]', 'admin@locod.ai');
     await contentAdminPage.fill('input[type="password"]', 'admin123');
     await contentAdminPage.click('button[type="submit"]');
     await contentAdminPage.waitForURL('**/dashboard');
 
-    await contentAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await contentAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await contentAdminPage.waitForTimeout(2000);
 
     // Find the content request for our site
@@ -298,7 +298,7 @@ R: Utilisez notre formulaire de contact en ligne.
     console.log('\n✅ Step 13: Verifying content processing completed...');
 
     // Return to queue to verify status change
-    await contentAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await contentAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await contentAdminPage.waitForTimeout(2000);
 
     const processedContentSelector = `tr:has-text("${siteName}")`;
@@ -411,13 +411,13 @@ R: Utilisez notre formulaire de contact en ligne.
     const contentAdminContext2 = await browser.newContext();
     const contentAdminPage2 = await contentAdminContext2.newPage();
 
-    await contentAdminPage2.goto('https://admin.logen.locod-ai.com');
+    await contentAdminPage2.goto('https://admin.dev.lowebi.com');
     await contentAdminPage2.fill('input[type="email"]', 'admin@locod.ai');
     await contentAdminPage2.fill('input[type="password"]', 'admin123');
     await contentAdminPage2.click('button[type="submit"]');
     await contentAdminPage2.waitForURL('**/dashboard');
 
-    await contentAdminPage2.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await contentAdminPage2.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
 
     // Look for content request (content type, not images)
     const contentRequestSelector2 = `tr:has-text("${siteName}"):has-text("content")`;
@@ -493,7 +493,7 @@ R: Utilisez notre formulaire de contact en ligne.
         console.log('✅ Content request processed successfully');
 
         // Verify content processing success
-        await contentAdminPage2.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+        await contentAdminPage2.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
         await contentAdminPage2.waitForTimeout(2000);
 
         const processedContentRequest = contentAdminPage2.locator(contentRequestSelector2);
@@ -523,13 +523,13 @@ R: Utilisez notre formulaire de contact en ligne.
     const imageAdminContext = await browser.newContext();
     const imageAdminPage = await imageAdminContext.newPage();
 
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com');
     await imageAdminPage.fill('input[type="email"]', 'admin@locod.ai');
     await imageAdminPage.fill('input[type="password"]', 'admin123');
     await imageAdminPage.click('button[type="submit"]');
     await imageAdminPage.waitForURL('**/dashboard');
 
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
 
     const imageRequestSelector = `tr:has-text("${siteName}"):has-text("images")`;
     await imageAdminPage.waitForSelector(imageRequestSelector);
@@ -783,7 +783,7 @@ R: Utilisez notre formulaire de contact en ligne.
     console.log('\n🔍 Step 13h: Verifying admin processing was successful...');
 
     // Return to queue to verify status changed
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await imageAdminPage.waitForTimeout(2000);
 
     // Look for our request again - should now show "Voir Résultat" instead of "Traiter"
@@ -815,7 +815,7 @@ R: Utilisez notre formulaire de contact en ligne.
     console.log('\n👤 Step 15: Customer portal verification - checking if images appear...');
 
     // Return to customer wizard Step 5 (Images)
-    await page.goto(`https://logen.locod-ai.com/wizard?step=5`);
+    await page.goto(`https://dev.lowebi.com/wizard?step=5`);
     await page.waitForTimeout(3000);
 
     // Alternative: Navigate through wizard steps to reach Step 5
@@ -937,14 +937,14 @@ R: Utilisez notre formulaire de contact en ligne.
     const verifyAdminContext = await browser.newContext();
     const verifyAdminPage = await verifyAdminContext.newPage();
 
-    await verifyAdminPage.goto('https://admin.logen.locod-ai.com');
+    await verifyAdminPage.goto('https://admin.dev.lowebi.com');
     await verifyAdminPage.fill('input[type="email"]', 'admin@locod.ai');
     await verifyAdminPage.fill('input[type="password"]', 'admin123');
     await verifyAdminPage.click('button[type="submit"]');
     await verifyAdminPage.waitForURL('**/dashboard');
     console.log('✅ Admin logged in for verification');
 
-    await verifyAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await verifyAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await verifyAdminPage.waitForTimeout(2000);
 
     // Find the completed request

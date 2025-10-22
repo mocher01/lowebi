@@ -9,7 +9,7 @@ test('Cycle 15 Simple: Check Step 6 UI on existing site', async ({ page }) => {
   try {
     // Login
     console.log('\n🔐 Step 1: Login...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -18,7 +18,7 @@ test('Cycle 15 Simple: Check Step 6 UI on existing site', async ({ page }) => {
 
     // Navigate to My Sites
     console.log('\n📍 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     // Find most recent Cycle15 site

@@ -25,7 +25,7 @@ test.describe('Cycle 28: Phase 2 - Manual Verification', () => {
     console.log('================================================================================\n');
 
     console.log('🏥 Step 1: Check backend health...\n');
-    const healthResponse = await request.get('http://localhost:7600/api/health');
+    const healthResponse = await request.get('http://localhost:7610/api/health');
     expect(healthResponse.ok()).toBeTruthy();
 
     const health = await healthResponse.json();
@@ -37,7 +37,7 @@ test.describe('Cycle 28: Phase 2 - Manual Verification', () => {
   test('Frontend accessibility check', async ({ page }) => {
     console.log('🌐 Step 2: Check frontend accessibility...\n');
 
-    await page.goto('https://logen.locod-ai.com');
+    await page.goto('https://dev.lowebi.com');
     await page.waitForLoadState('networkidle');
 
     const title = await page.title();
@@ -64,7 +64,7 @@ test.describe('Cycle 28: Phase 2 - Manual Test Instructions', () => {
     console.log('================================================================================\n');
     console.log('Please perform the following manual tests:\n');
     console.log('1. Login Steps:');
-    console.log('   - Navigate to https://logen.locod-ai.com/login');
+    console.log('   - Navigate to https://dev.lowebi.com/login');
     console.log('   - Login as: cycle26@test.com / Test123!@#');
     console.log('   - Verify redirect to /sites page\n');
     console.log('2. Content Tab Verification:');

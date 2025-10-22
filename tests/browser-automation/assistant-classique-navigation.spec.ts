@@ -25,7 +25,7 @@ test.describe('Assistant Classique Navigation - Expert Solution', () => {
     // STEP 1: Navigate to sites/create page
     // ===============================================
     console.log('📍 Step 1: Navigating to sites/create page...');
-    await page.goto('https://logen.locod-ai.com/sites/create');
+    await page.goto('https://dev.lowebi.com/sites/create');
     await page.waitForLoadState('networkidle');
     
     // Verify we're on the correct starting page
@@ -159,7 +159,7 @@ test.describe('Assistant Classique Navigation - Expert Solution', () => {
     console.log('🔐 Testing wizard with authentication considerations...');
     
     // Navigate and click Assistant Classique
-    await page.goto('https://logen.locod-ai.com/sites/create');
+    await page.goto('https://dev.lowebi.com/sites/create');
     await page.waitForLoadState('networkidle');
     
     const assistantLink = page.locator('a[href="/wizard?new=true"]');
@@ -211,7 +211,7 @@ test.describe('Assistant Classique Navigation - Expert Solution', () => {
     });
     
     // Navigate to create page
-    await page.goto('https://logen.locod-ai.com/sites/create');
+    await page.goto('https://dev.lowebi.com/sites/create');
     await page.waitForLoadState('networkidle');
     
     // Log all Assistant Classique related elements

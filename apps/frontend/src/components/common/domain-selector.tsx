@@ -9,7 +9,7 @@ export interface DomainSelectorProps {
   siteName?: string;
 }
 
-const DOMAIN_BASE = 'logen.locod-ai.com';
+const DOMAIN_BASE = 'dev.lowebi.com';
 
 export function DomainSelector({
   onDomainChange,
@@ -33,7 +33,7 @@ export function DomainSelector({
   useEffect(() => {
     if (initialDomain) {
       if (initialDomainType === 'subdomain') {
-        // Extract subdomain from full domain (e.g., "mysite.logen.locod-ai.com" -> "mysite")
+        // Extract subdomain from full domain (e.g., "mysite.dev.lowebi.com" -> "mysite")
         const subdomain = initialDomain.replace(`.${DOMAIN_BASE}`, '');
         setSubdomainInput(subdomain);
       } else {

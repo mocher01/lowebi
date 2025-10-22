@@ -10,7 +10,7 @@ test.describe('OAuth Simple UI Test', () => {
 
     // Login
     console.log('📍 Login');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'testuser@example.com');
     await page.fill('input[type="password"]', 'TestPass123!');
     await page.click('button[type="submit"]');
@@ -19,7 +19,7 @@ test.describe('OAuth Simple UI Test', () => {
 
     // Create new session
     console.log('📍 Create new wizard');
-    await page.goto('https://logen.locod-ai.com/wizard?new=true');
+    await page.goto('https://dev.lowebi.com/wizard?new=true');
     await page.waitForTimeout(2000);
 
     const sessionId = await page.evaluate(() => {
@@ -29,7 +29,7 @@ test.describe('OAuth Simple UI Test', () => {
 
     // Navigate to Step 6
     console.log('📍 Navigate to Step 6');
-    await page.goto(`https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5`);
+    await page.goto(`https://dev.lowebi.com/wizard?continue=${sessionId}&step=5`);
     await page.waitForTimeout(3000);
 
     // Check initial state
@@ -44,7 +44,7 @@ test.describe('OAuth Simple UI Test', () => {
     console.log('📍 Simulate OAuth callback');
     const mockCredentialId = 'oauth-' + Date.now();
     const mockEmail = 'test@example.com';
-    const callbackUrl = `https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
+    const callbackUrl = `https://dev.lowebi.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
 
     await page.goto(callbackUrl);
     console.log('✅ Callback URL loaded\n');

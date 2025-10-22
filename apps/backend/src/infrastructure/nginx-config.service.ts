@@ -20,9 +20,9 @@ export class NginxConfigService {
       this.configService.get<string>('NGINX_CONTAINER_NAME') || 'nginx-reverse';
     this.sslWildcardCertPath =
       this.configService.get<string>('SSL_WILDCARD_CERT_PATH') ||
-      '/etc/letsencrypt/live/logen.locod-ai.com';
+      '/etc/letsencrypt/live/dev.lowebi.com';
     this.domainBase =
-      this.configService.get<string>('DOMAIN_BASE') || 'logen.locod-ai.com';
+      this.configService.get<string>('DOMAIN_BASE') || 'dev.lowebi.com';
   }
 
   /**
@@ -57,7 +57,7 @@ server {
 
     # Security headers
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
-    add_header Content-Security-Policy "frame-ancestors 'self' https://*.logen.locod-ai.com" always;
+    add_header Content-Security-Policy "frame-ancestors 'self' https://*.dev.lowebi.com" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header X-XSS-Protection "1; mode=block" always;
 
@@ -158,7 +158,7 @@ server {
 
     # Security headers
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
-    add_header Content-Security-Policy "frame-ancestors 'self' https://*.logen.locod-ai.com" always;
+    add_header Content-Security-Policy "frame-ancestors 'self' https://*.dev.lowebi.com" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header X-XSS-Protection "1; mode=block" always;
 

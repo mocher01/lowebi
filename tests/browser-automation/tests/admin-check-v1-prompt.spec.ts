@@ -4,13 +4,13 @@ test('Admin Check V1.1 Image Prompt', async ({ page }) => {
   console.log('🔍 CHECKING V1.1 IMAGE PROMPT IN ADMIN');
 
   // Login to admin
-  await page.goto('https://admin.logen.locod-ai.com');
+  await page.goto('https://admin.dev.lowebi.com');
   await page.fill('#email', 'admin@locod.ai');
   await page.fill('#password', 'admin123');
   await page.click('button[type="submit"]');
 
   // Go to AI queue
-  await page.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+  await page.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
 
   // Find any IMAGE request
   const allRows = await page.locator('tr').count();

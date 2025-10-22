@@ -2,14 +2,14 @@ import { test, expect } from '@playwright/test';
 
 test('Assistant Classique navigation - CORRECTED', async ({ page }) => {
   console.log('\n🔍 STEP 1: Login');
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.locator('input[type="email"]').fill('test@example.com');
   await page.locator('input[type="password"]').fill('Administrator2025');
   await page.locator('button[type="submit"]').click();
   await page.waitForTimeout(3000);
   
   console.log('\n🔍 STEP 2: Navigate to create page');
-  await page.goto('https://logen.locod-ai.com/sites/create');
+  await page.goto('https://dev.lowebi.com/sites/create');
   await page.waitForLoadState('domcontentloaded');
   await page.waitForTimeout(3000);
   console.log(`✅ At create page: ${page.url()}`);

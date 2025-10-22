@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   async rewrites() {
     // Use environment variable for API URL, fallback to localhost for development
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7600';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7610';
     
     return [
       {

@@ -25,9 +25,9 @@ export default function ProcessingModal({ request, onClose, onComplete }: Proces
   const fileInputRefs = useRef<Record<number, HTMLInputElement | null>>({});
 
   // Base URL for API calls and image loading
-  const baseURL = typeof window !== 'undefined' && window.location.hostname === 'admin.logen.locod-ai.com'
-    ? 'https://logen.locod-ai.com'  // Backend production URL for image serving
-    : 'http://localhost:7600';
+  const baseURL = typeof window !== 'undefined' && window.location.hostname === 'admin.dev.lowebi.com'
+    ? 'https://dev.lowebi.com'  // Backend production URL for image serving
+    : 'http://localhost:7610';
   
   // Initialize with existing content for completed requests
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function ProcessingModal({ request, onClose, onComplete }: Proces
         if (!token) return;
 
         // V2.2 FIX: Use backend URL to fetch images-draft from correct server
-        const apiBaseURL = window.location.hostname === 'admin.logen.locod-ai.com' ? 'https://logen.locod-ai.com' : 'http://localhost:7600';
+        const apiBaseURL = window.location.hostname === 'admin.dev.lowebi.com' ? 'https://dev.lowebi.com' : 'http://localhost:7610';
         const response = await fetch(`${apiBaseURL}/admin/ai-requests/${request.id}/images-draft`, {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -280,8 +280,8 @@ export default function ProcessingModal({ request, onClose, onComplete }: Proces
           return;
         }
         
-        // Use nginx proxy route - empty baseURL for admin.logen.locod-ai.com
-        const baseURL = window.location.hostname === 'admin.logen.locod-ai.com' ? '' : 'http://localhost:7600';
+        // Use nginx proxy route - empty baseURL for admin.dev.lowebi.com
+        const baseURL = window.location.hostname === 'admin.dev.lowebi.com' ? '' : 'http://localhost:7610';
         const response = await fetch(`${baseURL}/admin/queue/${request.id}/prompt`, {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -714,7 +714,7 @@ Format JSON:
         console.log(`✅ [DRAFT SAVE] Token found: ${token.substring(0, 20)}...`);
 
         // V2.2 FIX: Use backend URL for upload (same fix as load)
-        const uploadBaseURL = window.location.hostname === 'admin.logen.locod-ai.com' ? 'https://logen.locod-ai.com' : 'http://localhost:7600';
+        const uploadBaseURL = window.location.hostname === 'admin.dev.lowebi.com' ? 'https://dev.lowebi.com' : 'http://localhost:7610';
         const endpoint = `${uploadBaseURL}/admin/ai-requests/${request.id}/images-draft`;
         console.log(`🌐 [DRAFT SAVE] Calling PUT ${endpoint}`);
 
@@ -824,7 +824,7 @@ Format JSON:
       console.log(`🔄 [V2.1] Saving ${uploadedCount} images as drafts before completion...`);
 
       const token = localStorage.getItem('adminToken');
-      const baseURL = window.location.hostname === 'admin.logen.locod-ai.com' ? '' : 'http://localhost:7600';
+      const baseURL = window.location.hostname === 'admin.dev.lowebi.com' ? '' : 'http://localhost:7610';
 
       let draftsSaved = 0;
       for (let index = 0; index < imagesList.length; index++) {

@@ -35,7 +35,7 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
 
     // Step 1: Authentication
     console.log('🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -44,7 +44,7 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
 
     // Step 2: Navigate to My Sites
     console.log('🏠 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Verify we're actually on sites page, not redirected to login
@@ -59,7 +59,7 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
       await page.waitForTimeout(3000);
 
       // Navigate to sites again after re-login
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(2000);
 
       const finalUrl = page.url();
@@ -212,7 +212,7 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
     console.log('\n👨‍💼 Step 11: Processing CONTENT request in admin (CYCLE 13 PATTERN)...');
 
     const adminPage = await page.context().newPage();
-    await adminPage.goto('https://admin.logen.locod-ai.com');
+    await adminPage.goto('https://admin.dev.lowebi.com');
 
     // Admin login (from Cycle13)
     const emailSelectors = ['#email', 'input[type="email"]', 'input[name="email"]', '[placeholder*="email"]', '[placeholder*="Email"]'];
@@ -244,7 +244,7 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
     console.log('✅ Admin login successful');
 
     // Navigate to AI queue
-    await adminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await adminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await adminPage.waitForTimeout(3000);
 
     // STEP 12: Process the content request (CYCLE 13 PATTERN)
@@ -431,7 +431,7 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
     console.log('🔍 Navigate back to customer portal to check if AI content appears...');
 
     // Navigate back to customer portal (from Cycle13)
-    await page.goto('https://logen.locod-ai.com');
+    await page.goto('https://dev.lowebi.com');
     await page.waitForTimeout(2000);
 
     // Check if we need to re-login
@@ -446,7 +446,7 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
 
     // Navigate to My Sites
     console.log('🏠 Navigate to My Sites to find processed site...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     // Find our site by name and click Continue (from Cycle13)
@@ -759,13 +759,13 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
     const imageAdminContext = await browser.newContext();
     const imageAdminPage = await imageAdminContext.newPage();
 
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com');
     await imageAdminPage.fill('input[type="email"]', 'admin@locod.ai');
     await imageAdminPage.fill('input[type="password"]', 'admin123');
     await imageAdminPage.click('button[type="submit"]');
     await imageAdminPage.waitForURL('**/dashboard');
 
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
 
     const imageRequestSelector = `tr:has-text("${siteName}"):has-text("images")`;
     await imageAdminPage.waitForSelector(imageRequestSelector);
@@ -1047,7 +1047,7 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
     await imageAdminPage.waitForTimeout(3000);
 
     // Verify admin processing success
-    await imageAdminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await imageAdminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await imageAdminPage.waitForTimeout(2000);
 
     const processedRequestSelector = `tr:has-text("${siteName}"):has-text("images")`;
@@ -1132,7 +1132,7 @@ test('Cycle 14b V2.3: Session Storage + Step 5 Verification', async ({ page, bro
 
     // Navigate to My Sites to find our processed site
     console.log('🏠 Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Find and click Continue for our site

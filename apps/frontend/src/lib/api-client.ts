@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 // API Configuration for V2 Backend
 // Frontend makes calls through nginx reverse proxy (relative paths)
 // This avoids mixed content issues (HTTPS → HTTP) by using the same domain
-// For AI Queue requests, use admin.logen.locod-ai.com
+// For AI Queue requests, use admin.dev.lowebi.com
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
 const ADMIN_API_BASE_URL = process.env.NEXT_PUBLIC_ADMIN_API_URL || '';
 const TOKEN_KEY = 'auth_token';
@@ -182,7 +182,7 @@ export const isAuthenticated = (): boolean => {
   return !!getAuthToken();
 };
 
-// Admin API client for AI Queue requests to admin.logen.locod-ai.com
+// Admin API client for AI Queue requests to admin.dev.lowebi.com
 export const adminApiClient: AxiosInstance = axios.create({
   baseURL: ADMIN_API_BASE_URL,
   headers: {

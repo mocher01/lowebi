@@ -5,12 +5,12 @@
     "backend": {
       "port": 7600,
       "host": "localhost",
-      "url": "http://localhost:7600"
+      "url": "http://localhost:7610"
     },
     "frontend": {
       "port": 7601, 
       "host": "localhost",
-      "url": "http://localhost:7601"
+      "url": "http://localhost:7611"
     },
     "database": {
       "host": "localhost",

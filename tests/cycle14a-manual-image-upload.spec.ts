@@ -19,7 +19,7 @@ test('Cycle 14a: Manual Image Upload - "J\'ai déjà mes images"', async ({ page
 
   // Step 1: Authentication
   console.log('🔐 Step 1: Authentication...');
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.fill('input[type="email"]', 'test@example.com');
   await page.fill('input[type="password"]', 'Administrator2025');
   await page.click('button[type="submit"]');
@@ -28,7 +28,7 @@ test('Cycle 14a: Manual Image Upload - "J\'ai déjà mes images"', async ({ page
 
   // Step 2: Navigate to My Sites
   console.log('🏠 Step 2: Navigate to My Sites...');
-  await page.goto('https://logen.locod-ai.com/sites');
+  await page.goto('https://dev.lowebi.com/sites');
   await page.waitForTimeout(3000);
 
   // Handle potential re-login
@@ -39,7 +39,7 @@ test('Cycle 14a: Manual Image Upload - "J\'ai déjà mes images"', async ({ page
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForTimeout(3000);
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
   }
   console.log('✅ On My Sites page');

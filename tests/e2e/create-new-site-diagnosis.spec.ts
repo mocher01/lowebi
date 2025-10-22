@@ -14,7 +14,7 @@ test.describe('Create New Site Flow Diagnosis', () => {
 
     // Step 1: Login as existing user
     console.log('🔐 Step 1: Login as test user');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[name="email"]', 'test@example.com');
     await page.fill('input[name="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -25,7 +25,7 @@ test.describe('Create New Site Flow Diagnosis', () => {
 
     // Step 2: Go to My Sites
     console.log('📋 Step 2: Navigate to My Sites');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForLoadState('networkidle');
     
     // Check current wizard sessions before starting

@@ -8,7 +8,7 @@ test.describe('Issue #146: Duplicate Site Name Detection', () => {
   test.beforeAll(async ({ request }) => {
     // Register a new test user
     console.log('Creating test user:', TEST_EMAIL);
-    const registerResponse = await request.post('http://localhost:7600/auth/register', {
+    const registerResponse = await request.post('http://localhost:7610/auth/register', {
       data: {
         email: TEST_EMAIL,
         password: TEST_PASSWORD,
@@ -31,7 +31,7 @@ test.describe('Issue #146: Duplicate Site Name Detection', () => {
     // Create a site named "test-duplicate" so we can test duplicate detection
     console.log('Creating initial site for duplicate testing...');
     const sessionId = 'test-session-' + Date.now();
-    await request.post('http://localhost:7600/customer/wizard-sessions/' + sessionId, {
+    await request.post('http://localhost:7610/customer/wizard-sessions/' + sessionId, {
       headers: {
         'Authorization': `Bearer ${authToken}`
       },
@@ -49,7 +49,7 @@ test.describe('Issue #146: Duplicate Site Name Detection', () => {
 
     // 1. Navigate to login page
     console.log('Step 1: Navigating to login page...');
-    await page.goto('http://localhost:7601/login');
+    await page.goto('http://localhost:7611/login');
     await page.waitForLoadState('networkidle');
 
     // 2. Login
@@ -66,7 +66,7 @@ test.describe('Issue #146: Duplicate Site Name Detection', () => {
 
     // 3. Navigate to wizard
     console.log('Step 3: Navigating to wizard...');
-    await page.goto('http://localhost:7601/wizard');
+    await page.goto('http://localhost:7611/wizard');
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(1000);
 
@@ -188,14 +188,14 @@ test.describe('Issue #146: Duplicate Site Name Detection', () => {
     console.log('\n=== TEST START: Unique Name (No Warning) ===\n');
 
     // Login
-    await page.goto('http://localhost:7601/login');
+    await page.goto('http://localhost:7611/login');
     await page.fill('input[type="email"]', TEST_EMAIL);
     await page.fill('input[type="password"]', TEST_PASSWORD);
     await page.click('button[type="submit"]');
     await page.waitForURL(/\/(dashboard|sites)/, { timeout: 10000 });
 
     // Navigate to wizard
-    await page.goto('http://localhost:7601/wizard');
+    await page.goto('http://localhost:7611/wizard');
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(1000);
 

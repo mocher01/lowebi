@@ -15,7 +15,7 @@ services:
     container_name: logen-backend
     environment:
       - NODE_ENV=${NODE_ENV}
-      - PORT=7600
+      - PORT=7610
       - DB_HOST=logen-postgres
       - DB_PORT=5432
       - DB_USERNAME=${DB_USERNAME}
@@ -32,11 +32,11 @@ services:
       - REDIS_HOST=logen-redis
       - REDIS_PORT=6379
     ports:
-      - "7600:7600"
+      - "7600:7610"
     networks:
       - default
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7600/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:7610/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3

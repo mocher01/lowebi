@@ -74,14 +74,14 @@ services:
       - /var/apps/nginx-reverse:/var/apps/nginx-reverse  # Required for domain management
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - "7600:7600"
+      - "7600:7610"
     depends_on:
       redis:
         condition: service_healthy
     networks:
       - logen-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7600/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:7610/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -97,18 +97,18 @@ services:
     container_name: logen-admin-frontend-prod
     environment:
       - NODE_ENV=${NODE_ENV}
-      - PORT=7602
+      - PORT=7612
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
       - NEXT_PUBLIC_APP_ENV=${NEXT_PUBLIC_APP_ENV}
     ports:
-      - "7602:7602"
+      - "7602:7612"
     depends_on:
       backend:
         condition: service_healthy
     networks:
       - logen-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7602"]
+      test: ["CMD", "curl", "-f", "http://localhost:7612"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -124,18 +124,18 @@ services:
     container_name: logen-customer-frontend-prod
     environment:
       - NODE_ENV=${NODE_ENV}
-      - PORT=7601
+      - PORT=7611
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
       - NEXT_PUBLIC_APP_ENV=${NEXT_PUBLIC_APP_ENV}
     ports:
-      - "7601:7601"
+      - "7601:7611"
     depends_on:
       backend:
         condition: service_healthy
     networks:
       - logen-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7601"]
+      test: ["CMD", "curl", "-f", "http://localhost:7611"]
       interval: 30s
       timeout: 10s
       retries: 3

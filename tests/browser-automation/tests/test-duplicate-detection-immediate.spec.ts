@@ -5,7 +5,7 @@ test.describe('Duplicate Site Name Detection - Immediate Warning', () => {
   test('should show duplicate warning immediately when typing existing site name', async ({ page }) => {
     // 1. Login
     console.log('Step 1: Logging in as test@example.com...');
-    await page.goto('http://localhost:7601/login');
+    await page.goto('http://localhost:7611/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'password123');
     await page.click('button[type="submit"]');
@@ -16,7 +16,7 @@ test.describe('Duplicate Site Name Detection - Immediate Warning', () => {
 
     // 2. Navigate to wizard
     console.log('Step 2: Starting new wizard...');
-    await page.goto('http://localhost:7601/wizard');
+    await page.goto('http://localhost:7611/wizard');
     await page.waitForLoadState('networkidle');
 
     // 3. Get to Step 2 (Business Info)
@@ -91,7 +91,7 @@ test.describe('Duplicate Site Name Detection - Immediate Warning', () => {
   test('should NOT show warning for unique site name', async ({ page }) => {
     // 1. Login
     console.log('Step 1: Logging in...');
-    await page.goto('http://localhost:7601/login');
+    await page.goto('http://localhost:7611/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'password123');
     await page.click('button[type="submit"]');
@@ -99,7 +99,7 @@ test.describe('Duplicate Site Name Detection - Immediate Warning', () => {
 
     // 2. Navigate to wizard
     console.log('Step 2: Starting new wizard...');
-    await page.goto('http://localhost:7601/wizard');
+    await page.goto('http://localhost:7611/wizard');
     await page.waitForLoadState('networkidle');
 
     // 3. Get to Step 2

@@ -19,7 +19,7 @@ test('Cycle 15 Direct: Step 6 Feature Cards UI Only', async ({ page }) => {
     // ============================================================================
 
     console.log('\n🔐 Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -31,7 +31,7 @@ test('Cycle 15 Direct: Step 6 Feature Cards UI Only', async ({ page }) => {
     // ============================================================================
 
     console.log('\n🏠 Navigate to sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     // Check if there are existing sites

@@ -10,7 +10,7 @@ test('Verify Step 6 Feature Cards UI - Using Existing Site', async ({ page }) =>
   try {
     // Login
     console.log('\n🔐 Step 1: Login...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -19,7 +19,7 @@ test('Verify Step 6 Feature Cards UI - Using Existing Site', async ({ page }) =>
 
     // Navigate to existing wizard session
     console.log('\n📍 Step 2: Navigate to wizard session...');
-    await page.goto('https://logen.locod-ai.com/wizard?session=wizard_1759501864736_kwf49b1b8');
+    await page.goto('https://dev.lowebi.com/wizard?session=wizard_1759501864736_kwf49b1b8');
     await page.waitForTimeout(3000);
 
     const currentUrl = page.url();

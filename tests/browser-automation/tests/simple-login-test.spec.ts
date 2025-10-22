@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('Simple login test', async ({ page }) => {
   console.log('Going to login page...');
-  await page.goto('http://localhost:7601/login');
+  await page.goto('http://localhost:7611/login');
 
   console.log('Filling credentials...');
   await page.fill('input[type="email"]', 'test@example.com');

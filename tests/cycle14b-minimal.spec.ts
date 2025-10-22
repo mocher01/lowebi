@@ -10,7 +10,7 @@ test('Cycle 14b: Minimal V1 Image System Test', async ({ page }) => {
   // ============================================================================
 
   console.log('🔐 Admin login...');
-  await page.goto('http://localhost:7602');
+  await page.goto('http://localhost:7612');
   await page.waitForTimeout(2000);
 
   // Admin login
@@ -24,7 +24,7 @@ test('Cycle 14b: Minimal V1 Image System Test', async ({ page }) => {
   }
 
   // Navigate to AI Queue
-  await page.goto('http://localhost:7602/dashboard/ai-queue');
+  await page.goto('http://localhost:7612/dashboard/ai-queue');
   await page.waitForTimeout(2000);
   console.log('✅ Navigated to admin AI queue');
 

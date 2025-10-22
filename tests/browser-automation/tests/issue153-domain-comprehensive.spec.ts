@@ -11,7 +11,7 @@ test.describe('Issue #153 - Domain Management Tests', () => {
   async function initializeWizardToStep2(page: any) {
     // Login
     console.log('🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -20,7 +20,7 @@ test.describe('Issue #153 - Domain Management Tests', () => {
 
     // Navigate to My Sites
     console.log('🏠 Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Create New Site (with increased timeout for rate limiting)
@@ -157,7 +157,7 @@ test.describe('Issue #153 - Domain Management Tests', () => {
     console.log('✅ Subdomain available');
 
     // Verify the full domain is properly formatted
-    const fullDomain = `${uniqueSubdomain}.logen.locod-ai.com`;
+    const fullDomain = `${uniqueSubdomain}.dev.lowebi.com`;
     console.log(`✅ Expected full domain: ${fullDomain}`);
 
     console.log('🎉 Test 3 PASSED - Site ID generation working correctly');
@@ -224,7 +224,7 @@ test.describe('Issue #153 - Domain Management Tests', () => {
     await expect(suggestionsText).toBeVisible({ timeout: 3000 });
     console.log('✅ Suggestions visible');
 
-    const suggestionButtons = page.locator('button:has-text(".logen.locod-ai.com")');
+    const suggestionButtons = page.locator('button:has-text(".dev.lowebi.com")');
     expect(await suggestionButtons.count()).toBeGreaterThan(0);
     console.log('✅ Suggestion buttons shown');
 
@@ -348,14 +348,14 @@ test.describe('Issue #153 - Domain Management Tests', () => {
     console.log('\n🧪 Test 9: Domain display in sites list');
 
     // Login
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForTimeout(3000);
 
     // Navigate to sites
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     console.log('On sites page');
@@ -444,7 +444,7 @@ test.describe('Issue #153 - Domain Management Tests', () => {
       await page.waitForTimeout(2500);
     }
 
-    console.log(`Domain set to: ${subdomain}.logen.locod-ai.com`);
+    console.log(`Domain set to: ${subdomain}.dev.lowebi.com`);
 
     // Verify available (longer timeout for last test)
     const availableMessage = page.locator('span:has-text("Disponible")');

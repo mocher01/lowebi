@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
  * Simple test to validate basic wizard functionality
  */
 
-const WIZARD_BASE_URL = 'https://logen.locod-ai.com/wizard-v2';
+const WIZARD_BASE_URL = 'https://dev.lowebi.com/wizard-v2';
 
 test('V2 Wizard - Quick Validation', async ({ page }) => {
   // Navigate to wizard

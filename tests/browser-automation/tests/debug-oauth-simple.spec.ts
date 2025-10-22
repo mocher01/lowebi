@@ -30,7 +30,7 @@ test.describe('OAuth URL Debug - Simple', () => {
 
     // Step 1: Login
     console.log('📍 STEP 1: Login');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'testuser@example.com');
     await page.fill('input[type="password"]', 'TestPass123!');
     await page.click('button[type="submit"]');
@@ -39,7 +39,7 @@ test.describe('OAuth URL Debug - Simple', () => {
 
     // Step 2: Go to My Sites and find test66
     console.log('📍 STEP 2: Looking for test66 session');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     // Check if test66 exists
@@ -50,7 +50,7 @@ test.describe('OAuth URL Debug - Simple', () => {
 
     if (!test66Exists) {
       console.log('⚠️  test66 not found, creating new wizard session');
-      await page.goto('https://logen.locod-ai.com/wizard?new=true');
+      await page.goto('https://dev.lowebi.com/wizard?new=true');
       await page.waitForTimeout(2000);
 
       // Get sessionId from URL or context
@@ -66,7 +66,7 @@ test.describe('OAuth URL Debug - Simple', () => {
 
     // Step 3: Navigate to step 6 with continue parameter
     console.log('📍 STEP 3: Navigate to Step 6');
-    const step6Url = `https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5`;
+    const step6Url = `https://dev.lowebi.com/wizard?continue=${sessionId}&step=5`;
     console.log('📋 Navigating to:', step6Url);
     await page.goto(step6Url);
     await page.waitForTimeout(3000);
@@ -84,7 +84,7 @@ test.describe('OAuth URL Debug - Simple', () => {
     console.log('📍 STEP 4: Simulating OAuth callback');
     const mockCredentialId = 'mock-cred-' + Date.now();
     const mockEmail = 'debug@test.com';
-    const callbackUrl = `https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
+    const callbackUrl = `https://dev.lowebi.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
 
     console.log('📋 Callback URL:', callbackUrl);
     console.log('📋 Params in callback:');

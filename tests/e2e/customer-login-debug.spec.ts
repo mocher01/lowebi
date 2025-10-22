@@ -14,7 +14,7 @@ test('Customer login network requests debug', async ({ page }) => {
   });
 
   // Go to the customer login page
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   
   // Wait for the page to load
   await page.waitForLoadState('networkidle');

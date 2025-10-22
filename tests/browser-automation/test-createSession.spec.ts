@@ -4,14 +4,14 @@ test('Unit Test: createSession function', async ({ page }) => {
   console.log('🧪 UNIT TEST: Testing createSession function');
   
   // Login
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.locator('input[type="email"]').fill('test@example.com');
   await page.locator('input[type="password"]').fill('Administrator2025');
   await page.locator('button[type="submit"]').click();
   await page.waitForTimeout(3000);
   
   // Navigate to wizard
-  await page.goto('https://logen.locod-ai.com/wizard?new=true');
+  await page.goto('https://dev.lowebi.com/wizard?new=true');
   await page.waitForLoadState('domcontentloaded');
   
   // Capture console logs
@@ -77,7 +77,7 @@ test('Unit Test: createSession function', async ({ page }) => {
   await page.waitForTimeout(3000);
   
   // Check if session appeared by going to My Sites
-  await page.goto('https://logen.locod-ai.com/sites');
+  await page.goto('https://dev.lowebi.com/sites');
   await page.waitForLoadState('networkidle');
   
   // Look for "UnitTestSite"

@@ -17,7 +17,7 @@ test('Issue #147 - Site deletion with confirmation modal', async ({ page }) => {
   });
 
   console.log('🌐 Step 1: Navigating to login page...');
-  await page.goto('https://logen.locod-ai.com/login', { timeout: 15000 });
+  await page.goto('https://dev.lowebi.com/login', { timeout: 15000 });
 
   await page.waitForSelector('input[type="email"]', { timeout: 10000 });
   console.log('📝 Login form loaded');
@@ -42,7 +42,7 @@ test('Issue #147 - Site deletion with confirmation modal', async ({ page }) => {
   // Navigate to sites page if not already there
   if (!currentUrl.includes('/sites')) {
     console.log('🌐 Step 2: Navigating to /sites page...');
-    await page.goto('https://logen.locod-ai.com/sites', { timeout: 15000 });
+    await page.goto('https://dev.lowebi.com/sites', { timeout: 15000 });
     await page.waitForTimeout(2000);
   } else {
     console.log('✅ Already on /sites page');

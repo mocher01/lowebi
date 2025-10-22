@@ -8,7 +8,7 @@ test.describe('Verify Image Persistence After Upload', () => {
 
     // Step 1: Admin login
     console.log('🔐 Step 1: Admin Authentication...');
-    await page.goto('http://admin.logen.locod-ai.com/login');
+    await page.goto('http://admin.dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'test123');
     await page.click('button[type="submit"]');
@@ -17,7 +17,7 @@ test.describe('Verify Image Persistence After Upload', () => {
 
     // Step 2: Navigate to AI Queue
     console.log('📋 Step 2: Navigate to AI Queue...');
-    await page.goto('http://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await page.goto('http://admin.dev.lowebi.com/dashboard/ai-queue');
     await page.waitForLoadState('networkidle');
     console.log('✅ AI Queue page loaded\n');
 

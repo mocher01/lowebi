@@ -7,7 +7,7 @@ test.describe('Cycle 30: Publish All Content Types', () => {
   test('should update hero, create blog article, and verify both appear after publish', async ({ page }) => {
     // Step 1: Login via UI
     console.log('🔐 Logging in...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -16,7 +16,7 @@ test.describe('Cycle 30: Publish All Content Types', () => {
 
     // Step 2: Find deployed site with Manage button
     console.log('🔍 Finding deployed site...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForLoadState('networkidle');
 
     const manageRow = page.locator('tr:has(button:has-text("Manage"))').first();

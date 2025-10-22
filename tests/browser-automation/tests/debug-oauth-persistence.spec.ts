@@ -20,7 +20,7 @@ test.describe('OAuth Persistence Test', () => {
 
     // Step 1: Login
     console.log('📍 STEP 1: Login');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'testuser@example.com');
     await page.fill('input[type="password"]', 'TestPass123!');
     await page.click('button[type="submit"]');
@@ -29,7 +29,7 @@ test.describe('OAuth Persistence Test', () => {
 
     // Step 2: Create new wizard session
     console.log('📍 STEP 2: Create new wizard session');
-    await page.goto('https://logen.locod-ai.com/wizard?new=true');
+    await page.goto('https://dev.lowebi.com/wizard?new=true');
     await page.waitForTimeout(2000);
 
     const sessionId = await page.evaluate(() => {
@@ -40,7 +40,7 @@ test.describe('OAuth Persistence Test', () => {
 
     // Step 3: Navigate to Step 6
     console.log('📍 STEP 3: Navigate to Step 6');
-    await page.goto(`https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5`);
+    await page.goto(`https://dev.lowebi.com/wizard?continue=${sessionId}&step=5`);
     await page.waitForTimeout(2000);
     console.log('✅ At Step 6\n');
 
@@ -48,7 +48,7 @@ test.describe('OAuth Persistence Test', () => {
     console.log('📍 STEP 4: Simulate OAuth callback');
     const mockCredentialId = 'mock-persist-' + Date.now();
     const mockEmail = 'persist-test@example.com';
-    const callbackUrl = `https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
+    const callbackUrl = `https://dev.lowebi.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
 
     console.log('📋 Loading callback URL...');
     await page.goto(callbackUrl);

@@ -5,7 +5,7 @@ import { test, expect, Page } from '@playwright/test';
  * Tests all 7 quality fixes before moving to next functionality
  */
 
-const BASE_URL = 'https://logen.locod-ai.com';
+const BASE_URL = 'https://dev.lowebi.com';
 const TEST_EMAIL = `test-issue140-${Date.now()}@example.com`;
 const TEST_PASSWORD = 'TestPassword123!';
 const TEST_SITE_NAME = `TestSite${Date.now()}`;

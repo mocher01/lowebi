@@ -20,7 +20,7 @@ test('Cycle 14c: Mixed Approach - "Approche mixte"', async ({ page }) => {
 
   // Step 1: Authentication
   console.log('🔐 Step 1: Authentication...');
-  await page.goto('http://localhost:7601/login');
+  await page.goto('http://localhost:7611/login');
   await page.fill('input[type="email"]', 'test@example.com');
   await page.fill('input[type="password"]', 'Administrator2025');
   await page.click('button[type="submit"]');
@@ -29,7 +29,7 @@ test('Cycle 14c: Mixed Approach - "Approche mixte"', async ({ page }) => {
 
   // Step 2: Navigate to My Sites
   console.log('🏠 Step 2: Navigate to My Sites...');
-  await page.goto('http://localhost:7601/sites');
+  await page.goto('http://localhost:7611/sites');
   await page.waitForTimeout(3000);
 
   // Handle potential re-login
@@ -40,7 +40,7 @@ test('Cycle 14c: Mixed Approach - "Approche mixte"', async ({ page }) => {
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
     await page.waitForTimeout(3000);
-    await page.goto('http://localhost:7601/sites');
+    await page.goto('http://localhost:7611/sites');
     await page.waitForTimeout(2000);
   }
   console.log('✅ On My Sites page');
@@ -252,7 +252,7 @@ test('Cycle 14c: Mixed Approach - "Approche mixte"', async ({ page }) => {
 
   // Open admin portal
   const adminContext = await page.context().newPage();
-  await adminContext.goto('http://localhost:7602');
+  await adminContext.goto('http://localhost:7612');
   await adminContext.waitForTimeout(2000);
 
   // Admin login
@@ -266,7 +266,7 @@ test('Cycle 14c: Mixed Approach - "Approche mixte"', async ({ page }) => {
   }
 
   // Navigate to AI Queue
-  await adminContext.goto('http://localhost:7602/dashboard/ai-queue');
+  await adminContext.goto('http://localhost:7612/dashboard/ai-queue');
   await adminContext.waitForLoadState('networkidle');
   console.log('✅ Navigated to admin AI queue');
 

@@ -36,7 +36,7 @@ test.describe('Complete E2E AI Workflow - V2 Wizard to Admin Processing', () => 
     console.log('\n🚀 Starting V2 Wizard Test...');
     
     // Navigate to V2 wizard
-    await page.goto('https://logen.locod-ai.com/wizard-v2');
+    await page.goto('https://dev.lowebi.com/wizard-v2');
     await page.waitForLoadState('networkidle');
     
     // Step 1: Welcome & Terms
@@ -111,7 +111,7 @@ test.describe('Complete E2E AI Workflow - V2 Wizard to Admin Processing', () => 
     }
     
     // Navigate to admin portal
-    await adminPage.goto('https://admin.logen.locod-ai.com/');
+    await adminPage.goto('https://admin.dev.lowebi.com/');
     await adminPage.waitForLoadState('networkidle');
     
     // Login to admin
@@ -123,7 +123,7 @@ test.describe('Complete E2E AI Workflow - V2 Wizard to Admin Processing', () => 
     
     // Navigate to AI Queue
     console.log('📋 Navigating to AI Queue...');
-    await adminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await adminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await adminPage.waitForLoadState('networkidle');
     
     // Find our created request
@@ -207,7 +207,7 @@ test.describe('Complete E2E AI Workflow - V2 Wizard to Admin Processing', () => 
     }
     
     // Test the backend prompt generation API directly
-    const response = await page.request.get(`http://localhost:7600/admin/queue/${createdRequestId}/prompt`);
+    const response = await page.request.get(`http://localhost:7610/admin/queue/${createdRequestId}/prompt`);
     expect(response.ok()).toBe(true);
     
     const promptData = await response.json();
@@ -248,7 +248,7 @@ test.describe('Complete E2E AI Workflow - V2 Wizard to Admin Processing', () => 
     // 3. Paste the result back
     // 4. Complete the request
     
-    await adminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await adminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await adminPage.waitForTimeout(2000);
     
     // Open processing modal for our request
@@ -330,7 +330,7 @@ test.describe('Complete E2E AI Workflow - V2 Wizard to Admin Processing', () => 
     }
     
     // Verify the request still exists and has correct data
-    const response = await page.request.get(`http://localhost:7600/admin/queue/${createdRequestId}`);
+    const response = await page.request.get(`http://localhost:7610/admin/queue/${createdRequestId}`);
     expect(response.ok()).toBe(true);
     
     const requestData = await response.json();

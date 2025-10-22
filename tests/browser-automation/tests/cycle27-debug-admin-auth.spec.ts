@@ -31,7 +31,7 @@ test.describe('Debug Admin Authentication', () => {
 
     // Step 1: Login
     console.log('\n🔐 Step 1: Login...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -53,7 +53,7 @@ test.describe('Debug Admin Authentication', () => {
 
     // Step 2: Navigate to MySites
     console.log('\n🏠 Step 2: Navigate to MySites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     const sitesUrl = page.url();

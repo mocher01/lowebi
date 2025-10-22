@@ -31,7 +31,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const checkAuthToken = async () => {
       const token = localStorage.getItem('adminToken');
       if (!token) {
-        window.location.href = 'https://admin.logen.locod-ai.com/';
+        window.location.href = 'https://admin.dev.lowebi.com/';
         return;
       }
 
@@ -49,7 +49,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           localStorage.removeItem('refreshToken');
           localStorage.removeItem('adminUser');
           localStorage.removeItem('user');
-          window.location.href = 'https://admin.logen.locod-ai.com/';
+          window.location.href = 'https://admin.dev.lowebi.com/';
         }
       } catch (error) {
         console.warn('Auth check failed, but keeping session for now');
@@ -67,7 +67,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     localStorage.removeItem('adminToken');
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('adminUser');
-    window.location.href = 'https://admin.logen.locod-ai.com/';
+    window.location.href = 'https://admin.dev.lowebi.com/';
   };
 
   const navigation = [

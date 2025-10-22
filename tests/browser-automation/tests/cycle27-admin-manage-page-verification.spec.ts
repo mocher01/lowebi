@@ -53,7 +53,7 @@ test('Cycle 27: Admin Manage Page - Complete E2E Verification', async ({ page, b
 
     // Step 1: Authentication
     console.log('🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -62,7 +62,7 @@ test('Cycle 27: Admin Manage Page - Complete E2E Verification', async ({ page, b
 
     // Step 2: Navigate to My Sites
     console.log('🏠 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Verify we're actually on sites page, not redirected to login
@@ -76,7 +76,7 @@ test('Cycle 27: Admin Manage Page - Complete E2E Verification', async ({ page, b
       await page.click('button[type="submit"]');
       await page.waitForTimeout(3000);
 
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(2000);
     }
 
@@ -288,7 +288,7 @@ test('Cycle 27: Admin Manage Page - Complete E2E Verification', async ({ page, b
 
     // STEP 17: Navigate to MySites page
     console.log('🏠 Step 17: Navigate to MySites page...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(5000);
 
     console.log('✅ On MySites page');

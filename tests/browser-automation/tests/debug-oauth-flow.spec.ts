@@ -52,7 +52,7 @@ test.describe('OAuth Flow Debug', () => {
 
     // Step 1: Login
     console.log('📍 STEP 1: Login');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'testuser@example.com');
     await page.fill('input[type="password"]', 'TestPass123!');
     await page.click('button[type="submit"]');
@@ -61,7 +61,7 @@ test.describe('OAuth Flow Debug', () => {
 
     // Step 2: Start new wizard
     console.log('📍 STEP 2: Start new wizard');
-    await page.goto('https://logen.locod-ai.com/wizard?new=true');
+    await page.goto('https://dev.lowebi.com/wizard?new=true');
     await page.waitForTimeout(2000);
     const initialUrl = page.url();
     console.log('📋 Initial wizard URL:', initialUrl);
@@ -140,7 +140,7 @@ test.describe('OAuth Flow Debug', () => {
     console.log('📍 STEP 6: Simulating OAuth callback');
     const mockCredentialId = 'mock-credential-123';
     const mockEmail = 'testuser@example.com';
-    const callbackUrl = `https://logen.locod-ai.com/wizard?continue=${sessionIdBefore}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
+    const callbackUrl = `https://dev.lowebi.com/wizard?continue=${sessionIdBefore}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
 
     console.log('📋 Simulating callback to:', callbackUrl);
     console.log('');

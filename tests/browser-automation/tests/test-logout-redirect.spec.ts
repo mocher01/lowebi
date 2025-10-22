@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
  * Verifies that logout immediately redirects to /login without user action
  */
 
-const BASE_URL = 'https://logen.locod-ai.com';
+const BASE_URL = 'https://dev.lowebi.com';
 const TEST_EMAIL = `logout-test-${Date.now()}@example.com`;
 const TEST_PASSWORD = 'TestPassword123!';
 

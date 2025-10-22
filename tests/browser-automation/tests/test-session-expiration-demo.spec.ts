@@ -7,7 +7,7 @@ import { test, expect } from '@playwright/test';
  * WITHOUT requiring user registration (which is currently having issues)
  */
 
-const BASE_URL = 'https://logen.locod-ai.com';
+const BASE_URL = 'https://dev.lowebi.com';
 
 test.describe('Session Expiration Demo', () => {
   test('Navigate to protected route without auth → Should redirect to login', async ({ page }) => {
@@ -60,7 +60,7 @@ test.describe('Session Expiration Demo', () => {
     console.log('💡 MANUAL VERIFICATION INSTRUCTIONS:');
     console.log('   To fully test session expiration with a logged-in user:');
     console.log('');
-    console.log('   1. Login to https://logen.locod-ai.com/login');
+    console.log('   1. Login to https://dev.lowebi.com/login');
     console.log('   2. Navigate to "My Sites" page');
     console.log('   3. Open Browser Console (F12 → Console)');
     console.log('   4. Paste this code:');

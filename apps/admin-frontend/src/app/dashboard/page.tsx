@@ -30,7 +30,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
-      window.location.href = 'https://admin.logen.locod-ai.com/';
+      window.location.href = 'https://admin.dev.lowebi.com/';
       return;
     }
 
@@ -57,7 +57,7 @@ export default function AdminDashboard() {
       
       if (error?.status === 401 || error?.status === 403) {
         console.log('🔐 Authentication error, redirecting to login');
-        window.location.href = 'https://admin.logen.locod-ai.com/';
+        window.location.href = 'https://admin.dev.lowebi.com/';
       } else {
         // Set fallback data
         setStats({

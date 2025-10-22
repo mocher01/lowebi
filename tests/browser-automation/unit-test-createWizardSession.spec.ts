@@ -6,14 +6,14 @@ test.describe('Unit Test: createWizardSession function', () => {
     console.log('🧪 UNIT TEST: Testing createWizardSession function in isolation');
     
     // Login first
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.locator('input[type="email"]').fill('test@example.com');
     await page.locator('input[type="password"]').fill('Administrator2025');
     await page.locator('button[type="submit"]').click();
     await page.waitForTimeout(3000);
     
     // Navigate to wizard to get access to the context
-    await page.goto('https://logen.locod-ai.com/wizard?new=true');
+    await page.goto('https://dev.lowebi.com/wizard?new=true');
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(2000);
     
@@ -113,7 +113,7 @@ test.describe('Unit Test: createWizardSession function', () => {
     
     // Now check if the session appears in My Sites
     console.log('🧪 Checking if UnitTestSite appears in My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForLoadState('networkidle');
     
     // Look for UnitTestSite

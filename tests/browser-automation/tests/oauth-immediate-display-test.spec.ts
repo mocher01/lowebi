@@ -21,7 +21,7 @@ test.describe('OAuth Immediate Display Test', () => {
 
     // Step 1: Login
     console.log('📍 STEP 1: Login');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'testuser@example.com');
     await page.fill('input[type="password"]', 'TestPass123!');
     await page.click('button[type="submit"]');
@@ -30,7 +30,7 @@ test.describe('OAuth Immediate Display Test', () => {
 
     // Step 2: Look for test66 or create new session
     console.log('📍 STEP 2: Looking for test66 session');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     // Check if test66 exists
@@ -52,7 +52,7 @@ test.describe('OAuth Immediate Display Test', () => {
       console.log('📋 Using existing sessionId:', sessionId);
     } else {
       console.log('⚠️  test66 not found, creating new wizard session');
-      await page.goto('https://logen.locod-ai.com/wizard?new=true');
+      await page.goto('https://dev.lowebi.com/wizard?new=true');
       await page.waitForTimeout(2000);
 
       sessionId = await page.evaluate(() => {
@@ -64,7 +64,7 @@ test.describe('OAuth Immediate Display Test', () => {
 
     // Step 3: Navigate to Step 6
     console.log('📍 STEP 3: Navigate to Step 6 (Advanced Features)');
-    await page.goto(`https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5`);
+    await page.goto(`https://dev.lowebi.com/wizard?continue=${sessionId}&step=5`);
     await page.waitForTimeout(3000);
     console.log('✅ At Step 6\n');
 
@@ -81,7 +81,7 @@ test.describe('OAuth Immediate Display Test', () => {
     console.log('📍 STEP 5: Simulating OAuth callback');
     const mockCredentialId = 'test-oauth-' + Date.now();
     const mockEmail = 'oauth-test@example.com';
-    const callbackUrl = `https://logen.locod-ai.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
+    const callbackUrl = `https://dev.lowebi.com/wizard?continue=${sessionId}&step=5&oauth2Status=success&credentialId=${mockCredentialId}&email=${encodeURIComponent(mockEmail)}`;
 
     console.log('📋 Navigating to callback URL with OAuth params...');
     await page.goto(callbackUrl);

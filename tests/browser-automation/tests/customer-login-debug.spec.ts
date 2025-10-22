@@ -24,7 +24,7 @@ test('Customer login network requests debug', async ({ page }) => {
   });
 
   // Go to the customer login page
-  await page.goto('http://localhost:7601/login');
+  await page.goto('http://localhost:7611/login');
 
   // Wait for the page to load
   await page.waitForLoadState('domcontentloaded');

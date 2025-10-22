@@ -28,7 +28,7 @@ test('Cycle 17: Complete Workflow + Site Validation', async ({ page }) => {
   // STEP 1: AUTHENTICATION
   // ============================================================================
   console.log('\n🔐 Step 1: Authentication...');
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.fill('input[type="email"]', 'test@example.com');
   await page.fill('input[type="password"]', 'Administrator2025');
   await page.click('button[type="submit"]');
@@ -39,7 +39,7 @@ test('Cycle 17: Complete Workflow + Site Validation', async ({ page }) => {
   // STEP 2: CREATE NEW SITE
   // ============================================================================
   console.log('\n➕ Step 2: Create New Site...');
-  await page.goto('https://logen.locod-ai.com/sites');
+  await page.goto('https://dev.lowebi.com/sites');
   await page.waitForTimeout(2000);
 
   await page.click('text="Create New Site"');

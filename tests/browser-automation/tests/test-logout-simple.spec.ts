@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
  * Uses an existing test account to verify logout redirect works
  */
 
-const BASE_URL = 'https://logen.locod-ai.com';
+const BASE_URL = 'https://dev.lowebi.com';
 
 test.describe('Logout Redirect - Simple Test', () => {
   test('Manual: Login and test logout redirect', async ({ page }) => {

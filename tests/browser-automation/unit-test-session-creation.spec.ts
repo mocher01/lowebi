@@ -4,13 +4,13 @@ test.describe('Unit Tests: Session Creation Functions', () => {
   
   test('Test 1: forceCreateWizardSession function call', async ({ page }) => {
     // Navigate to wizard and inject test
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.locator('input[type="email"]').fill('test@example.com');
     await page.locator('input[type="password"]').fill('Administrator2025');
     await page.locator('button[type="submit"]').click();
     await page.waitForTimeout(3000);
     
-    await page.goto('https://logen.locod-ai.com/wizard?new=true');
+    await page.goto('https://dev.lowebi.com/wizard?new=true');
     await page.waitForLoadState('domcontentloaded');
     
     // Inject test to call forceCreateWizardSession directly
@@ -43,13 +43,13 @@ test.describe('Unit Tests: Session Creation Functions', () => {
   });
 
   test('Test 2: createSession alias function call', async ({ page }) => {
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.locator('input[type="email"]').fill('test@example.com');
     await page.locator('input[type="password"]').fill('Administrator2025');
     await page.locator('button[type="submit"]').click();
     await page.waitForTimeout(3000);
     
-    await page.goto('https://logen.locod-ai.com/wizard?new=true');
+    await page.goto('https://dev.lowebi.com/wizard?new=true');
     await page.waitForLoadState('domcontentloaded');
     
     // Inject test to call createSession (alias)
@@ -81,13 +81,13 @@ test.describe('Unit Tests: Session Creation Functions', () => {
   });
 
   test('Test 3: handleSiteNameChange function call', async ({ page }) => {
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.locator('input[type="email"]').fill('test@example.com');
     await page.locator('input[type="password"]').fill('Administrator2025');
     await page.locator('button[type="submit"]').click();
     await page.waitForTimeout(3000);
     
-    await page.goto('https://logen.locod-ai.com/wizard?new=true');
+    await page.goto('https://dev.lowebi.com/wizard?new=true');
     await page.waitForLoadState('domcontentloaded');
     
     // Navigate to business info step

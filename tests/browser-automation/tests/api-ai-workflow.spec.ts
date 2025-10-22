@@ -48,7 +48,7 @@ test.describe('Backend API - AI Workflow Validation', () => {
       estimatedCost: 2.50
     };
 
-    const response = await request.post('http://localhost:7600/admin/queue', {
+    const response = await request.post('http://localhost:7610/admin/queue', {
       data: requestData
     });
 
@@ -79,7 +79,7 @@ test.describe('Backend API - AI Workflow Validation', () => {
       throw new Error('No AI request was created in the previous test');
     }
 
-    const response = await request.get(`http://localhost:7600/admin/queue/${createdRequestId}/prompt`);
+    const response = await request.get(`http://localhost:7610/admin/queue/${createdRequestId}/prompt`);
     expect(response.ok()).toBe(true);
 
     const promptData = await response.json();
@@ -122,7 +122,7 @@ test.describe('Backend API - AI Workflow Validation', () => {
       throw new Error('No AI request was created');
     }
 
-    const response = await request.get(`http://localhost:7600/admin/queue/${createdRequestId}`);
+    const response = await request.get(`http://localhost:7610/admin/queue/${createdRequestId}`);
     expect(response.ok()).toBe(true);
 
     const requestData = await response.json();
@@ -149,7 +149,7 @@ test.describe('Backend API - AI Workflow Validation', () => {
   test('should validate admin queue listing API', async ({ request }) => {
     console.log('\n📋 Testing Admin Queue Listing...');
     
-    const response = await request.get('http://localhost:7600/admin/queue');
+    const response = await request.get('http://localhost:7610/admin/queue');
     expect(response.ok()).toBe(true);
 
     const queueData = await response.json();
@@ -176,7 +176,7 @@ test.describe('Backend API - AI Workflow Validation', () => {
 
     // Step 1: Get the comprehensive prompt
     console.log('📋 Step 1: Retrieving comprehensive prompt...');
-    const promptResponse = await request.get(`http://localhost:7600/admin/queue/${createdRequestId}/prompt`);
+    const promptResponse = await request.get(`http://localhost:7610/admin/queue/${createdRequestId}/prompt`);
     expect(promptResponse.ok()).toBe(true);
     
     const promptData = await promptResponse.json();
@@ -317,7 +317,7 @@ test.describe('Backend API - AI Workflow Validation', () => {
     
     if (createdRequestId) {
       console.log('\n🔗 To test admin dashboard manually:');
-      console.log(`1. Go to: https://admin.logen.locod-ai.com/dashboard/ai-queue`);
+      console.log(`1. Go to: https://admin.dev.lowebi.com/dashboard/ai-queue`);
       console.log(`2. Find request ID: ${createdRequestId}`);
       console.log(`3. Click "Traiter" to see the comprehensive prompt`);
     }

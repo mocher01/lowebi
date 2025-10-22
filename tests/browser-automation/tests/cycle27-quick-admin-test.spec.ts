@@ -25,7 +25,7 @@ test('Cycle 27: Quick Admin Dashboard Verification (Existing Site)', async ({ pa
 
   // STEP 1: Login as customer (copied from cycle27 test)
   console.log('🔐 Step 1: Authentication...');
-  await page.goto('https://logen.locod-ai.com/login');
+  await page.goto('https://dev.lowebi.com/login');
   await page.fill('input[type="email"]', 'test@example.com');
   await page.fill('input[type="password"]', 'Administrator2025');
   await page.click('button[type="submit"]');
@@ -34,7 +34,7 @@ test('Cycle 27: Quick Admin Dashboard Verification (Existing Site)', async ({ pa
 
   // STEP 2: Navigate to My Sites (copied from cycle27 test)
   console.log('🏠 Step 2: Navigate to My Sites...');
-  await page.goto('https://logen.locod-ai.com/sites');
+  await page.goto('https://dev.lowebi.com/sites');
   await page.waitForTimeout(3000);
 
   // Verify we're actually on sites page, not redirected to login
@@ -49,7 +49,7 @@ test('Cycle 27: Quick Admin Dashboard Verification (Existing Site)', async ({ pa
     await page.waitForTimeout(3000);
 
     // Navigate to sites again after re-login
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     const finalUrl = page.url();

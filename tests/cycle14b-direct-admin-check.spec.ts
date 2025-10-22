@@ -10,7 +10,7 @@ test('Direct Admin V1 Check: Verify existing image requests', async ({ page }) =
   // ============================================================================
 
   console.log('🔐 Admin login (direct port access)...');
-  await page.goto('http://localhost:7602');
+  await page.goto('http://localhost:7612');
   await page.waitForTimeout(2000);
 
   // Login to admin
@@ -28,7 +28,7 @@ test('Direct Admin V1 Check: Verify existing image requests', async ({ page }) =
   }
 
   // Navigate to AI Queue
-  await page.goto('http://localhost:7602/dashboard/ai-queue');
+  await page.goto('http://localhost:7612/dashboard/ai-queue');
   await page.waitForLoadState('networkidle');
   console.log('✅ Navigated to admin AI queue');
 

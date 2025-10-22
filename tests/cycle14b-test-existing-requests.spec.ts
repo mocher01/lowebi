@@ -28,7 +28,7 @@ test('Cycle14b: "Générer mes images par IA" (AI Generation)', async ({ page })
 
     // Step 1: Authentication
     console.log('🔐 Step 1: Authentication...');
-    await page.goto('https://logen.locod-ai.com/login');
+    await page.goto('https://dev.lowebi.com/login');
     await page.fill('input[type="email"]', 'test@example.com');
     await page.fill('input[type="password"]', 'Administrator2025');
     await page.click('button[type="submit"]');
@@ -37,7 +37,7 @@ test('Cycle14b: "Générer mes images par IA" (AI Generation)', async ({ page })
 
     // Step 2: Navigate to My Sites
     console.log('🏠 Step 2: Navigate to My Sites...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(3000);
 
     // Verify we're actually on sites page, not redirected to login
@@ -52,7 +52,7 @@ test('Cycle14b: "Générer mes images par IA" (AI Generation)', async ({ page })
       await page.waitForTimeout(3000);
 
       // Navigate to sites again after re-login
-      await page.goto('https://logen.locod-ai.com/sites');
+      await page.goto('https://dev.lowebi.com/sites');
       await page.waitForTimeout(2000);
 
       const finalUrl = page.url();
@@ -168,14 +168,14 @@ test('Cycle14b: "Générer mes images par IA" (AI Generation)', async ({ page })
     // Step 11: Verify AI Request in Admin Queue
     console.log('🔍 Step 11: Verify AI request in admin queue...');
     const adminPage = await page.context().newPage();
-    await adminPage.goto('https://admin.logen.locod-ai.com');
+    await adminPage.goto('https://admin.dev.lowebi.com');
     await adminPage.waitForTimeout(2000);
     await adminPage.fill('input[type="email"]', 'admin@locod.ai');
     await adminPage.fill('input[type="password"]', 'admin123');
     await adminPage.click('button[type="submit"]');
     await adminPage.waitForTimeout(3000);
 
-    await adminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await adminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await adminPage.waitForTimeout(3000);
 
     // Look for our request in the queue
@@ -311,7 +311,7 @@ test('Cycle14b: "Générer mes images par IA" (AI Generation)', async ({ page })
     console.log('🔍 Navigate back to customer portal to check if AI content appears...');
 
     // Navigate back to customer portal
-    await page.goto('https://logen.locod-ai.com');
+    await page.goto('https://dev.lowebi.com');
     await page.waitForTimeout(2000);
 
     // Check if we need to re-login
@@ -326,7 +326,7 @@ test('Cycle14b: "Générer mes images par IA" (AI Generation)', async ({ page })
 
     // Navigate to My Sites
     console.log('🏠 Navigate to My Sites to find processed site...');
-    await page.goto('https://logen.locod-ai.com/sites');
+    await page.goto('https://dev.lowebi.com/sites');
     await page.waitForTimeout(2000);
 
     // Find our site by name and click Continue
@@ -506,7 +506,7 @@ test('Cycle14b: "Générer mes images par IA" (AI Generation)', async ({ page })
     console.log('🔍 Step 14B.4: Admin verification for image request...');
 
     // Check admin queue for image request
-    await adminPage.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await adminPage.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await adminPage.waitForTimeout(3000);
 
     // Process image request like cycle13 content processing

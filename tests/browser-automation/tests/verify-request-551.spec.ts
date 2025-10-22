@@ -8,7 +8,7 @@ test('Verify Request #551 - Check Uploaded Images', async ({ page }) => {
   try {
     // Step 1: Admin Authentication
     console.log('🔐 Step 1: Admin Authentication...');
-    await page.goto('https://admin.logen.locod-ai.com');
+    await page.goto('https://admin.dev.lowebi.com');
     await page.waitForTimeout(2000);
 
     await page.fill('#email', 'admin@locod.ai');
@@ -19,7 +19,7 @@ test('Verify Request #551 - Check Uploaded Images', async ({ page }) => {
 
     // Step 2: Navigate to AI Queue
     console.log('📋 Step 2: Navigate to AI Queue...');
-    await page.goto('https://admin.logen.locod-ai.com/dashboard/ai-queue');
+    await page.goto('https://admin.dev.lowebi.com/dashboard/ai-queue');
     await page.waitForTimeout(3000);
 
     // Step 3: Find request #551

@@ -19,7 +19,7 @@ services:
       JWT_EXPIRES_IN: 24h
       PORT: 7600
     ports:
-      - "7600:7600"
+      - "7600:7610"
     networks:
       - logen-simple
     restart: unless-stopped
@@ -34,10 +34,10 @@ services:
     container_name: logen-frontend-simple
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: http://logen-backend-simple:7600
+      NEXT_PUBLIC_API_URL: http://logen-backend-simple:7610
       PORT: 7601
     ports:
-      - "7601:7601"
+      - "7601:7611"
     depends_on:
       - backend
     networks:
@@ -52,10 +52,10 @@ services:
     container_name: logen-admin-frontend-simple
     environment:
       NODE_ENV: production
-      NEXT_PUBLIC_API_URL: http://logen-backend-simple:7600
+      NEXT_PUBLIC_API_URL: http://logen-backend-simple:7610
       PORT: 7602
     ports:
-      - "7602:7602"
+      - "7602:7612"
     depends_on:
       - backend
     networks:

@@ -90,7 +90,7 @@ export class WizardSession {
   lastDeployedAt?: Date;
 
   @Column({ name: 'site_url', type: 'varchar', length: 255, nullable: true })
-  siteUrl?: string; // https://mybusiness.logen.locod-ai.com
+  siteUrl?: string; // https://mybusiness.dev.lowebi.com
 
   @Column({ name: 'error_message', type: 'text', nullable: true })
   errorMessage?: string;

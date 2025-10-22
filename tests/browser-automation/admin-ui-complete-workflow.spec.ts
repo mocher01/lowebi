@@ -5,7 +5,7 @@ import { test, expect, Page } from '@playwright/test';
  * Tests the complete user experience: Login -> Process -> Apply Content -> View Result
  */
 
-const ADMIN_URL = 'http://162.55.213.90:7602/dashboard/ai-queue';
+const ADMIN_URL = 'http://162.55.213.90:7612/dashboard/ai-queue';
 const ADMIN_LOGIN = {
   email: 'admin@locod.ai',
   password: 'admin123'
